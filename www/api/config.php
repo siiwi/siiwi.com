@@ -6,6 +6,7 @@ define('HTTP_SERVER', 'http://dashboard.dev.siiwi.com/api');
 define('HTTPS_SERVER', 'http://dashboard.dev.siiwi.com/api');
 
 // DIR
+define('DIR_ROOT', dirname(__DIR__) . '/');
 define('DIR_APPLICATION', '/Users/jimboybo/Desktop/Cloud/GoogleDrive/P-Projects/1-PHP/2-Core/oc_2.0.3.1/www/api/');
 define('DIR_SYSTEM', '/Users/jimboybo/Desktop/Cloud/GoogleDrive/P-Projects/1-PHP/2-Core/oc_2.0.3.1/www/system/');
 define('DIR_LANGUAGE', '/Users/jimboybo/Desktop/Cloud/GoogleDrive/P-Projects/1-PHP/2-Core/oc_2.0.3.1/www/api/language/');
