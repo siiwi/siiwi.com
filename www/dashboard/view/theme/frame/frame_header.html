@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>">
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title><?php echo $title; ?></title>
+    <?php if ($description) { ?>
+    <meta name="description" content="<?php echo $description; ?>" />
+    <?php } ?>
+    <?php if ($keywords) { ?>
+    <meta name="keywords" content= "<?php echo $keywords; ?>" />
+    <?php } ?>
+    
+	<!--STYLESHEET-->
+	<!--=================================================-->
+
+	<!--Open Sans Font [ OPTIONAL ] -->
+ 	<!--link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet"-->
+
+	<!--Bootstrap Stylesheet [ REQUIRED ]-->
+	<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+	<!--Nifty Stylesheet [ REQUIRED ]-->
+	<link href="/assets/css/nifty.min.css" rel="stylesheet">
+
+	<!--Font Awesome [ OPTIONAL ]-->
+	<link href="/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+	<!--Switchery [ OPTIONAL ]-->
+	<link href="/assets/plugins/switchery/switchery.min.css" rel="stylesheet">
+
+	<!--Bootstrap Select [ OPTIONAL ]-->
+	<link href="/assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+
+    <?php foreach ($styles as $style) { ?>
+    <link href="<?php echo $style['href']; ?>" type="text/css" rel="<?php echo $style['rel']; ?>" media="<?php echo $style['media']; ?>" />
+    <?php } ?>
+    
+	<!--Demo [ DEMONSTRATION ]-->
+	<link href="/assets/css/demo/nifty-demo.min.css" rel="stylesheet">
+    <link href="/assets/css/app.css" rel="stylesheet">
+
+	<!--SCRIPT-->
+	<!--=================================================-->
+
+	<!--Page Load Progress Bar [ OPTIONAL ]-->
+	<link href="/assets/plugins/pace/pace.min.css" rel="stylesheet">
+	<script src="/assets/plugins/pace/pace.min.js"></script>
+
+
+	
+	<!--
+
+	REQUIRED
+	You must include this in your project.
+
+	RECOMMENDED
+	This category must be included but you may modify which plugins or components which should be included in your project.
+
+	OPTIONAL
+	Optional plugins. You may choose whether to include it in your project or not.
+
+	DEMONSTRATION
+	This is to be removed, used for demonstration purposes only. This category must not be included in your project.
+
+	SAMPLE
+	Some script samples which explain how to initialize plugins or components. This category should not be included in your project.
+
+
+	Detailed information and more samples can be found in the document.
+
+	-->
+		
+
+</head>
+<!--TIPS-->
+<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
+
+<body>
