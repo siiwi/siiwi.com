@@ -355,16 +355,25 @@ app.product = function(){
     });
     
     ///添加产品时的设置规格
+    var add_body_str = '';
+    var table_set_variation = $('table[p_action_dom="table_set_variation"]');
+    var btn_add_tbody = $('button[p_action_dom="btn_add_tbody"]');
+    btn_add_tbody.on('click',function(e){
+        table_set_variation.append(add_body_str);
+        app.component.chosen();
+        app.component.editable();
+    });
     $('select[p_action_dom="chosen-select-set-variation"]').chosen({
         width: '100%',
         max_selected_options: 20 
     }).on('change', function(evt, params){
-        var table = $('table[p_action_dom="table_set_variation"]');
         var selected = $(this).find('option:selected');
         if (selected.length <=0 ) {
-            table.css({'display':'none'});
+            table_set_variation.css({'display':'none'});
+            btn_add_tbody.css({'display':'none'});
         }else{
-            table.css({'display':'block'});
+            table_set_variation.css({'display':'block'});
+            btn_add_tbody.css({'display':'block'});
         }
         var html_head = '';
         var html_body = '';
@@ -385,11 +394,14 @@ app.product = function(){
                     '<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
                     '<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
                     '<td><a class="btn btn-xs btn-danger add-tooltip" data-toggle="tooltip" href="#" data-original-title="Delete" data-container="body"><i class="fa fa-times"></i></a></td>';
-        table.find('thead tr').html(html_head);
-        table.find('tbody tr').html(html_body);
+        table_set_variation.find('thead tr').html(html_head);
+        table_set_variation.find('tbody tr').html(html_body);
+        add_body_str = table_set_variation.find('tbody').prop("outerHTML");
         app.component.chosen();
         app.component.editable();
     });
+    
+    
 }
 
 app.category = function(){
