@@ -18,11 +18,13 @@ class ControllerProductProduct extends Controller {
 		
 		$this->document->addStyle('/assets/plugins/light-gallery/lightGallery.min.css');
 		$this->document->addStyle('/assets/plugins/chosen/chosen.min.css');
+		$this->document->addStyle('/assets/plugins/sweet-alert/sweetalert.css');
 		//$this->document->addStyle('/assets/plugins/x-editable/css/bootstrap-editable.css');
 		//$this->document->addStyle('/assets/plugins/bootstrap-table/bootstrap-table.min.css');
 		
 		$this->document->addScript('/assets/plugins/chosen/chosen.jquery.min.js');
 		$this->document->addScript('/assets/plugins/light-gallery/lightGallery.min.js');
+		$this->document->addScript('/assets/plugins/sweet-alert/sweetalert.min.js');
 		
 		//$this->document->addScript('/assets/plugins/x-editable/js/bootstrap-editable.min.js');
 		//$this->document->addScript('/assets/plugins/bootstrap-table/bootstrap-table.min.js');

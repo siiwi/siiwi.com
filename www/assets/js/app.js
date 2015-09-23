@@ -356,7 +356,7 @@ app.product = function(){
     
     ///添加产品时的设置规格
     var add_body_str = '';
-    var table_set_variation = $('table[p_action_dom="table_set_variation"]');
+    var table_set_variation = $('table[p_action_dom="table_set_variation"]');//设置规格的表格
     var btn_add_tbody = $('button[p_action_dom="btn_add_tbody"]');
     btn_add_tbody.on('click',function(e){
         table_set_variation.append(add_body_str);
@@ -393,14 +393,19 @@ app.product = function(){
         html_body +='<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
                     '<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
                     '<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
-                    '<td><a class="btn btn-xs btn-danger add-tooltip" data-toggle="tooltip" href="#" data-original-title="Delete" data-container="body"><i class="fa fa-times"></i></a></td>';
+                    '<td><button class="btn btn-xs btn-danger" p_action_dom="btn_remove_tbody"><i class="fa fa-times"></i></button></td></tr></tbody>';
         table_set_variation.find('thead tr').html(html_head);
         table_set_variation.find('tbody tr').html(html_body);
         add_body_str = table_set_variation.find('tbody').prop("outerHTML");
         app.component.chosen();
         app.component.editable();
     });
-    
+    //删除按钮
+    table_set_variation.on('click','tbody tr td button[p_action_dom="btn_remove_tbody"]',function(e){
+        //$(this).parents('tbody').remove();
+        sweetAlert("Oops...", "Something went wrong!", "error");
+        //swal("Here's a message!");
+    });
     
 }
 
