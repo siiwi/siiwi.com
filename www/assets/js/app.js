@@ -402,9 +402,25 @@ app.product = function(){
     });
     //删除按钮
     table_set_variation.on('click','tbody tr td button[p_action_dom="btn_remove_tbody"]',function(e){
-        //$(this).parents('tbody').remove();
-        sweetAlert("Oops...", "Something went wrong!", "error");
-        //swal("Here's a message!");
+        $this = $(this);
+        var tbody = table_set_variation.find('tbody');
+        if (tbody.length <= 1) {
+            swal("错误!", "至少有一条子规格！", "error");
+            return false;
+        }
+        swal({
+            title: "确认删除?",
+            text: "你将要删除子规格属性!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "删除",
+            cancelButtonText: "取消",
+            closeOnConfirm: false
+        },function(isConfirm){
+            $this.parents('tbody').remove(); 
+            swal("删除啦!", "已经删除次子规格.", "success");
+        });
     });
     
 }

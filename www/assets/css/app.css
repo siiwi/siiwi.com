@@ -5,12 +5,12 @@
 }
 .col-name th{ 
     background-color: #F5F5F5;
-    border-bottom: 1px solid #e8e8e8;
+    /*border-bottom: 1px solid #e8e8e8;*/
 }
-tr{
+.table-border tr{
     border: 1px solid #e8e8e8;
 }
-tr.sep-row{
+.table-border tr.sep-row{
     border: 0;
 }
 
