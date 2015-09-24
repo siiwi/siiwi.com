@@ -37,11 +37,11 @@ class ControllerProductMerchant extends Controller {
 		$pagination_setting['total_page'] = 30;
 		$pagination_setting['page'] = $page;
 		$pagination_setting['size'] = 10;
-		$pagination_setting['link'] = '/dashboard/?route=product/variation';
+		$pagination_setting['link'] = '/dashboard/?route=product/merchant';
 		$data['pagination'] = $this->load->controller('component/pagination', $pagination_setting);
 		//=====end pagination
 		
-		return $this->load->view('product/variation/content.html', $data);
+		return $this->load->view('product/merchant/content.html', $data);
 	}
 	public function add(){
 		$data['id'] = 'variation_add_'.time();
