@@ -4,13 +4,12 @@ $(function(){
     app.product();
     app.category();
     app.category.variation();
-   
+    app.merchant();
 });
 
 
 var app = {};
 app.component = {};
-
 app.component.chosen = function(){
     if ($('select[p_action_dom="chosen-select"]')[0]) {
         $('select[p_action_dom="chosen-select"]').chosen({ width: '100%' });
@@ -59,6 +58,9 @@ app.component.editable = function(){
 };
 app.component.upload = function(){
     //Dropzone.autoDiscover = false;
+    if (typeof Dropzone == "undefined") {
+        return false;
+    }
     Dropzone.options.uuuu = {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: 2, // MB
@@ -511,9 +513,12 @@ app.category.variation = function(){
         alert('删除了');
     });
     ///end tagsinput
-    
-    
-    
-    
-    
+}
+
+app.merchant = function(){
+    //显示添加供应商modal
+    var add_merchant_modal = $('div[p_action_dom="add_merchant_modal"]');
+    $('#btn_add_merchant').click(function(e){
+        add_merchant_modal.modal('show');
+    });
 }

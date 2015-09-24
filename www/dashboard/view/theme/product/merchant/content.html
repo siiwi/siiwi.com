@@ -14,7 +14,7 @@
 				<div class="pad-btm form-inline">
 					<div class="row">
 						<div class="col-sm-6 table-toolbar-left">
-							<button class="btn btn-purple btn-labeled fa fa-plus">添加供应商</button>
+							<button class="btn btn-purple btn-labeled fa fa-plus" id="btn_add_merchant">添加供应商</button>
 						</div>
 						<div class="col-sm-6 table-toolbar-right">
 							<div class="form-group">
@@ -29,9 +29,9 @@
 						<thead>
 							<tr>
 								<th>供应商名</th>
-								<th>网店地址</th>
 								<th class="text-center">联系人员</th>
 								<th class="text-center">联系电话</th>
+								<th class="text-center">网店地址</th>
 								<th width="30%">联系地址</th>
 								<th class="text-right">操作</th>
 							</tr>
@@ -39,9 +39,9 @@
 						<tbody>
 							<tr>
 								<td><a href="#" class="btn-link">正大商行</a></td>
-								<td><a href="http://www.baidu.com" class="btn-link" target="_blank">点击查看</a></td>
 								<td class="text-center"><span class="label label-table label-info">王小姐</span></td>
 								<td class="text-center"><span class="label label-table label-dark">1390090808</span></td>
+								<td class="text-center"><a href="http://www.baidu.com" class="btn-link" target="_blank">点击查看</a></td>
 								<td>
 									<p class="text-muted">Lorem ipsum dolor sit amet, consectetuer <a data-title="45%" class="add-tooltip text-semibold" href="#" data-original-title="" title="">adipiscing elit</a>, sed diam nonummy nibh. Lorem ipsum dolor sit amet.</p>
 								</td>
@@ -52,9 +52,9 @@
 							</tr>
 							<tr>
 								<td><a href="#" class="btn-link">正大商行</a></td>
-								<td><a href="http://www.baidu.com" class="btn-link" target="_blank">点击查看</a></td>
 								<td class="text-center"><span class="label label-table label-info">王小姐</span></td>
 								<td class="text-center"><span class="label label-table label-dark">1390090808</span></td>
+								<td class="text-center">-</td>
 								<td>
 									<p class="text-muted">Lorem ipsum dolor sit amet, consectetuer <a data-title="45%" class="add-tooltip text-semibold" href="#" data-original-title="" title="">adipiscing elit</a>, sed diam nonummy nibh. Lorem ipsum dolor sit amet.</p>
 								</td>
@@ -75,7 +75,7 @@
 		<!--End user table-->
     </div>
 </div>
-<?php echo $variation_add;?>
+<?php echo $merchant_add;?>
 
 
 

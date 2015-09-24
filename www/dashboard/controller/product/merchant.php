@@ -30,7 +30,7 @@ class ControllerProductMerchant extends Controller {
 		if(isset($this->request->get['page'])){
 			$page = $this->request->get['page'];
 		}
-		$data['variation_add'] = $this->load->controller('product/variation/add');
+		$data['merchant_add'] = $this->load->controller('product/merchant/add');
 		//=====start pagination
 		$pagination_setting = array();
 		$pagination_setting['id'] = time();
@@ -45,7 +45,7 @@ class ControllerProductMerchant extends Controller {
 	}
 	public function add(){
 		$data['id'] = 'variation_add_'.time();
-		return $this->load->view('product/variation/add.html', $data);
+		return $this->load->view('product/merchant/add.html', $data);
 	}
 	
 	

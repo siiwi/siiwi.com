@@ -1,6 +1,6 @@
 <!--Default Bootstrap Modal-->
 <!--===================================================-->
-<div class="modal fade" p_action_dom="variation_modal_add" role="dialog" tabindex="-1" aria-hidden="true">
+<div class="modal fade" p_action_dom="add_merchant_modal" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -9,20 +9,60 @@
                 <button data-dismiss="modal" class="close" type="button">
                 <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">添加规格</h4>
+                <h4 class="modal-title">添加供应商</h4>
             </div>
 
             <!--Modal body-->
             <div class="modal-body">
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">规格名：</label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="eg: 颜色" class="form-control">
+                <p class="text-muted">红色为必填项</p>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input-group mar-btm">
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="button">供应商名</button>
+                            </span>
+                            <input type="text" class="form-control">
+                        </div>
+                        
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group mar-btm">
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="button">联系人员</button>
+                            </span>
+                            <input type="email" class="form-control">
                         </div>
                     </div>
                 </div>
-                
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input-group mar-btm">
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="button">联系电话</button>
+                            </span>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group mar-btm">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">联系地址</button>
+                            </span>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input-group mar-btm">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">网店地址</button>
+                            </span>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <textarea placeholder="备注" rows="6" class="form-control"></textarea>
             </div>
 
             <!--Modal footer-->
