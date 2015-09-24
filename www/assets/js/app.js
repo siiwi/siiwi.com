@@ -56,7 +56,48 @@ app.component.editable = function(){
             });
         })
     }
-}
+};
+app.component.upload = function(){
+    //Dropzone.autoDiscover = false;
+    Dropzone.options.uuuu = {
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 2, // MB
+        acceptedFiles: 'image/jpeg',
+        accept: function(file, done) {
+            if (file.name == "1.jpg") {
+                done("Naha, you don't.");
+            }else {
+                done();
+            }
+        },
+        init: function() {
+            var myDropzone = this;
+            var upload = $('#upload');
+            upload.on('click',function(e){
+                myDropzone.processQueue();
+                alert(88);
+            });
+            this.on("addedfile", function() {
+                // Show submit button here and/or inform user to click it.
+                console.log('添加了一个图片');
+            });
+        },
+        addRemoveLinks:true,
+        removedfile: function(file) {
+            var name = file.name;        
+            $.ajax({
+                type: 'POST',
+                url: 'delete.php',
+                data: "id="+name,
+                dataType: 'html'
+            });
+            var _ref;
+            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;        
+        }
+        
+    };
+};
+
 app.frame = function(){
     /*
      * Lightbox
@@ -69,7 +110,7 @@ app.frame = function(){
     
     app.component.chosen();
     app.component.editable();
-    
+    app.component.upload();
     // ASIDE
 	// =================================================================
 	// Toggle Visibe
@@ -349,9 +390,15 @@ app.dashboard = function(){
 }
 
 app.product = function(){
+    //显示规格处理modal
     var product_manage_variation_modal = $('div[p_action_dom="product_manage_variation_modal"]');
     $('#btn_manage_variation_modal').click(function(e){
         product_manage_variation_modal.modal('show');
+    });
+    //显示图片上传modal
+    var product_upload_img_modal = $('div[p_action_dom="product_upload_img_modal"]');
+    $('#btn_product_add_upload_img_modal').click(function(e){
+        product_upload_img_modal.modal('show');
     });
     
     ///添加产品时的设置规格

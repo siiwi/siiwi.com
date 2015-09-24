@@ -18,10 +18,12 @@ class ControllerProductProduct extends Controller {
 		$this->document->addStyle('/assets/plugins/light-gallery/lightGallery.min.css');
 		$this->document->addStyle('/assets/plugins/chosen/chosen.min.css');
 		$this->document->addStyle('/assets/plugins/sweet-alert/sweetalert.css');
+		$this->document->addStyle('/assets/plugins/dropzone/dropzone.min.css');
 		
 		$this->document->addScript('/assets/plugins/chosen/chosen.jquery.min.js');
 		$this->document->addScript('/assets/plugins/light-gallery/lightGallery.min.js');
 		$this->document->addScript('/assets/plugins/sweet-alert/sweetalert.min.js');
+		$this->document->addScript('/assets/plugins/dropzone/dropzone.min.js');
 		
 		$data['header'] = $this->load->controller('frame/header');
 		$data['footer'] = $this->load->controller('frame/footer');
@@ -65,12 +67,18 @@ class ControllerProductProduct extends Controller {
 	}
 	public function add(){
 		$data = array();
-		$data['variation_manage'] = $this->load->controller('product/product/variation_manage');
+		$data['variation_manage'] = $this->load->controller('product/product/add_variation_manage');
+		$data['upload_img'] = $this->load->controller('product/product/add_upload_img');
 		return $this->load->view('product/product/add.html', $data);
 	}
-	public function variation_manage(){
+	public function add_variation_manage(){
 		$data = array();
-		$data['id'] = 'product_manage_variation_'.time();
-		return $this->load->view('product/product/variation_manage.html',$data);
+		$data['id'] = 'product_add_manage_variation_'.time();
+		return $this->load->view('product/product/add/variation_manage.html',$data);
+	}
+	public function add_upload_img(){
+		$data = array();
+		$data['id'] = 'product_add_upload_img_'.time();
+		return $this->load->view('product/product/add/upload_img.html',$data);
 	}
 }
