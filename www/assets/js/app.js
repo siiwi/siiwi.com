@@ -412,43 +412,46 @@ app.product = function(){
         app.component.chosen();
         app.component.editable();
     });
-    $('select[p_action_dom="chosen-select-set-variation"]').chosen({
-        width: '100%',
-        max_selected_options: 20 
-    }).on('change', function(evt, params){
-        var selected = $(this).find('option:selected');
-        if (selected.length <=0 ) {
-            table_set_variation.css({'display':'none'});
-            btn_add_tbody.css({'display':'none'});
-        }else{
-            table_set_variation.css({'display':'block'});
-            btn_add_tbody.css({'display':'block'});
-        }
-        var html_head = '';
-        var html_body = '';
-        for(var i = 0; i < selected.length; i++){
-            html_head += '<th class="min-width">'+$(selected[i]).text()+'</th>';
-            html_body +='<td>'+
-                            '<select p_action_dom="chosen-select-no-search">'+
-                            '    <option value="0">颜色</option>'+
-                            '    <option value="1">尺寸</option>'+
-                            '    <option value="2">重量</option>'+
-                            '    <option value="3">材质</option>'+
-                            '    <option value="4">体积</option>'+
-                            '</select>'+
-                        '</td>';
-        }
-        html_head += '<th>条码</th><th>进货价</th><th>库存</th><th>操作</th>';
-        html_body +='<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
-                    '<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
-                    '<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
-                    '<td><button class="btn btn-xs btn-danger" p_action_dom="btn_remove_tbody"><i class="fa fa-times"></i></button></td></tr></tbody>';
-        table_set_variation.find('thead tr').html(html_head);
-        table_set_variation.find('tbody tr').html(html_body);
-        add_body_str = table_set_variation.find('tbody').prop("outerHTML");
-        app.component.chosen();
-        app.component.editable();
-    });
+    if ($('select[p_action_dom="chosen-select-set-variation"]')[0]) {
+        $('select[p_action_dom="chosen-select-set-variation"]').chosen({
+            width: '100%',
+            max_selected_options: 20 
+        }).on('change', function(evt, params){
+            var selected = $(this).find('option:selected');
+            if (selected.length <=0 ) {
+                table_set_variation.css({'display':'none'});
+                btn_add_tbody.css({'display':'none'});
+            }else{
+                table_set_variation.css({'display':'block'});
+                btn_add_tbody.css({'display':'block'});
+            }
+            var html_head = '';
+            var html_body = '';
+            for(var i = 0; i < selected.length; i++){
+                html_head += '<th class="min-width">'+$(selected[i]).text()+'</th>';
+                html_body +='<td>'+
+                                '<select p_action_dom="chosen-select-no-search">'+
+                                '    <option value="0">颜色</option>'+
+                                '    <option value="1">尺寸</option>'+
+                                '    <option value="2">重量</option>'+
+                                '    <option value="3">材质</option>'+
+                                '    <option value="4">体积</option>'+
+                                '</select>'+
+                            '</td>';
+            }
+            html_head += '<th>条码</th><th>进货价</th><th>库存</th><th>操作</th>';
+            html_body +='<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
+                        '<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
+                        '<td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item">点击添加</a></td>'+
+                        '<td><button class="btn btn-xs btn-danger" p_action_dom="btn_remove_tbody"><i class="fa fa-times"></i></button></td></tr></tbody>';
+            table_set_variation.find('thead tr').html(html_head);
+            table_set_variation.find('tbody tr').html(html_body);
+            add_body_str = table_set_variation.find('tbody').prop("outerHTML");
+            app.component.chosen();
+            app.component.editable();
+        });
+    }
+    
     //删除按钮
     table_set_variation.on('click','tbody tr td button[p_action_dom="btn_remove_tbody"]',function(e){
         $this = $(this);
@@ -521,4 +524,28 @@ app.merchant = function(){
     $('#btn_add_merchant').click(function(e){
         add_merchant_modal.modal('show');
     });
+    //显示编辑供应商modal
+    var edit_merchant_modal = $('div[p_action_dom="edit_merchant_modal"]');
+    $('button[p_action_dom="edit_merchant_info"]').on('click',function(e){
+        edit_merchant_modal.modal('show');
+    });
+    
+    //删除按钮
+    $('button[p_action_dom="del_merchant"]').on('click',function(e){
+        swal({
+            title: "确认删除?",
+            text: "你将要删除此供应商!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "删除",
+            cancelButtonText: "取消",
+            closeOnConfirm: false
+        },function(isConfirm){ 
+            swal("删除啦!", "已经删除此供应商.", "success");
+        });
+    });
+    
+        
+    
 }

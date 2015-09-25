@@ -46,8 +46,8 @@
 									<p class="text-muted">Lorem ipsum dolor sit amet, consectetuer <a data-title="45%" class="add-tooltip text-semibold" href="#" data-original-title="" title="">adipiscing elit</a>, sed diam nonummy nibh. Lorem ipsum dolor sit amet.</p>
 								</td>
 								<td class="text-right">
-									<a class="btn btn-xs btn-default add-tooltip" data-toggle="tooltip" href="#" data-original-title="Edit" data-container="body"><i class="fa fa-pencil"></i></a>
-									<a class="btn btn-xs btn-danger add-tooltip"  data-toggle="tooltip" href="#" data-original-title="Delete" data-container="body"><i class="fa fa-times"></i></a>
+									<button class="btn btn-xs btn-default add-tooltip" data-toggle="tooltip" href="#" data-original-title="编辑" data-container="body" p_action_dom="edit_merchant_info"><i class="fa fa-pencil"></i></button>
+									<button class="btn btn-xs btn-danger add-tooltip"  data-toggle="tooltip" href="#" data-original-title="删除" data-container="body" p_action_dom="del_merchant"><i class="fa fa-times"></i></button>
 								</td>
 							</tr>
 							<tr>
@@ -59,8 +59,8 @@
 									<p class="text-muted">Lorem ipsum dolor sit amet, consectetuer <a data-title="45%" class="add-tooltip text-semibold" href="#" data-original-title="" title="">adipiscing elit</a>, sed diam nonummy nibh. Lorem ipsum dolor sit amet.</p>
 								</td>
 								<td class="text-right">
-									<a class="btn btn-xs btn-default add-tooltip" data-toggle="tooltip" href="#" data-original-title="Edit" data-container="body"><i class="fa fa-pencil"></i></a>
-									<a class="btn btn-xs btn-danger add-tooltip"  data-toggle="tooltip" href="#" data-original-title="Delete" data-container="body"><i class="fa fa-times"></i></a>
+									<button class="btn btn-xs btn-default add-tooltip" data-toggle="tooltip" href="#" data-original-title="编辑" data-container="body" p_action_dom="edit_merchant_info"><i class="fa fa-pencil"></i></button>
+									<button class="btn btn-xs btn-danger add-tooltip"  data-toggle="tooltip" href="#" data-original-title="删除" data-container="body" p_action_dom="del_merchant"><i class="fa fa-times"></i></button>
 								</td>
 							</tr>
 						</tbody>
@@ -76,6 +76,7 @@
     </div>
 </div>
 <?php echo $merchant_add;?>
+<?php echo $merchant_edit;?>
 
 
 
