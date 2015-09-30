@@ -3,12 +3,7 @@ class ControllerProductMerchant extends Controller {
 	public function index() {
 		$this->document->setTitle('供应商管理 - 控制台 - 电商服务平台');
 		
-		//$this->document->addStyle('/assets/plugins/chosen/chosen.min.css');
-		//$this->document->addStyle('/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css');
 		$this->document->addStyle('/assets/plugins/sweet-alert/sweetalert.css');
-		
-		//$this->document->addScript('/assets/plugins/chosen/chosen.jquery.min.js');
-		//$this->document->addScript('/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js');
 		$this->document->addScript('/assets/plugins/sweet-alert/sweetalert.min.js');
 		
 		$data['header'] = $this->load->controller('frame/header');
