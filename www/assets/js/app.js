@@ -5,6 +5,7 @@ $(function(){
     app.category();
     app.category.variation();
     app.merchant();
+    app.trade.order();
 });
 
 
@@ -516,7 +517,7 @@ app.category.variation = function(){
         alert('删除了');
     });
     ///end tagsinput
-}
+};
 
 app.merchant = function(){
     //显示添加供应商modal
@@ -546,6 +547,26 @@ app.merchant = function(){
         });
     });
     
-        
+};
+
+app.trade = function(){};
+app.trade.order = function(){
+    // BOOTSTRAP DATEPICKER WITH RANGE SELECTION
+	// =================================================================
+	// Require Bootstrap Datepicker
+	// http://eternicode.github.io/bootstrap-datepicker/
+	// =================================================================
+	$('#demo-dp-range .input-daterange').datepicker({
+		format: 'yyyy/mm/dd',
+		todayBtn: "linked",
+		autoclose: true,
+		todayHighlight: true
+	});
     
-}
+    // BOOTSTRAP DATEPICKER WITH AUTO CLOSE
+	// =================================================================
+	// Require Bootstrap Datepicker
+	// http://eternicode.github.io/bootstrap-datepicker/
+	// =================================================================
+	$('#demo-dp-component .input-group.date').datepicker({format: 'yyyy/mm/dd',autoclose:true});
+};
