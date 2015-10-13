@@ -56,16 +56,13 @@ class ControllerTradeOrder extends Controller {
 	}
 	public function add(){
 		$data = array();
+		$data['add_product'] = $this->load->controller('trade/order/add_product');
 		return $this->load->view('trade/order/add.html', $data);
 	}
-	public function add_variation_manage(){
+	
+	public function add_product(){
 		$data = array();
-		$data['id'] = 'product_add_manage_variation_'.time();
-		return $this->load->view('product/product/add/variation_manage.html',$data);
-	}
-	public function add_upload_img(){
-		$data = array();
-		$data['id'] = 'product_add_upload_img_'.time();
-		return $this->load->view('product/product/add/upload_img.html',$data);
+		$data['id'] = 'order_add_product_'.time();
+		return $this->load->view('trade/order/add/add_product.html',$data);
 	}
 }

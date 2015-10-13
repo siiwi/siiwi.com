@@ -1,8 +1,21 @@
 <div class="panel-body">
     <div class="row mar-btm">
         <div class="col-sm-3">
-            <input type="text" class="form-control" placeholder="交易订单号">
+            <input type="text" class="form-control" placeholder="订单号">
         </div>
+        <div class="col-sm-3">
+            <button class="btn btn-default btn-block" id="btn_add_product">选择产品</button>
+            
+        </div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" placeholder="商品总价">
+        </div>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" placeholder="快递总价">
+        </div>
+        
+    </div>
+    <div class="row mar-btm">
         <div class="col-sm-3">
             <!--Bootstrap Datepicker : Component-->
             <!--===================================================-->
@@ -15,49 +28,43 @@
             <!--===================================================-->
         </div>
         <div class="col-sm-3">
-            <input type="text" class="form-control" placeholder="出售价格">
-        </div>
-        <div class="col-sm-3">
-            <input type="text" class="form-control" placeholder="快递价格">
-        </div>
-        
-    </div>
-    <div class="row mar-btm">
-        <div class="col-sm-3">
-            <select data-placeholder="供应商" p_action_dom="chosen-select" tabindex="0">
-                <option value=""></option>
+            <select data-placeholder="交易来源" p_action_dom="chosen-select-no-search">
+                <option value="-1">交易来源</option>
                 <option value="United States">United States</option>
                 <option value="United Kingdom">United Kingdom</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Aland Islands">Aland Islands</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
-                <option value="American Samoa">American Samoa</option>
             </select>
         </div>
         <div class="col-sm-3">
-            <select data-placeholder="产品类别" p_action_dom="chosen-select" p_action_value_type="category_parent" tabindex="0" >
-                <option value=""></option>
+            <select data-placeholder="交易状态" p_action_dom="chosen-select-no-search">
+                <option value="-1">交易状态</option>
                 <option value="12">服装类</option>
-                <option value="13">服装类 > 牛仔裤</option>
-                <option value="14">服装类 > 内衣</option> 
-                <option value="15">服装类 > 儿童外套</option>
                 <option value="16">Albania</option>
                 <option value="17">Algeria</option>
                 <option value="18">其他类别</option>
             </select>
         </div>
     </div>
-    
     <div class="row mar-btm">
         <div class="col-sm-3">
-            <button class="btn btn-dark btn-block" id="btn_manage_variation_modal">规格设置</button>
+            <input type="text" class="form-control" placeholder="买家昵称货姓名">
         </div>
         <div class="col-sm-3">
-            <button class="btn btn-dark btn-block" id="btn_product_add_upload_img_modal">图片管理</button>
+            <input type="text" class="form-control" placeholder="联系电话">
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="收货地址">
+        </div>
+    </div>
+    <div class="row mar-btm">
+        <div class="col-sm-3">
+            <button class="btn btn-mint" >添加</button>
         </div>
     </div>
 </div>
 
-
+<?php echo $add_product;?>
 

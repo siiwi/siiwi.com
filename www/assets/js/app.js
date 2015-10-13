@@ -569,4 +569,10 @@ app.trade.order = function(){
 	// http://eternicode.github.io/bootstrap-datepicker/
 	// =================================================================
 	$('#demo-dp-component .input-group.date').datepicker({format: 'yyyy/mm/dd',autoclose:true});
+    
+    //显示添加产品modal
+    var order_add_product_modal = $('div[p_action_dom="order_add_product_modal"]');
+    $('#btn_add_product').click(function(e){
+        order_add_product_modal.modal('show');
+    });
 };
