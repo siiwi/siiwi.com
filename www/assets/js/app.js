@@ -556,19 +556,19 @@ app.trade.order = function(){
 	// Require Bootstrap Datepicker
 	// http://eternicode.github.io/bootstrap-datepicker/
 	// =================================================================
-	$('#demo-dp-range .input-daterange').datepicker({
-		format: 'yyyy/mm/dd',
-		todayBtn: "linked",
-		autoclose: true,
-		todayHighlight: true
-	});
-    
-    // BOOTSTRAP DATEPICKER WITH AUTO CLOSE
-	// =================================================================
-	// Require Bootstrap Datepicker
-	// http://eternicode.github.io/bootstrap-datepicker/
-	// =================================================================
-	$('#demo-dp-component .input-group.date').datepicker({format: 'yyyy/mm/dd',autoclose:true});
+    if ($('.input-daterange')[0]) {
+        $('#demo-dp-range .input-daterange').datepicker({
+            format: 'yyyy/mm/dd',
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true
+        });
+    }
+	
+    if ($('.date')[0]) {
+        $('#demo-dp-component .input-group.date').datepicker({format: 'yyyy/mm/dd',autoclose:true});
+    }
+	
     
     //显示添加产品modal
     var order_add_product_modal = $('div[p_action_dom="order_add_product_modal"]');
