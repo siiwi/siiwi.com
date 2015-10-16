@@ -570,9 +570,18 @@ app.trade.order = function(){
     }
 	
     
+    var table_add_product = $('table[p_action_dom="table_add_product"]');
+    
     //显示添加产品modal
     var order_add_product_modal = $('div[p_action_dom="order_add_product_modal"]');
     $('#btn_add_product').click(function(e){
         order_add_product_modal.modal('show');
     });
+    //显示设置数量modal
+    var order_add_product_show_variation_modal = $('div[p_action_dom="order_add_product_show_variation_modal"]');
+    table_add_product.on('click','',function(e){
+        order_add_product_show_variation_modal.modal('show');
+    });
+    
 };
+

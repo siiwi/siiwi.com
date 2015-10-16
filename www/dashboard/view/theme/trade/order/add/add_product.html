@@ -46,10 +46,6 @@
 									<a class="list-group-item list-item-sm" href="#">其他类别 > 机器人挖掘机</a>
 									<a class="list-group-item list-item-sm" href="#">其他类别 > 机器人挖掘机</a>
 									<a class="list-group-item list-item-sm" href="#">其他类别 > 机器人挖掘机</a>
-									<a class="list-group-item list-item-sm" href="#">其他类别 > 机器人挖掘机</a>
-									<a class="list-group-item list-item-sm" href="#">其他类别 > 机器人挖掘机</a>
-									<a class="list-group-item list-item-sm" href="#">其他类别 > 机器人挖掘机</a>
-									<a class="list-group-item list-item-sm" href="#">其他类别 > 机器人挖掘机</a>
 								</div>
 								<!--===================================================-->
 							</div>
@@ -62,25 +58,33 @@
 							</div>
 							<div class="panel-body">
 								<div class="table-responsive">
-									<table class="table table-condensed table-border" p_action_dom="table_set_variation" style="display: none1;">
+									<table class="table table-condensed table-border table-bordered" p_action_dom="table_add_product">
 										<thead>
 											<tr>
-												<th class="min-width"><label class="form-checkbox form-normal form-primary"><input type="checkbox"></label></th>
-												<th class="text-center">产品编号</th>
+												<th class="min-width"></th>
+												<th class="text-center" style="width: 100px;">产品编号</th>
 												<th class="text-center" style="width: 100px;">产品名</th>
-												<th class="text-center" style="width: 100px;">类型</th>
-												<th class="text-center" style="width: 200px;">操作</th>
+												<th class="text-center" style="width: 30px;">库存数</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
 												<td class="text-center"><label class="form-checkbox form-normal form-primary"><input type="checkbox"></label></td>
-												<td class="text-center">衣服</td>
-												<td class="text-center">-</td>
-												<td class="text-center">默认分类</td>
-												<td class="text-center">
-													<a class="btn btn-success btn-xs" p_action_dom="btn_category_variation" href="?route=product/variation&amp;id=12">规格管理</a>
-												</td>
+												<td class="text-center">asdasd-asdasd-asdasd</td>
+												<td class="text-center">时尚女装000000001</td>
+												<td class="text-center">2000</td>
+											</tr>
+											<tr>
+												<td class="text-center"><label class="form-checkbox form-normal form-primary"><input type="checkbox"></label></td>
+												<td class="text-center">asdasd-asdasd-asdasd</td>
+												<td class="text-center">时尚女装000000001</td>
+												<td class="text-center">2000</td>
+											</tr>
+											<tr>
+												<td class="text-center"><label class="form-checkbox form-normal form-primary"><input type="checkbox"></label></td>
+												<td class="text-center">asdasd-asdasd-asdasd</td>
+												<td class="text-center">时尚女装000000001</td>
+												<td class="text-center">2000</td>
 											</tr>
 										</tbody>
 									</table>
@@ -90,7 +94,66 @@
 					</div>
 				</div>
 				
-				<button class="btn btn-primary btn-labeled btn-xs fa fa-plus" p_action_dom="btn_add_tbody" style="display: none;">添加一条</button>
+            </div>
+            <!--Modal footer-->
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+                <button class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End Default Bootstrap Modal-->
+
+
+<!--Default Bootstrap Modal-->
+<!--===================================================-->
+<div class="modal fade" p_action_dom="order_add_product_show_variation_modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 90%;">
+        <div class="modal-content">
+
+            <!--Modal header-->
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">设置数量</h4>
+            </div>
+
+            <!--Modal body-->
+            <div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-condensed table-border" p_action_dom="table_set_variation" style="display: block;">
+						<thead>
+							<tr>
+								<th class="min-width">颜色</th>
+								<th class="min-width">尺寸</th>
+								<th class="min-width">重量</th>
+								<th class="min-width">材质</th>
+								<th>数量</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>红色</td>
+								<td>L</td>
+								<td>1kg</td>
+								<td>塑料</td>
+								<td><input type="text" class="form-control" placeholder="0"></td>
+							</tr>
+							<tr>
+								<td>红色</td>
+								<td>L</td>
+								<td>1kg</td>
+								<td>塑料</td>
+								<td>
+									<input type="text" class="form-control" placeholder="0">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
             </div>
 
             <!--Modal footer-->
