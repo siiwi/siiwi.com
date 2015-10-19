@@ -579,8 +579,12 @@ app.trade.order = function(){
     });
     //显示设置数量modal
     var order_add_product_show_variation_modal = $('div[p_action_dom="order_add_product_show_variation_modal"]');
-    table_add_product.on('click','',function(e){
-        order_add_product_show_variation_modal.modal('show');
+    table_add_product.on('click','input[type="checkbox"]',function(e){
+        var $this = $(this);
+        if ($this.is(':checked')) {
+            order_add_product_show_variation_modal.modal('show');
+        }
+        
     });
     
 };
