@@ -1,1 +1,4 @@
-2015-09-30 10:54:43 - PHP Notice:  Error: Could not load template /Users/jimboybo/Desktop/Cloud/GoogleDrive/P-Projects/1-PHP/2-Core/oc_2.0.3.1/siiwi.com/www/dashboard/view/theme/trade/order.html! in /Users/jimboybo/Desktop/Cloud/GoogleDrive/P-Projects/1-PHP/2-Core/oc_2.0.3.1/siiwi.com/www/system/engine/loader.php on line 45
+2015-10-29 11:28:51 - PHP Notice:  Undefined variable: breadcrumb in /Users/jimboybo/Desktop/Cloud/GoogleDrive/P-Projects/1-PHP/2-Core/oc_2.0.3.1/siiwi.com/www/dashboard/view/theme/setting/currency.html on line 25
+2015-10-29 11:29:32 - PHP Notice:  Undefined variable: breadcrumb in /Users/jimboybo/Desktop/Cloud/GoogleDrive/P-Projects/1-PHP/2-Core/oc_2.0.3.1/siiwi.com/www/dashboard/view/theme/trade/order.html on line 25
+2015-10-29 11:29:35 - PHP Notice:  Undefined variable: breadcrumb in /Users/jimboybo/Desktop/Cloud/GoogleDrive/P-Projects/1-PHP/2-Core/oc_2.0.3.1/siiwi.com/www/dashboard/view/theme/trade/order.html on line 25
+2015-10-30 15:11:17 - PHP Notice:  Undefined variable: setting in /Users/jimboybo/Desktop/Cloud/GoogleDrive/P-Projects/1-PHP/2-Core/oc_2.0.3.1/siiwi.com/www/dashboard/view/theme/frame/header.html on line 273

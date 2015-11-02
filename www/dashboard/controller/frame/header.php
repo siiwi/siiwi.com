@@ -4,6 +4,7 @@ class ControllerFrameHeader extends Controller {
 		$data = array();
 		$data['logo'] = $this->load->controller('frame/header/logo');
 		$data['language'] = $this->load->controller('frame/header/language');
+		$data['setting'] = $this->load->controller('frame/header/setting');
 		return $this->load->view('frame/header.html', $data);
 	}
 	public function logo(){
@@ -15,7 +16,10 @@ class ControllerFrameHeader extends Controller {
 	}
 	public function language(){
 		$data = array();
-		
 		return $this->load->view('frame/header/language.html', $data);
+	}
+	public function setting(){
+		$data = array();
+		return $this->load->view('frame/header/setting.html', $data);
 	}
 }
