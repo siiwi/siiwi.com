@@ -10,16 +10,16 @@ class ControllerSettingSetting extends Controller {
 		$data['main_nav'] = $this->load->controller('frame/mainnav');
 		$data['aside'] = $this->load->controller('frame/aside');
 		
-		$data['content'] = $this->load->controller('setting/currency/content');
+		$data['content'] = $this->load->controller('setting/setting/content');
 		
 		$st_breadcrumb = array();
 		$st_breadcrumb['items'] = array(array('url'=>'/','text'=>'首页'),
 										array('url'=>'/dashboard/','text'=>'控制台'),
 										array('url'=>'/dashboard/?route=setting/setting','text'=>'设置中心'));
 		$data['breadcrumb'] = $this->load->controller('component/breadcrumb',$st_breadcrumb);
-		$this->response->setOutput($this->load->view('trade/order.html', $data));
+		$this->response->setOutput($this->load->view('setting/setting.html', $data));
 	}
 	public function content() {
-		return $this->load->view('setting/currency/content.html', $data=array());
+		return $this->load->view('setting/setting/content.html', $data=array());
 	}
 }
