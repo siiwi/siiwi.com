@@ -42,14 +42,14 @@ class ControllerProductProduct extends Controller {
 		$this->response->setOutput($this->load->view('product/product.html', $data));
 	}
 	public function content() {
+		$data['search'] = $this->load->controller('product/product/search');
+		$data['add'] = $this->load->controller('product/product/add');
+		//=====start pagination
 		$page = 1;
 		$size = 10;
 		if(isset($this->request->get['page'])){
 			$page = $this->request->get['page'];
 		}
-		$data['search'] = $this->load->controller('product/product/search');
-		$data['add'] = $this->load->controller('product/product/add');
-		//=====start pagination
 		$pagination_setting = array();
 		$pagination_setting['id'] = time();
 		$pagination_setting['total_page'] = 30;

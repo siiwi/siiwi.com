@@ -31,7 +31,25 @@ class ControllerToolsPublish extends Controller {
 		$this->response->setOutput($this->load->view('tools/publish.html', $data));
 	}
 	public function content() {
-		return $this->load->view('tools/publish/content.html', $data=array());
+		$data['lists'] = $this->load->controller('tools/publish/lists');
+		return $this->load->view('tools/publish/content.html', $data);
+	}
+	public function lists(){
+		//=====start pagination
+		$page = 1;
+		$size = 10;
+		if(isset($this->request->get['page'])){
+			$page = $this->request->get['page'];
+		}
+		$pagination_setting = array();
+		$pagination_setting['id'] = time();
+		$pagination_setting['total_page'] = 30;
+		$pagination_setting['page'] = $page;
+		$pagination_setting['size'] = 10;
+		$pagination_setting['link'] = '/dashboard/?route=product/product';
+		$data['pagination'] = $this->load->controller('component/pagination', $pagination_setting);
+		//=====end pagination
+		return $this->load->view('tools/publish/lists.html', $data);
 	}
 	
 }
