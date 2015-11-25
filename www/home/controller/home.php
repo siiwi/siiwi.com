@@ -4,6 +4,6 @@ class ControllerHome extends Controller {
 		$data['lang'] = $this->language->get('test');
 		
 		echo $data['lang'];
-		echo '<a href="/dashboard/">控制台</a>';
+		echo '----<a href="/dashboard/">控制台</a>';
 	}
 }
