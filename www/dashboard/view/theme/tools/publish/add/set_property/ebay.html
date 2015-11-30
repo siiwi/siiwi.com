@@ -2,19 +2,22 @@
     <div class="form-group">
         <label class="col-sm-1 control-label">设置多属性</label>
         <div class="table-responsive" style="overflow-x: inherit;">
-            <table class="table table-condensed table-border" p_action_dom="table_set_variation" style="display: block;">
+            <table class="table table-condensed table-border" style="display: block; width: 800px;">
                 <thead>
                     <tr>
-                        <th class="min-width">颜色</th>
-                        <th class="min-width">尺寸</th>
-                        <th>条码</th>
-                        <th>进货价</th>
-                        <th>库存</th>
-                        <th>操作</th>
+                        <th>规格</th>
+                        <th width="100">数量</th>
+                        <th width="100">价格</th>
+                        <th class="min-width">操作</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><select p_action_dom="chosen-select-no-search" style="display: none;">    <option value="0">颜色</option>    <option value="1">尺寸</option>    <option value="2">重量</option>    <option value="3">材质</option>    <option value="4">体积</option></select><div class="chosen-container chosen-container-single chosen-container-single-nosearch" style="width: 100%;" title=""><a class="chosen-single" tabindex="-1"><span>颜色</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" readonly=""></div><ul class="chosen-results"></ul></div></div></td><td><select p_action_dom="chosen-select-no-search" style="display: none;">    <option value="0">颜色</option>    <option value="1">尺寸</option>    <option value="2">重量</option>    <option value="3">材质</option>    <option value="4">体积</option></select><div class="chosen-container chosen-container-single chosen-container-single-nosearch" style="width: 100%;" title=""><a class="chosen-single" tabindex="-1"><span>颜色</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" readonly=""></div><ul class="chosen-results"></ul></div></div></td><td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item" data-original-title="" title="">点击添加</a></td><td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item" data-original-title="" title="">点击添加</a></td><td><a href="javascript:void(0)" class="editable-item" p_action_dom="editable-item" data-original-title="" title="">点击添加</a></td><td><button class="btn btn-xs btn-danger" p_action_dom="btn_remove_tbody"><i class="fa fa-times"></i></button></td></tr>
+                    <tr>
+                        <td>红色 x L</td>
+                        <td><input type="text" placeholder=""  class="form-control"></td>
+                        <td><input type="text" placeholder=""  class="form-control"></td>
+                        <td><button class="btn btn-xs btn-danger" p_action_dom="btn_remove_tbody"><i class="fa fa-times"></i></button></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
