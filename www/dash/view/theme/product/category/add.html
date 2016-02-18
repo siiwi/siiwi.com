@@ -1,53 +1,99 @@
 <!--Default Bootstrap Modal-->
 <!--===================================================-->
-<div class="modal fade" id="<?php echo $id;?>" p_action_dom="category_modal_add" role="dialog" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!--Modal header-->
-            <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <!--Modal header-->
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">
                 <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">新建分类</h4>
-            </div>
+            </button>
+            <h4 class="modal-title"><?php echo $language->get('product_category_add')->title;?></h4>
+        </div>
 
-            <!--Modal body-->
-            <div class="modal-body">
-                <div class="form-horizontal">
+        <!--Modal body-->
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">分类名称：</label>
-                        <div class="col-sm-9">
-                            <input type="text" placeholder="eg: 服装类" class="form-control">
+                        <label class="col-sm-3 control-label text-danger"><?php echo $language->get('product_category_add')->name;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="add_category_name" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">上级分类：</label>
-                        <div class="col-sm-9">
-                            <select data-placeholder="请选择分类" p_action_dom="chosen-select" tabindex="-1" style="width:350px;">
-                                <option value="-1">请选择分类</option>
-                                <option value="United States">United States</option>
-                                <option value="United Kingdom">United Kingdom</option>
-                                <option value="Afghanistan">Afghanistan</option>
-                                <option value="Christmas Island">Christmas Island</option>
-                                <option value="Colombia">Colombia</option>
-                                <option value="Comoros">Comoros</option>
-                                <option value="Congo">Congo</option>
-                                <option value="Marshall Islands">Marshall Islands</option>
+                        <label class="col-sm-3 control-label"><?php echo $language->get('product_category_add')->parent_name;?></label>
+                        <div class="col-sm-7">
+                            <select p_action_dom="chosen-select" tabindex="-1" style="width:301px;" name="add_category_parent_category_id">
+                                <option value="0"><?php echo $language->get('product_category_add')->select;?></option>
+                                <?php if(is_array($product_category_add['category_list']) && !empty($product_category_add['category_list'])):?>
+                                <?php foreach($product_category_add['category_list'] as $category):?>
+                                <option value="<?php echo $category['category_id'];?>"><?php echo ($category['type']==1) ? $language->get('product_category_content')->type_system : $language->get('product_category_content')->type_user;?> - <?php echo $category['name'];?></option>
+                                <?php endforeach;?>
+                                <?php endif;?>
                             </select>
                         </div>
                     </div>
                 </div>
-                
             </div>
+        </div>
 
-            <!--Modal footer-->
-            <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                <button class="btn btn-primary">保存</button>
-            </div>
+        <!--Modal footer-->
+        <div class="modal-footer">
+            <p class="pull-left text-danger">*&nbsp;<?php echo $language->get('common')->required;?></p>
+            <button class="btn btn-default" type="button" data-dismiss="modal"><?php echo $language->get('common')->cancel;?></button>
+            <button class="btn btn-primary" type="button" id="addProductCategory"><?php echo $language->get('common')->submit;?></button>
         </div>
     </div>
 </div>
 <!--===================================================-->
 <!--End Default Bootstrap Modal-->
+
+<!-- Start Check -->
+<script type="text/javascript">
+var product_category_add_message = <?php echo json_encode($language->get('product_category_add')->message);?> || '';
+$(function(){
+    // select样式
+    $('select[p_action_dom="chosen-select"]').chosen({ width: '100%' });
+
+    // 保存分类
+    $("#addProductCategory").click(function(){
+        var params = {};
+        params.name = $("input[name=add_category_name]").val();
+        params.parent_category_id = $("select[name=add_category_parent_category_id]").val();
+
+        if(!params.name) {
+            swal('', product_category_add_message.empty_name, 'warning');
+            return;
+        }
+
+        if(params.name.length < 2 || params.name.length > 50) {
+            swal('', product_category_add_message.invalid_name_length, 'warning');
+            return;
+        }
+
+        $.ajax({
+            url: "<?php echo $url->link('product/category/add');?>",
+            type: 'POST',
+            data: params,
+            dataType: 'json',
+            success: function(response) {
+                if(response.status) {
+                    swal({
+                        title: '',
+                        text: response.message,
+                        type: "success",
+                        confirmButtonText: "OK"
+                    }, function(){
+                        $('#productCategoryContentModal').html("");
+                        $('#productCategoryContentModal').modal('hide');
+                        window.location.reload();
+                    });
+                } else {
+                    swal('', response.message, 'error');
+                }
+            }
+        });
+    });
+});
+</script>
+<!-- End Check -->

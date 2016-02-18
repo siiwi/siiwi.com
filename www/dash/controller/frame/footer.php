@@ -1,7 +1,9 @@
 <?php
-class ControllerFrameFooter extends Controller {
-	public function index() {
-		$data = array();
-		return $this->load->view('frame/footer.html', $data);
-	}
+
+class ControllerFrameFooter extends \Siiwi\Dashboard\BaseController
+{
+    public function index()
+    {
+        return $this->load->view('frame/footer.html');
+    }
 }

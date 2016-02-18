@@ -2,7 +2,7 @@
 
 // DIR
 define('DIR_ROOT', dirname(__DIR__) . '/');
-define('DIR_APPLICATION', DIR_ROOT . 'dash/');
+define('DIR_APPLICATION', DIR_ROOT . 'dashboard/');
 define('DIR_ASSETS', DIR_ROOT . 'assets/');
 define('DIR_SYSTEM', DIR_ROOT . 'system/');
 define('DIR_UPLOAD', DIR_ROOT . 'upload/');
@@ -17,7 +17,7 @@ define('DIR_LOGS', DIR_SYSTEM . 'logs/');
 
 // url
 $_config['config_url']            = 'http://www.local.siiwi.com/';
-$_config['config_app_url']        = 'http://www.local.siiwi.com/dash/';
+$_config['config_app_url']        = 'http://www.local.siiwi.com/dashboard/';
 $_config['config_api_url']        = 'http://api.local.siiwi.com/';
 
 $_config['config_app_logo']       = '/assets/img/logo.png';
