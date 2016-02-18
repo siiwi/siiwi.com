@@ -1,6 +1,0 @@
-2016-02-19 2:36:36 - PHP Unknown:  Object of class stdClass could not be converted to string in D:\github\www.siiwi.com\www\dash\view\theme\frame\frame_header.html on line 3
-2016-02-19 2:36:36 - PHP Unknown:  Object of class stdClass could not be converted to string in D:\github\www.siiwi.com\www\dash\view\theme\frame\frame_header.html on line 4
-2016-02-19 2:36:36 - PHP Unknown:  Object of class stdClass could not be converted to string in D:\github\www.siiwi.com\www\dash\view\theme\frame\frame_header.html on line 6
-2016-02-19 2:36:40 - PHP Unknown:  Object of class stdClass could not be converted to string in D:\github\www.siiwi.com\www\dash\view\theme\frame\frame_header.html on line 3
-2016-02-19 2:36:40 - PHP Unknown:  Object of class stdClass could not be converted to string in D:\github\www.siiwi.com\www\dash\view\theme\frame\frame_header.html on line 4
-2016-02-19 2:36:40 - PHP Unknown:  Object of class stdClass could not be converted to string in D:\github\www.siiwi.com\www\dash\view\theme\frame\frame_header.html on line 6
