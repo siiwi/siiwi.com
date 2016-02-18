@@ -1,0 +1,218 @@
+<!--MAIN NAVIGATION-->
+<!--===================================================-->
+<nav id="mainnav-container">
+	<div id="mainnav">
+		<!--Shortcut buttons-->
+		<!--================================-->
+		<div id="mainnav-shortcut">
+			<ul class="list-unstyled">
+				<li class="col-xs-4" data-content="Additional Sidebar">
+					<a id="demo-toggle-aside" class="shortcut-grid" href="#">
+						<i class="fa fa-magic"></i>
+					</a>
+				</li>
+				<li class="col-xs-4" data-content="Notification">
+					<a id="demo-alert" class="shortcut-grid" href="#">
+						<i class="fa fa-bullhorn"></i>
+					</a>
+				</li>
+				<li class="col-xs-4" data-content="Page Alerts">
+					<a id="demo-page-alert" class="shortcut-grid" href="#">
+						<i class="fa fa-bell"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!--================================-->
+		<!--End shortcut buttons-->
+
+
+		<!--Menu-->
+		<!--================================-->
+		<div id="mainnav-menu-wrap">
+			<div class="nano">
+				<div class="nano-content">
+					<ul id="mainnav-menu" class="list-group">
+			
+						<!--Category name-->
+						<li class="list-header">常用功能</li>
+			
+						<!--Menu list item-->
+						<li>
+							<a href="/dashboard/">
+								<i class="fa fa-dashboard"></i>
+								<span class="menu-title">
+									<strong>控制台</strong>
+									<span class="label label-success pull-right">Top</span>
+								</span>
+							</a>
+						</li>
+			
+						<!--Menu list item-->
+						<li>
+							<a href="#">
+								<i class="fa fa-th"></i>
+								<span class="menu-title"><strong>产品管理</strong></span>
+								<i class="arrow"></i>
+							</a>
+							<!--Submenu-->
+							<ul class="collapse">
+								<li><a href="?route=product/product">产品列表</a></li>
+								<li><a href="?route=product/category">产品类别</a></li>
+								<li><a href="?route=product/merchant">供应商</a></li>
+							</ul>
+						</li>
+						<!--Menu list item-->
+						<li>
+							<a href="#">
+								<i class="fa fa-th"></i>
+								<span class="menu-title"><strong>交易管理</strong></span>
+								<i class="arrow"></i>
+							</a>
+							<!--Submenu-->
+							<ul class="collapse">
+								<li><a href="?route=trade/order">订单列表</a></li>
+							</ul>
+						</li>
+						
+						<!--Menu list item-->
+						<li>
+							<a href="#">
+								<i class="fa fa-th"></i>
+								<span class="menu-title"><strong>发货管理</strong></span>
+								<i class="arrow"></i>
+							</a>
+							<!--Submenu-->
+							<ul class="collapse">
+								<li>
+									<a href="layouts-collapsed-navigation.html">发货列表
+										<span class="pull-right badge badge-warning">9</span>
+									</a>
+								</li>
+								<li><a href="layouts-collapsed-navigation.html">货代列表</a></li>
+							</ul>
+						</li>
+
+						<li class="list-divider"></li>
+			
+						<!--Category name-->
+						<li class="list-header">其他功能</li>
+			
+						<!--Menu list item-->
+						<li>
+							<a href="#">
+								<i class="fa fa-briefcase"></i>
+								<span class="menu-title">财务管理</span>
+								<i class="arrow"></i>
+							</a>
+							<!--Submenu-->
+							<ul class="collapse">
+								<li><a href="ui-buttons.html">财务记账</a></li>
+							</ul>
+						</li>
+			
+						
+			
+						<!--Menu list item-->
+						<li>
+							<a href="#">
+								<i class="fa fa-line-chart"></i>
+								<span class="menu-title">报表管理</span>
+								<i class="arrow"></i>
+							</a>
+			
+							<!--Submenu-->
+							<ul class="collapse">
+								<li><a href="tables-static.html">销售统计</a></li>
+								<li><a href="tables-bootstrap.html">产品排名</a></li>
+								<li><a href="tables-datatable.html">Data Tables<span class="label label-info pull-right">New</span></a></li>
+								<li><a href="tables-footable.html">Foo Tables<span class="label label-info pull-right">New</span></a></li>
+								
+							</ul>
+						</li>
+
+						<li class="list-divider"></li>
+			
+						<!--Category name-->
+						<li class="list-header">应用工具</li>
+			
+						<!--Menu list item-->
+						<li>
+							<a href="?route=tools/publish/home">
+								<i class="fa fa-plug"></i>
+								<span class="menu-title">
+									<strong>刊登工具</strong>
+								</span>
+							</a>
+						</li>
+						<!--Menu list item-->
+						<li>
+							<a href="#">
+								<i class="fa fa-envelope"></i>
+								<span class="menu-title">关键词排名查询</span>
+								<i class="arrow"></i>
+							</a>
+			
+							<!--Submenu-->
+							<ul class="collapse">
+								<li><a href="mailbox.html">Inbox</a></li>
+								<li><a href="mailbox-message.html">View Message</a></li>
+								<li><a href="mailbox-compose.html">Compose Message</a></li>
+								
+							</ul>
+						</li>
+
+
+					</ul>
+
+
+					<!--Widget-->
+					<!--================================-->
+					<div class="mainnav-widget">
+
+						<!-- Show the button on collapsed navigation -->
+						<div class="show-small">
+							<a href="#" data-toggle="menu-widget" data-target="#demo-wg-server">
+								<i class="fa fa-desktop"></i>
+							</a>
+						</div>
+
+						<!-- Hide the content on collapsed navigation -->
+						<div id="demo-wg-server" class="hide-small mainnav-widget-content">
+							<ul class="list-group">
+								<li class="list-header pad-no pad-ver">Server Status</li>
+								<li class="mar-btm">
+									<span class="label label-primary pull-right">15%</span>
+									<p>CPU Usage</p>
+									<div class="progress progress-sm">
+										<div class="progress-bar progress-bar-primary" style="width: 15%;">
+											<span class="sr-only">15%</span>
+										</div>
+									</div>
+								</li>
+								<li class="mar-btm">
+									<span class="label label-purple pull-right">75%</span>
+									<p>Bandwidth</p>
+									<div class="progress progress-sm">
+										<div class="progress-bar progress-bar-purple" style="width: 75%;">
+											<span class="sr-only">75%</span>
+										</div>
+									</div>
+								</li>
+								<li class="pad-ver"><a href="#" class="btn btn-success btn-bock">View Details</a></li>
+							</ul>
+						</div>
+					</div>
+					<!--================================-->
+					<!--End widget-->
+
+				</div>
+			</div>
+		</div>
+		<!--================================-->
+		<!--End menu-->
+
+	</div>
+</nav>
+<!--===================================================-->
+<!--END MAIN NAVIGATION-->

@@ -1,0 +1,48 @@
+<div class="panel-body">
+    <div class="row">
+        <div class="col-sm-2 mar-btm">
+            <input type="text" class="form-control" placeholder="产品名">
+        </div>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" placeholder="交易订单号">
+        </div>
+        <div class="col-sm-2">
+            <!-- Default choosen -->
+            <!--===================================================-->
+            <select data-placeholder="交易来源" p_action_dom="chosen-select-no-search" tabindex="0">
+                <option value="">交易来源</option>
+                <option value="United States">United States</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Aland Islands">Aland Islands</option>
+            </select>
+            <!--===================================================-->
+        </div>
+        <div class="col-sm-2">
+            <!-- Default choosen -->
+            <!--===================================================-->
+            <select data-placeholder="交易状态" p_action_dom="chosen-select-no-search" tabindex="0">
+                <option value="-1">交易状态</option>
+                <option value="Albania">Albania</option>
+                <option value="Algeria">Algeria</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Angola">Angola</option>
+            </select>
+            <!--===================================================-->
+        </div>
+        <!--Bootstrap Datepicker : Range-->
+        <!--===================================================-->
+        <div id="demo-dp-range" class="col-sm-3">
+            <div class="input-daterange input-group">
+                <input type="text" class="form-control" name="start" placeholder="起始日期"/>
+                <span class="input-group-addon">-</span>
+                <input type="text" class="form-control" name="end" placeholder="结束日期"/>
+            </div>
+        </div>
+        <!--===================================================-->
+        <div class="col-sm-1">
+            <button class="btn btn-mint">搜索</button>
+        </div>
+    </div>
+    
+</div>

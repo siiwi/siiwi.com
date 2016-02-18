@@ -1,0 +1,27 @@
+<ul id="<?php echo $id;?>" class="pagination">
+    <?php if($page==1 && $page<=$total_page){?>
+    <li class="disabled"><a href="javascript:;" class="fa fa-angle-double-left"></a></li>
+    <?php }else{?>
+    <li><a href="<?php echo $link;?>&page=<?php echo ($page-1);?>" class="fa fa-angle-double-left"></a></li>
+    <?php }?>
+    
+    
+    <?php
+    $min = ($page - $n ) < 1 ? 1 : ( $page - $n );
+    $max = ($page + $n)>$total_page ? $total_page : ($page+$n);
+    for($i = $min; $i <= $max; $i++){?>
+        <?php if($page==$i){?>
+    <li class="active"><a href="javascript:;"><?php echo $i;?> <span class="sr-only">(current)</span></a></li>
+        <?php }else{?>
+    <li><a href="<?php echo $link;?>&page=<?php echo $i;?>"><?php echo $i;?></a></li>
+        <?php }?>
+    <?php }?>
+    
+    <!--下一页按钮-->
+    <?php if($page >= $total_page){?>
+    <li class="disabled"><a href="javascript:;" class="fa fa-angle-double-right"></a></li>
+    <?php }else{?>
+    <li><a href="<?php echo $link;?>&page=<?php echo ($page+1);?>" class="fa fa-angle-double-right"></a></li>
+    <?php }?>
+    
+</ul>
