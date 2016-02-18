@@ -1,14 +1,8 @@
 <?php
-// Error Reporting
-error_reporting(E_ALL);
 
 // Check Version
 if (version_compare(phpversion(), '5.3.0', '<') == true) {
 	exit('PHP5.3+ Required');
-}
-
-if (!ini_get('date.timezone')) {
-	date_default_timezone_set('UTC');
 }
 
 // Windows IIS Compatibility
@@ -56,7 +50,7 @@ function modification($filename) {
 	if (substr($filename, 0, strlen(DIR_SYSTEM)) == DIR_SYSTEM) {
 		$file = DIR_MODIFICATION . 'system/' . substr($filename, strlen(DIR_SYSTEM));
 	}
-	
+
 	if (is_file($file)) {
 		return $file;
 	}
@@ -67,7 +61,7 @@ function modification($filename) {
 // Autoloader
 function autoload($class) {
 	$file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
-	
+
 	if (is_file($file)) {
 		include_once(modification($file));
 		return true;
@@ -91,3 +85,4 @@ require_once(modification(DIR_SYSTEM . 'engine/registry.php'));
 // Helper
 require_once(DIR_SYSTEM . 'helper/json.php');
 require_once(DIR_SYSTEM . 'helper/utf8.php');
+require_once(DIR_SYSTEM . 'helper/chrome.php');

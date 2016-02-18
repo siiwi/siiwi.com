@@ -1,0 +1,143 @@
+<!--Default Bootstrap Modal-->
+<!--===================================================-->
+<div class="modal-dialog">
+    <div class="modal-content">
+        <!--Modal header-->
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title"><?php echo $language->get('product_supplier_edit')->title;?></h4>
+        </div>
+
+        <!--Modal body-->
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-danger"><?php echo $language->get('product_supplier_edit')->name;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="add_supplier_name" value="<?php echo $product_supplier_edit['supplier_info']['name'] ? $product_supplier_edit['supplier_info']['name'] : '';?>" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-danger"><?php echo $language->get('product_supplier_edit')->contact;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="add_supplier_contact" value="<?php echo $product_supplier_edit['supplier_info']['contact'] ? $product_supplier_edit['supplier_info']['contact'] : '';?>" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-danger"><?php echo $language->get('product_supplier_edit')->phone;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="add_supplier_phone" value="<?php echo $product_supplier_edit['supplier_info']['phone'] ? $product_supplier_edit['supplier_info']['phone'] : '';?>" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><?php echo $language->get('product_supplier_edit')->email;?></label>
+                        <div class="col-sm-7">
+                            <input type="email" class="form-control input-sm" name="add_supplier_email" value="<?php echo $product_supplier_edit['supplier_info']['email'] ? $product_supplier_edit['supplier_info']['email'] : '';?>"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><?php echo $language->get('product_supplier_edit')->address;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="add_supplier_address" value="<?php echo $product_supplier_edit['supplier_info']['address'] ? $product_supplier_edit['supplier_info']['address'] : '';?>"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><?php echo $language->get('product_supplier_edit')->url;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="add_supplier_url" value="<?php echo $product_supplier_edit['supplier_info']['url'] ? $product_supplier_edit['supplier_info']['url'] : '';?>"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"><?php echo $language->get('product_supplier_edit')->desc;?></label>
+                        <div class="col-sm-7">
+                            <textarea rows="4" class="form-control" id="add_supplier_desc" style="resize:none;"><?php echo $product_supplier_edit['supplier_info']['desc'] ? $product_supplier_edit['supplier_info']['desc'] : '';?></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal footer-->
+        <div class="modal-footer">
+            <p class="pull-left text-danger">*&nbsp;<?php echo $language->get('common')->required;?></p>
+            <button class="btn btn-default" type="button" data-dismiss="modal"><?php echo $language->get('common')->cancel;?></button>
+            <button class="btn btn-primary" type="button" id="updateProductSupplier"><?php echo $language->get('common')->submit;?></button>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End Default Bootstrap Modal-->
+
+<!-- Start Check -->
+<script type="text/javascript">
+var product_supplier_edit_message = <?php echo json_encode($language->get('product_supplier_edit')->message);?> || '';
+$(function(){
+    $("#updateProductSupplier").click(function(){
+        var regex_email = <?php echo $product_supplier_edit['regex_email'];?>;
+        var params = {};
+        params.supplier_id = "<?php echo $product_supplier_edit['supplier_info']['supplier_id'];?>";
+        params.name = $("input[name=add_supplier_name]").val();
+        params.contact = $("input[name=add_supplier_contact]").val();
+        params.phone = $("input[name=add_supplier_phone]").val();
+        params.address = $("input[name=add_supplier_address]").val();
+        params.url = $("input[name=add_supplier_url]").val();
+        params.desc = $("#add_supplier_desc").val();
+        params.email = $("input[name=add_supplier_email]").val();
+
+        if(!params.name) {
+            swal('', product_supplier_edit_message.empty_name, 'warning');
+            return;
+        }
+
+        if(params.name.length < 2 || params.name.length > 50) {
+            swal('', product_supplier_edit_message.invalid_name_length, 'warning');
+            return;
+        }
+
+        if(!params.contact) {
+            swal('', product_supplier_edit_message.empty_contact, 'warning');
+            return;
+        }
+
+        if(params.contact.length < 2 || params.contact.length > 50) {
+            swal('', product_supplier_edit_message.invalid_contact_length, 'warning');
+            return;
+        }
+
+        if(!params.phone) {
+            swal('', product_supplier_edit_message.empty_phone, 'warning');
+            return;
+        }
+
+        if(params.email.length > 0 && !regex_email.test(params.email)) {
+            swal('', product_supplier_edit_message.invalid_email_format, 'warning');
+            return;
+        }
+
+        $.ajax({
+            url: "<?php echo $url->link('product/supplier/update');?>",
+            type: 'POST',
+            data: params,
+            dataType: 'json',
+            success: function(response) {
+                if(response.status) {
+                    swal({
+                        title: '',
+                        text: response.message,
+                        type: "success",
+                        confirmButtonText: "OK"
+                    }, function(){
+                        window.location.reload();
+                    });
+                } else {
+                    swal('', response.message, 'error');
+                }
+            }
+        });
+    });
+});
+</script>
+<!-- End Check -->

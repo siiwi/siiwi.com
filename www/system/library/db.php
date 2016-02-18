@@ -1,6 +1,6 @@
 <?php
 class DB {
-	private $db;
+	protected $db;
 
 	public function __construct($driver, $hostname, $username, $password, $database, $port = NULL) {
 		$class = 'DB\\' . $driver;

@@ -133,6 +133,7 @@ h6,
 }
 .searchbox > .input-group.custom-search-form input {
   border-radius: 0;
+  border: 1px solid #C3C3C3;
 }
 .searchbox > .input-group input:focus {
   border-color: #54abd9;
@@ -2851,7 +2852,7 @@ a.disabled-link:hover {
   background-color: transparent;
 }
 .wz-heading.wz-w-label .progress {
-  margin-top: -0.5em;
+  margin-top: -1.3em;
 }
 .wz-steps {
   margin: 0;

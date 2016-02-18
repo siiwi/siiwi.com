@@ -87,7 +87,7 @@ app.component.upload = function(){
         },
         addRemoveLinks:true,
         removedfile: function(file) {
-            var name = file.name;        
+            var name = file.name;
             $.ajax({
                 type: 'POST',
                 url: 'delete.php',
@@ -95,9 +95,9 @@ app.component.upload = function(){
                 dataType: 'html'
             });
             var _ref;
-            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;        
+            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
         }
-        
+
     };
 };
 
@@ -108,9 +108,9 @@ app.frame = function(){
     if ($('.lightbox')[0]) {
         $('.lightbox').lightGallery({
             enableTouch: true
-        }); 
+        });
     }
-    
+
     app.component.chosen();
     app.component.editable();
     app.component.upload();
@@ -126,11 +126,11 @@ app.frame = function(){
 			$.niftyAside('hide');
 		}
 	});
-    
-    
-    
-    
-    
+
+
+
+
+
     // GENERATE RANDOM ALERT
 	// =================================================================
 	// Require Admin Core Javascript
@@ -193,12 +193,12 @@ app.frame = function(){
 			timer: 3500
 		});
 	});
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     // ALERT ON TOP PAGE
 	// =================================================================
 	// Require Admin Core Javascript
@@ -227,13 +227,13 @@ app.frame = function(){
 			timer: timer
 		});
 	});
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
     // LANGUAGE SWITCHER
 	// =================================================================
 	// Require Admin Core Javascript
@@ -249,7 +249,7 @@ app.frame = function(){
 			});
 		}
 	});
-    
+
 }
 app.dashboard = function(){
     // 基于准备好的dom，初始化echarts图表
@@ -309,7 +309,7 @@ app.dashboard = function(){
             ]
         });
     }
-   
+
     if ($('#echarts_product_compare')[0]) {
         var echarts_product_compare = echarts.init($('#echarts_product_compare')[0]);
         echarts_product_compare.setOption({
@@ -348,7 +348,7 @@ app.dashboard = function(){
             ]
         });
     }
-    
+
     if ($('#echarts_country_compare')[0]) {
         var echarts_country_compare = echarts.init($('#echarts_country_compare')[0]);
         echarts_country_compare.setOption({
@@ -388,8 +388,8 @@ app.dashboard = function(){
             ]
         });
     }
-    
-    
+
+
 }
 
 app.product = function(){
@@ -403,7 +403,7 @@ app.product = function(){
     $('#btn_product_add_upload_img_modal').click(function(e){
         product_upload_img_modal.modal('show');
     });
-    
+
     ///添加产品时的设置规格
     var add_body_str = '';
     var table_set_variation = $('table[p_action_dom="table_set_variation"]');//设置规格的表格
@@ -416,7 +416,7 @@ app.product = function(){
     if ($('select[p_action_dom="chosen-select-set-variation"]')[0]) {
         $('select[p_action_dom="chosen-select-set-variation"]').chosen({
             width: '100%',
-            max_selected_options: 20 
+            max_selected_options: 20
         }).on('change', function(evt, params){
             var selected = $(this).find('option:selected');
             if (selected.length <=0 ) {
@@ -452,7 +452,7 @@ app.product = function(){
             app.component.editable();
         });
     }
-    
+
     //删除按钮
     table_set_variation.on('click','tbody tr td button[p_action_dom="btn_remove_tbody"]',function(e){
         $this = $(this);
@@ -471,11 +471,11 @@ app.product = function(){
             cancelButtonText: "取消",
             closeOnConfirm: false
         },function(isConfirm){
-            $this.parents('tbody').remove(); 
+            $this.parents('tbody').remove();
             swal("删除啦!", "已经删除次子规格.", "success");
         });
     });
-    
+
 }
 
 app.category = function(){
@@ -483,14 +483,14 @@ app.category = function(){
     var category_modal_add = $('div[p_action_dom="category_modal_add"]');
     var category_modal_delete = $('div[p_action_dom="category_modal_delete"]');
     category_modal_add.on('shown.bs.modal', function (e) {
-        
+
     });
     $('button[p_action_dom="btn_category_modify_show"]').on('click',function(e){
         var tr = $(this).parents('tr');
         category_modal_modify.find('input[p_action_dom="input_category_name"]').val(tr.attr('p_action_value_name'));
         category_modal_modify.find('label[p_action_dom="label_category_parent"]').text(tr.attr('p_action_value_parent'));
         category_modal_modify.modal('show');
-        
+
     });
     $('button[p_action_dom="btn_category_delete_show"]').on('click', function(){
 		category_modal_delete.modal('show');
@@ -501,7 +501,7 @@ app.category.variation = function(){
     $('#btn_variation_add_modal').on('click',function(e){
         variation_modal_add.modal('show');
     });
-    
+
     ///tagsinput
     $('input[data-role="tagsinput"]').on('beforeItemAdd',function(e){
         alert('添加前');
@@ -509,7 +509,7 @@ app.category.variation = function(){
     $('input[data-role="tagsinput"]').on('itemAdded',function(e){
         alert('添加了');
     });
-    
+
     $('input[data-role="tagsinput"]').on('beforeItemRemove',function(e){
         alert('删除前');
     });
@@ -530,7 +530,7 @@ app.merchant = function(){
     $('button[p_action_dom="edit_merchant_info"]').on('click',function(e){
         edit_merchant_modal.modal('show');
     });
-    
+
     //删除按钮
     $('button[p_action_dom="del_merchant"]').on('click',function(e){
         swal({
@@ -542,11 +542,11 @@ app.merchant = function(){
             confirmButtonText: "删除",
             cancelButtonText: "取消",
             closeOnConfirm: false
-        },function(isConfirm){ 
+        },function(isConfirm){
             swal("删除啦!", "已经删除此供应商.", "success");
         });
     });
-    
+
 };
 
 app.trade = function(){};
@@ -564,14 +564,14 @@ app.trade.order = function(){
             todayHighlight: true
         });
     }
-	
+
     if ($('.date')[0]) {
         $('#demo-dp-component .input-group.date').datepicker({format: 'yyyy/mm/dd',autoclose:true});
     }
-	
-    
+
+
     var table_add_product = $('table[p_action_dom="table_add_product"]');
-    
+
     //显示添加产品modal
     var order_add_product_modal = $('div[p_action_dom="order_add_product_modal"]');
     $('#btn_add_product').click(function(e){
@@ -584,8 +584,7 @@ app.trade.order = function(){
         if ($this.is(':checked')) {
             order_add_product_show_variation_modal.modal('show');
         }
-        
-    });
-    
-};
 
+    });
+
+};

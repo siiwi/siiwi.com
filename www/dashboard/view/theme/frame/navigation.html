@@ -1,0 +1,245 @@
+<header id="navbar">
+    <div id="navbar-container" class="boxed">
+        <!--Brand logo & name-->
+        <!--================================-->
+        <div class="navbar-header">
+            <a href="<?php echo $url->link('home/home');?>" class="navbar-brand">
+                <img src="<?php echo $frame_navigation_index['logo'];?>" alt="<?php echo $language->get('frame_navigation_index')->name;?>" class="brand-icon">
+                <div class="brand-title">
+                    <span class="brand-text"><?php echo $language->get('frame_navigation_index')->name;?></span>
+                </div>
+            </a>
+        </div>
+        <!--================================-->
+        <!--End brand logo & name-->
+
+        <!--Navbar Dropdown-->
+        <!--================================-->
+        <div class="navbar-content clearfix">
+            <ul class="nav navbar-top-links pull-left">
+
+                <!--Navigation toogle button-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <li class="tgl-menu-btn">
+                    <a class="mainnav-toggle" href="javascript:;">
+                        <i class="fa fa-navicon fa-lg"></i>
+                    </a>
+                </li>
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End Navigation toogle button-->
+                <!--Mega dropdown 设定-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <li class="mega-dropdown">
+                    <a href="javascript:;" class="mega-dropdown-toggle">
+                        <i class="fa fa-cog fa-lg"></i>
+                    </a>
+                    <div class="dropdown-menu mega-dropdown-menu">
+                        <div class="clearfix">
+                            <div class="col-sm-12 col-md-3">
+                                <div class="text-center bg-dark pad-all">
+                                    <h3 class="text-thin mar-no"><?php echo $language->get('frame_navigation_index')->setting;?></h3>
+                                    <div class="pad-ver box-inline">
+                                        <span class="icon-wrap icon-wrap-lg icon-circle bg-trans-light">
+                                            <i class="fa fa-cog fa-4x"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-2">
+                                <ul class="list-unstyled">
+                                    <li class="dropdown-header">
+                                        <?php echo $language->get('frame_navigation_index')->account;?>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo $url->link('user/group');?>">
+                                            <?php echo $language->get('frame_navigation_index')->group;?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <?php echo $language->get('frame_navigation_index')->subaccount;?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <?php echo $language->get('frame_navigation_index')->eBay;?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <?php echo $language->get('frame_navigation_index')->amazon;?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <?php echo $language->get('frame_navigation_index')->wish;?>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-4 col-md-2">
+                                <ul class="list-unstyled">
+                                    <li class="dropdown-header">
+                                        <?php echo $language->get('frame_navigation_index')->system;?>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <?php echo $language->get('frame_navigation_index')->currency;?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <?php echo $language->get('frame_navigation_index')->preferences;?>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-4 col-md-2">
+                                <ul class="list-unstyled">
+                                    <li class="dropdown-header">
+                                        <?php echo $language->get('frame_navigation_index')->order;?>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <?php echo $language->get('frame_navigation_index')->order_main;?>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-4 col-md-3">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <div class="form-group">
+                                            <label class="dropdown-header" for="demo-megamenu-input">
+                                                <?php echo $language->get('frame_navigation_index')->subscription;?>
+                                            </label>
+                                            <input type="email" placeholder="<?php echo $language->get('common')->email;?>" class="form-control" value="" />
+                                        </div>
+                                        <button class="btn btn-primary btn-block" type="submit"><?php echo $language->get('common')->submit;?></button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End mega dropdown-->
+            </ul>
+
+
+            <ul class="nav navbar-top-links pull-right">
+
+                <!--Language selector-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <li class="dropdown">
+                    <a class="lang-selector dropdown-toggle" href="javascript:;" data-toggle="dropdown">
+                        <span class="lang-selected">
+                            <img class="lang-flag" src="/assets/img/flags/<?php echo $frame_navigation_index['active_language']['image'];?>" width="24">
+                            <span class="lang-id"><?php echo $frame_navigation_index['active_language']['code'];?></span>
+                            <span class="lang-name"><?php echo $frame_navigation_index['active_language']['name'];?></span>
+                        </span>
+                    </a>
+
+                    <!--Language selector menu-->
+                    <?php if(is_array($frame_navigation_index['language_list']) && !empty($frame_navigation_index['language_list'])):?>
+                    <ul class="head-list dropdown-menu with-arrow">
+                        <?php foreach($frame_navigation_index['language_list'] as $lang):?>
+                        <li>
+                            <a href="javascript:;" class="setting-language" language="<?php echo $lang['code'];?>">
+                                <img class="lang-flag" src="/assets/img/flags/<?php echo $lang['image'];?>" alt="<?php echo $lang['name'];?>" width="24">
+                                <span class="lang-id"><?php echo $lang['code'];?></span>
+                                <span class="lang-name"><?php echo $lang['name'];?></span>
+                            </a>
+                        </li>
+                        <?php endforeach;?>
+                    </ul>
+                    <?php endif;?>
+                    <script type="text/javascript">
+                    $(function(){
+                        $(".setting-language").click(function(){
+                            var language = $(this).attr('language');
+                            var cookie_language = $.cookie('language');
+                            if(cookie_language != language) {
+                                $.cookie('language', language, {expires: 30, path: '/'});
+                                window.location.reload();
+                            }
+                        })
+                    })
+                    </script>
+                </li>
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End language selector-->
+
+
+
+                <!--User dropdown-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <li id="dropdown-user" class="dropdown">
+                    <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle text-right">
+                        <span class="pull-right">
+                            <img class="img-circle img-user media-object" src="/assets/img/av1.png" alt="Profile Picture">
+                        </span>
+                        <div class="username hidden-xs"><?php echo $frame_navigation_index['user_info']['name'];?></div>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right with-arrow panel-default">
+                        <!-- Dropdown heading  -->
+                        <div class="pad-all bord-btm">
+                            <p class="text-lg text-muted text-thin mar-btm">750Gb of 1,000Gb Used</p>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar" style="width: 70%;">
+                                    <span class="sr-only">70%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- User dropdown menu -->
+                        <ul class="head-list">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-user fa-fw fa-lg"></i> <?php echo $language->get('frame_navigation_index')->profile;?>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="badge badge-danger pull-right">9</span>
+                                    <i class="fa fa-envelope fa-fw fa-lg"></i> <?php echo $language->get('frame_navigation_index')->message;?>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="label label-success pull-right">New</span>
+                                    <i class="fa fa-gear fa-fw fa-lg"></i> <?php echo $language->get('frame_navigation_index')->setting;?>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-question-circle fa-fw fa-lg"></i> <?php echo $language->get('frame_navigation_index')->help;?>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-lock fa-fw fa-lg"></i> <?php echo $language->get('frame_navigation_index')->lock_screen;?>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <!-- Dropdown footer -->
+                        <div class="pad-all text-right">
+                            <a href="<?php echo $url->link('account/logout');?>" class="btn btn-primary">
+                                <i class="fa fa-sign-out fa-fw"></i> <?php echo $language->get('frame_navigation_index')->logout;?>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End user dropdown-->
+
+            </ul>
+        </div>
+        <!--================================-->
+        <!--End Navbar Dropdown-->
+    </div>
+</header>
+<!--===================================================-->
+<!--END NAVBAR-->

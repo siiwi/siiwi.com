@@ -2,7 +2,7 @@
 class Response {
 	private $headers = array();
 	private $level = 0;
-	private $output;
+	protected $output;
 
 	public function addHeader($header) {
 		$this->headers[] = $header;

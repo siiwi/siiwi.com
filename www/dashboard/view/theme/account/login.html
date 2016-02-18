@@ -1,0 +1,105 @@
+<?php echo $frame['header'];?>
+<link href="/assets/css/demo/nifty-demo.min.css" rel="stylesheet">
+<div id="container" class="cls-container">
+    <div id="bg-overlay" class="bg-img img-balloon"></div>
+    <div class="cls-header cls-header-lg">
+        <div class="cls-brand">
+            <span class="brand-title"><?php echo $language->get('common')->domain;?></span>
+        </div>
+    </div>
+    <div class="cls-content">
+        <div class="cls-content-sm panel">
+            <div class="panel-body">
+                <p class="pad-btm"><?php echo $language->get('account_login_index')->title;?></p>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
+                            <input type="email" class="form-control" placeholder="<?php echo $language->get('common')->email;?>" name="email" value="<?php echo $email ? $email : '';?>" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                            <input type="password" class="form-control" placeholder="<?php echo $language->get('common')->password;?>" name="password" value="<?php echo $password ? $password : '';?>" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8 text-left checkbox">
+                            <label class="form-checkbox form-icon">
+                                <input type="checkbox" name="remember" value="1"><?php echo $language->get('account_login_index')->remember;?>
+                            </label>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group text-right">
+                                <button  type="button" class="btn btn-primary" id="login"><?php echo $language->get('common')->submit;?></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mar-btm"><em>- OR -</em></div>
+                    <button class="btn btn-default btn-lg btn-block">
+                        <i class="fa fa-facebook fa-fw"></i><?php echo $language->get('account_login_index')->login_with_eBay;?>
+                    </button>
+            </div>
+        </div>
+        <div class="pad-ver">
+            <a href="#" class="btn-link mar-rgt"><?php echo $language->get('account_login_index')->forget;?></a>
+            <a href="<?php echo $url->link('account/register');?>" class="btn-link mar-lft"><?php echo $language->get('account_login_index')->register;?></a>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!-- END OF CONTAINER -->
+<script>
+var account_login_message = <?php echo json_encode($language->get('account_login_index')->message);?>;
+$(function(){
+    $('#login').click(function(){
+        var params = {};
+        var regex_email = <?php echo $account_login_index['regex_email'];?>;
+        params.email = $('input[name=email]').val();
+        params.password = $('input[name=password]').val();
+        params.remember = $('input[name=remember]:checked').val();
+
+        if(!params.email) {
+            swal('', account_login_message.empty_email, 'warning');
+            return;
+        }
+
+        if(!regex_email.test(params.email)) {
+            swal('', account_login_message.invalid_email_format, 'warning');
+            return;
+        }
+
+        if(!params.password) {
+            swal('', account_login_message.empty_password, 'warning');
+            return;
+        }
+
+        if(params.password.length < 6 || params.password.length > 22) {
+            swal('', account_login_message.invalid_password_length, 'warning');
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $url->link("account/login/check");?>',
+            data: params,
+            dataType: 'json',
+            success: function(response) {
+                if(!response.status) {
+                    swal('', response.message, 'error');
+                } else {
+                    swal({
+                        title: '',
+                        text: response.message,
+                        type: "success",
+                        confirmButtonText: "OK"
+                    }, function(){
+                        window.location.href='<?php echo $url->link("home/home");?>';
+                    });
+                }
+            }
+        });
+    });
+});
+</script>
+<?php echo $frame['footer'];?>

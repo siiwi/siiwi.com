@@ -1,0 +1,60 @@
+<!--Default Bootstrap Modal-->
+<!--===================================================-->
+<div class="modal fade" id="<?php echo $id;?>" p_action_dom="product_manage_variation_modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!--Modal header-->
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">设置规格</h4>
+            </div>
+
+            <!--Modal body-->
+            <div class="modal-body">
+                <div class="row form-horizontal">
+                    <label class="col-sm-2 control-label">规格项：</label>
+                    <div class="col-sm-8">
+                        <select data-placeholder="选择规格 " p_action_dom="chosen-select-set-variation" multiple>
+                            <option value=""></option>
+                            <option value="0">颜色</option>
+                            <option value="1">尺寸</option>
+                            <option value="2">重量</option>
+                            <option value="3">材质</option>
+                            <option value="4">体积</option>
+							<option value="5">体积2</option>
+							<option value="6">体积3</option>
+							<option value="7">体积4</option>
+							<option value="8">体积5</option>
+							<option value="9">体积6</option>
+							<option value="10">体积7</option>
+							<option value="11">体积8</option>
+                        </select>
+                    </div>
+					
+                </div>
+				<div class="table-responsive" style="overflow-x: inherit;">
+					<table class="table table-condensed table-border" p_action_dom="table_set_variation" style="display: none;">
+						<thead>
+							<tr></tr>
+						</thead>
+						<tbody>
+							<tr></tr>
+						</tbody>
+					</table>
+				</div>
+				<button class="btn btn-primary btn-labeled btn-xs fa fa-plus" p_action_dom="btn_add_tbody" style="display: none;">添加一条</button>
+            </div>
+
+            <!--Modal footer-->
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+                <button class="btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End Default Bootstrap Modal-->

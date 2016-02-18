@@ -1,25 +1,31 @@
 <?php
-class Session {
-	public $data = array();
 
-	public function __construct() {
-		if (!session_id()) {
-			ini_set('session.use_only_cookies', 'On');
-			ini_set('session.use_trans_sid', 'Off');
-			ini_set('session.cookie_httponly', 'On');
+class Session
+{
+    public function __construct()
+    {
+        if(!$this->getId()){
+            session_start();
+        }
+    }
 
-			session_set_cookie_params(0, '/');
-			session_start();
-		}
+    public function set($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
 
-		$this->data =& $_SESSION;
-	}
+    public function get($key='')
+    {
+        return $key ? $_SESSION[$key] : $_SESSION;
+    }
 
-	public function getId() {
-		return session_id();
-	}
+    public function destroy()
+    {
+        session_destroy();
+    }
 
-	public function destroy() {
-		return session_destroy();
-	}
+    public function getId()
+    {
+        return session_id();
+    }
 }

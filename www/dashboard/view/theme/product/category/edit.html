@@ -1,0 +1,82 @@
+<!--Default Bootstrap Modal-->
+<!--===================================================-->
+<div class="modal-dialog">
+    <div class="modal-content">
+        <!--Modal header-->
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title"><?php echo $language->get('product_category_edit')->title;?></h4>
+        </div>
+
+        <!--Modal body-->
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-danger"><?php echo $language->get('product_category_edit')->name;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="edit_category_name" value="<?php echo $product_category_edit['category_info']['name'];?>" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal footer-->
+        <div class="modal-footer">
+            <p class="pull-left text-danger">*&nbsp;<?php echo $language->get('common')->required;?></p>
+            <button class="btn btn-default" type="button" data-dismiss="modal"><?php echo $language->get('common')->cancel;?></button>
+            <button class="btn btn-primary" type="button" id="updateProductCategory"><?php echo $language->get('common')->submit;?></button>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End Default Bootstrap Modal-->
+
+<!-- Start Check -->
+<script type="text/javascript">
+var product_category_edit_message = <?php echo json_encode($language->get('product_category_edit')->message);?> || '';
+$(function(){
+    $("#updateProductCategory").click(function(){
+        var params = {};
+        params.category_id = "<?php echo $product_category_edit['category_info']['category_id'];?>";
+        params.name = $("input[name=edit_category_name]").val();
+
+        if(!params.name) {
+            swal('', product_category_edit_message.empty_name, 'warning');
+            return;
+        }
+
+        if(params.name.length < 2 || params.name.length > 50) {
+            swal('', product_category_edit_message.invalid_name_length, 'warning');
+            return;
+        }
+
+        $.ajax({
+            url: "<?php echo $url->link('product/category/update');?>",
+            type: 'POST',
+            data: params,
+            dataType: 'json',
+            success: function(response) {
+                if(response.status) {
+                    swal({
+                        title: '',
+                        text: response.message,
+                        type: "success",
+                        confirmButtonText: "OK"
+                    }, function(){
+                        $('#productCategoryContentModal').html("");
+                        $('#productCategoryContentModal').modal('hide');
+                        window.location.reload();
+                    });
+                } else {
+                    swal('', response.message, 'error');
+                }
+            }
+        });
+    });
+});
+</script>
+<!-- End Check -->

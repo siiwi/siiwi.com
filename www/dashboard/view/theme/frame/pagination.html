@@ -1,0 +1,15 @@
+<ul class="pagination">
+    <li>
+        <a href="<?php echo $link.'&page=1';?>"><?php echo $language->get('frame_pagination_index')->first;?></a>
+    </li>
+<?php for($i=$page['min']; $i<=$page['max']; $i++):?>
+<?php if($i==$page['current']):?>
+    <li class="active"><a href="javascript:;"><?php echo $i;?></a></li>
+<?php else:?>
+    <li><a href="<?php echo $link.'&page='.$i;?>"><?php echo $i;?></a></li>
+<?php endif;?>
+<?php endfor;?>
+    <li>
+        <a href="<?php echo $link.'&page='.$page['last'];?>"><?php echo $language->get('frame_pagination_index')->first;?></a>
+    </li>
+</ul>

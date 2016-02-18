@@ -1,0 +1,177 @@
+<!--MAIN NAVIGATION-->
+<!--===================================================-->
+<nav id="mainnav-container">
+    <div id="mainnav">
+        <div id="mainnav-shortcut"></div>
+        <div id="mainnav-menu-wrap">
+            <div class="nano">
+                <div class="nano-content">
+                    <ul id="mainnav-menu" class="list-group">
+                        <li class="list-header">
+                            <?php echo $language->get('frame_sidebar_index')->common_function;?>
+                        </li>
+
+                        <!--start home-->
+                        <li <?php echo (in_array($route, array('home/home', ''))) ? 'class="active active-sub"' : '';?>>
+                            <a href="<?php echo $url->link('home/home');?>">
+                                <i class="fa fa-dashboard"></i>
+                                <span class="menu-title">
+                                    <strong><?php echo $language->get('frame_sidebar_index')->dashboard;?></strong>
+                                    <!-- <span class="label label-success pull-right">Top</span> -->
+                                </span>
+                            </a>
+                        </li>
+                        <!--end home-->
+
+                        <!-- start product -->
+                        <li <?php echo (in_array($route, array('product/main', 'product/brand', 'product/supplier', 'product/category'))) ? 'class="active active-sub"' : '';?>>
+                            <a href="javascript:;">
+                                <i class="fa fa-th"></i>
+                                <span class="menu-title">
+                                    <strong><?php echo $language->get('frame_sidebar_index')->product;?></strong>
+                                </span>
+                                <i class="arrow"></i>
+                            </a>
+                            <ul class="collapse">
+                                <li <?php echo ($route == 'product/main') ? 'class="active-link"' : '';?>>
+                                    <a href="<?php echo $url->link('product/main');?>">
+                                        <?php echo $language->get('frame_sidebar_index')->product_list;?>
+                                    </a>
+                                </li>
+                                <li <?php echo ($route == 'product/brand') ? 'class="active-link"' : '';?>>
+                                    <a href="<?php echo $url->link('product/brand');?>">
+                                        <?php echo $language->get('frame_sidebar_index')->brand_list;?>
+                                    </a>
+                                </li>
+                                <li <?php echo ($route == 'product/category') ? 'class="active-link"' : '';?>>
+                                    <a href="<?php echo $url->link('product/category');?>">
+                                        <?php echo $language->get('frame_sidebar_index')->category_list;?>
+                                    </a>
+                                </li>
+                                <li <?php echo ($route == 'product/supplier') ? 'class="active-link"' : '';?>>
+                                    <a href="<?php echo $url->link('product/supplier');?>">
+                                        <?php echo $language->get('frame_sidebar_index')->supplier_list;?>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- end product -->
+
+                        <!--start order-->
+                        <li <?php echo (in_array($route, array('order/main'))) ? 'class="active active-sub"' : '';?>>
+                            <a href="javascript:;">
+                                <i class="fa fa-th"></i>
+                                <span class="menu-title">
+                                    <strong><?php echo $language->get('frame_sidebar_index')->order;?></strong>
+                                </span>
+                                <i class="arrow"></i>
+                            </a>
+                            <ul class="collapse">
+                                <li>
+                                    <a href="<?php echo $url->link('order/main');?>">
+                                        <?php echo $language->get('frame_sidebar_index')->order_list;?>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--end trade-->
+
+                        <!--start delivery-->
+                        <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-th"></i>
+                                <span class="menu-title">
+                                    <strong><?php echo $language->get('frame_sidebar_index')->delivery;?></strong>
+                                </span>
+                                <i class="arrow"></i>
+                            </a>
+                            <ul class="collapse">
+                                <li>
+                                    <a href="#">
+                                        <?php echo $language->get('frame_sidebar_index')->delivery_list;?>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <?php echo $language->get('frame_sidebar_index')->forwarder;?>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--end delivery-->
+
+                        <li class="list-divider"></li>
+
+                        <li class="list-header">
+                            <?php echo $language->get('frame_sidebar_index')->other_function;?>
+                        </li>
+
+                        <li>
+                            <a href="javascript;;">
+                                <i class="fa fa-briefcase"></i>
+                                <span class="menu-title">
+                                    <strong><?php echo $language->get('frame_sidebar_index')->financial;?></strong>
+                                </span>
+                                <i class="arrow"></i>
+                            </a>
+                            <ul class="collapse">
+                                <li>
+                                    <a href=""><?php echo $language->get('frame_sidebar_index')->financial_account;?></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript;;">
+                                <i class="fa fa-line-chart"></i>
+                                <span class="menu-title">
+                                    <strong><?php echo $language->get('frame_sidebar_index')->chart;?></strong>
+                                </span>
+                                <i class="arrow"></i>
+                            </a>
+                            <ul class="collapse">
+                                <li>
+                                    <a href=""><?php echo $language->get('frame_sidebar_index')->sale_chart;?></a>
+                                </li>
+                                <li>
+                                    <a href=""><?php echo $language->get('frame_sidebar_index')->product_chart;?></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="list-divider"></li>
+
+                        <li class="list-header">
+                            <?php echo $language->get('frame_sidebar_index')->tools;?>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-plug"></i>
+                                <span class="menu-title">
+                                    <strong><?php echo $language->get('frame_sidebar_index')->publish;?></strong>
+                                </span>
+                                <i class="arrow"></i>
+                            </a>
+                            <ul class="collapse">
+                                <li><a href="">ebay</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:;">
+                                <i class="fa fa-envelope"></i>
+                                <span class="menu-title">
+                                    <strong><?php echo $language->get('frame_sidebar_index')->keywords_rank;?></strong>
+                                </span>
+                                <i class="arrow"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<!--===================================================-->
+<!--END MAIN NAVIGATION-->
