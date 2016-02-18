@@ -426,8 +426,8 @@ app.product = function(){
                 table_set_variation.css({'display':'block'});
                 btn_add_tbody.css({'display':'block'});
             }
-            var html_head = '';
-            var html_body = '';
+            var html_head = '<th>SKU</th>';
+            var html_body = '<td><input type="text" class="form-control" placeholder="SKU"></td>';
             for(var i = 0; i < selected.length; i++){
                 html_head += '<th class="min-width">'+$(selected[i]).text()+'</th>';
                 html_body +='<td>'+
