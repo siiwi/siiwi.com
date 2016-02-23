@@ -159,8 +159,10 @@
                         $(".setting-language").click(function(){
                             var language = $(this).attr('language');
                             var cookie_language = $.cookie('language');
+                            var host = window.location.host;
+                            var path = "<?php echo $frame_navigation_index['config_app_path'];?>";
                             if(cookie_language != language) {
-                                $.cookie('language', language, {expires: 30, path: '/'});
+                                $.cookie('language', language, {expires: 30, path: path, domain: host});
                                 window.location.reload();
                             }
                         })

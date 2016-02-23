@@ -61,7 +61,6 @@ function modification($filename) {
 // Autoloader
 function autoload($class) {
 	$file = DIR_SYSTEM . 'library/' . str_replace('\\', '/', strtolower($class)) . '.php';
-
 	if (is_file($file)) {
 		include_once(modification($file));
 		return true;

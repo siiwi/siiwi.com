@@ -35,14 +35,14 @@ Class ControllerAccountLogin extends \Siiwi\Dashboard\BaseController
 
             if($this->api->getResponseStatus()) {
                 if($remember) {
-                    $cookie['email'] = $email;
+                    $cookie['email']    = $email;
                     $cookie['password'] = $password;
-                    $cookie = base64_encode(json_encode($cookie));
-                    setcookie('UIN', $cookie, time() + 60 * 60 * 24 * 30);
+                    $cookie             = base64_encode(json_encode($cookie));
+                    setcookie('UIN', $cookie, time() + 60 * 60 * 24 * 30, $this->config->get('config_app_path'), $this->request->server['HTTP_HOST']);
                 }
-                $user_info = $this->api->getResponseData();
+                $user_info          = $this->api->getResponseData();
                 $this->session->set('user_info', $user_info['user_info']);
-                $response['status']  = true;
+                $response['status'] = true;
             } else {
                 $response['status']  = false;
             }

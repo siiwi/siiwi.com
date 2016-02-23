@@ -79,7 +79,7 @@ if (isset($request->cookie['language']) && array_key_exists($request->cookie['la
 }
 
 if (!$request->cookie['language']) {
-    setcookie('language', $language, time() + 60 * 60 * 24 * 30, '/');
+    setcookie('language', $language, time() + 60 * 60 * 24 * 30, $config->get('config_app_path'), $request->server['HTTP_HOST']);
     $request->cookie['language'] = $language;
 }
 
