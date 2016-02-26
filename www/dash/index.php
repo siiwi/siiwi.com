@@ -48,7 +48,8 @@ $registry->set('session', $session);
 // 获取语言配置
 $api->get('language/get');
 if(!$api->getResponseStatus()) {
-    $language_list = $config->get('language');
+    $config->load('language');
+    $language_list = $config->get('lang');
 } else {
     foreach ($api->getResponseData() as $result) {
         $language_list[$result['code']] = $result;
