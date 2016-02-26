@@ -28,9 +28,9 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
     public function add()
     {
         if($this->request->isAjax()) {
-            if($this->request->isPost()) {
-
-            }
+//            if($this->request->isPost()) {
+//
+//            }
 
             if($this->request->isGet()) {
                 // 品牌列表
