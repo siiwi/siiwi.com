@@ -10,3 +10,5 @@ www/dash/config.php
 www/system/logs/error.txt
 
 .idea/
+
+www/upload/*

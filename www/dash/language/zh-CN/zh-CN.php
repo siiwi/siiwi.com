@@ -16,6 +16,7 @@ $_['common']['cancel']                                                         =
 $_['common']['ok']                                                             = '确认';
 $_['common']['setting']                                                        = '设置';
 $_['common']['add']                                                            = '添加';
+$_['common']['upload']                                                         = '上传';
 
 // frame/navigation/index
 $_['frame_navigation_index']['name']                                           = 'Siiwi.com';
@@ -346,6 +347,7 @@ $_['product_main_add']['next']                                                 =
 $_['product_main_add']['finish']                                               = '完成';
 $_['product_main_add']['basic_info']                                           = '产品基本信息';
 $_['product_main_add']['attribute_info']                                       = '产品规格信息';
+$_['product_main_add']['resource_info']                                        = '产品资源信息';
 $_['product_main_add']['name']                                                 = '名称';
 $_['product_main_add']['sn']                                                   = '产品编号';
 $_['product_main_add']['brand']                                                = '品牌';
@@ -363,6 +365,10 @@ $_['product_main_add']['message']['invalid_name_length']                       =
 $_['product_main_add']['message']['empty_category']                            = '请选择产品分类';
 $_['product_main_add']['message']['empty_brand']                               = '请选择品牌';
 $_['product_main_add']['message']['empty_supplier']                            = '请选择供应商';
+$_['product_main_add']['message']['empty_sku']                                 = '请输入商品SKU';
+$_['product_main_add']['message']['empty_purchase_price']                      = '请输入商品进货价';
+$_['product_main_add']['message']['empty_stock']                               = '请输入商品库存量';
+$_['product_main_add']['message']['product_sku_repeat']                        = '存在相同的SKU';
 
 // user/group/index
 $_['user_group_index']['title']                                                = '用户组管理';

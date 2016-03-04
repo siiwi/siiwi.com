@@ -27,6 +27,7 @@ $msg[] = 'empty_user_config_key';
 $msg[] = 'empty_update_supplier_info';
 $msg[] = 'empty_update_brand_info';
 $msg[] = 'empty_group_id';
+$msg[] = 'empty_sku_attribute';
 
 $msg[] = 'invalid_key';
 $msg[] = 'invalid_client_status';
@@ -60,5 +61,8 @@ $msg[] = 'user_config_key_already_exist';
 
 $msg[] = 'no_record';
 $msg[] = 'user_not_allowed';
+
+$msg[] = 'duplication_sku';
+$msg[] = 'duplication_sku_attribute';
 
 $_['api'] = $msg;

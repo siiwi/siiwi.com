@@ -28,10 +28,6 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
     public function add()
     {
         if($this->request->isAjax()) {
-//            if($this->request->isPost()) {
-//
-//            }
-
             if($this->request->isGet()) {
                 // 品牌列表
                 $this->api->get('brand/get', array('status'=>1));
@@ -55,6 +51,13 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
                 }
 
                 $this->response->setOutput($this->load->view('product/main/add.html', $this->data));
+            }
+
+            if($this->request->isPost()) {
+                $data = $this->request->getHttpPost('data');
+                $this->api->post('product/add', $data);
+
+
             }
         }
     }

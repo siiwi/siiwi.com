@@ -6,7 +6,7 @@
             <button data-dismiss="modal" class="close" type="button">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title"><?php echo $language->get('product_main_add')->title;?></h4>
+            <h4 class="modal-title"><?=$language->get('product_main_add')->title;?></h4>
         </div>
 
         <div class="wz-heading wz-w-label bg-info">
@@ -19,40 +19,31 @@
 
             <!--Start Nav-->
             <ul class="wz-steps wz-icon-bw wz-nav-off text-lg">
-                <li class="col-xs-3 active">
+                <li class="col-xs-4 active">
                     <a data-toggle="tab" href="#product_main_add_step_tab_1" aria-expanded="true">
                         <span class="icon-wrap icon-wrap-xs icon-circle bg-light">
                             <span class="wz-icon icon-txt text-bold">1</span>
                             <i class="wz-icon-done fa fa-check"></i>
                         </span>
-                        <small class="wz-desc box-block mar-top"><?php echo $language->get('product_main_add')->basic_info;?></small>
+                        <small class="wz-desc box-block mar-top"><?=$language->get('product_main_add')->basic_info;?></small>
                     </a>
                 </li>
-                <li class="col-xs-3">
+                <li class="col-xs-4">
                     <a data-toggle="tab" href="#product_main_add_step_tab_2">
                         <span class="icon-wrap icon-wrap-xs icon-circle bg-light">
                             <span class="wz-icon icon-txt text-bold">2</span>
                             <i class="wz-icon-done fa fa-check"></i>
                         </span>
-                        <small class="wz-desc box-block mar-top"><?php echo $language->get('product_main_add')->attribute_info;?></small>
+                        <small class="wz-desc box-block mar-top"><?=$language->get('product_main_add')->attribute_info;?></small>
                     </a>
                 </li>
-                <li class="col-xs-3">
+                <li class="col-xs-4">
                     <a data-toggle="tab" href="#product_main_add_step_tab_3">
                         <span class="icon-wrap icon-wrap-xs icon-circle bg-light">
                             <span class="wz-icon icon-txt text-bold">3</span>
                             <i class="wz-icon-done fa fa-check"></i>
                         </span>
-                        <small class="wz-desc box-block mar-top">Address</small>
-                    </a>
-                </li>
-                <li class="col-xs-3">
-                    <a data-toggle="tab" href="#product_main_add_step_tab_4">
-                        <span class="icon-wrap icon-wrap-xs icon-circle bg-light">
-                            <span class="wz-icon icon-txt text-bold">4</span>
-                            <i class="wz-icon-done fa fa-check"></i>
-                        </span>
-                        <small class="wz-desc box-block mar-top">Finish</small>
+                        <small class="wz-desc box-block mar-top"><?=$language->get('product_main_add')->resource_info;?></small>
                     </a>
                 </li>
             </ul>
@@ -62,7 +53,6 @@
         <div class="form-horizontal">
             <div class="panel-body">
                 <div class="tab-content">
-
                     <!--First tab-->
                     <div id="product_main_add_step_tab_1" class="tab-pane active in">
                         <div class="form-group">
@@ -135,23 +125,8 @@
                     <!--Third tab-->
                     <div id="product_main_add_step_tab_3" class="tab-pane">
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">Phone Number</label>
-                            <div class="col-lg-7">
-                                <input type="text" placeholder="Phone number" name="phoneNumber" class="form-control">
-                            </div>
+                            <input id="upload_image" type="file" name="upload" multiple class="file-loading" />
                         </div>
-                        <div class="form-group">
-                            <label class="col-lg-3 control-label">Address</label>
-                            <div class="col-lg-7">
-                                <input type="text" placeholder="Address" name="address" class="form-control">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Fourth tab-->
-                    <div id="product_main_add_step_tab_4" class="tab-pane mar-btm text-center">
-                        <h4>Thank you</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
                     </div>
                 </div>
             </div>
@@ -168,24 +143,26 @@
         </div>
     </div>
 </div>
-<link href="/assets/plugins/x-editable/css/bootstrap-editable.css" rel="stylesheet">
+<link href="/assets/plugins/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+<script src="/assets/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="/assets/plugins/bootstrap-fileinput/js/fileinput_locale_zh.js"></script>
 <script src="/assets/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-<script src="/assets/plugins/x-editable/js/bootstrap-editable.min.js"></script>
 <script>
 var product_add_message = <?php echo json_encode($language->get('product_main_add')->message);?> || '';
 var params = {};
+params.attribute = {};
 $(function(){
-    // step-1 供应商select样式
+    // 供应商样式
     $("select[name=add_product_supplier]").chosen({ width: '100%' }).change(function(){
         params.supplier_id = parseInt($("select[name=add_product_supplier]").val());
     });
 
-    // step-1 品牌select样式
+    // 品牌样式
     $("select[name=add_product_brand]").chosen({ width: '100%' }).change(function(){
         params.brand_id = parseInt($("select[name=add_product_brand]").val());
     });
 
-    // step-1 分类select样式
+    // 分类样式
     $("select[name=add_product_category]").chosen({ width: '100%' }).change(function(){
         params.category_id = parseInt($(this).val());
         if(params.category_id) {
@@ -198,17 +175,20 @@ $(function(){
                     var td_html = '<tbody>';
                     for(var i = 0; i<res.data.attribute_list.length; i++) {
                         th_html += '<th class="min-width text-center">'+res.data.attribute_list[i].name+'</th>';
-                        td_html += '<td><input type="text" class="form-control col-xs-2" value="" /></td>';
+                        td_html += '<td><input type="text" class="form-control col-xs-2" attribute_id="'+res.data.attribute_list[i].id+'" name="attribute['+res.data.attribute_list[i].id+'][]" value="" /></td>';
                     }
-                    th_html += '<th class="min-width text-center text-danger"><?php echo $language->get("product_main_add")->sku;?></th>';
+                    th_html += '<th class="min-width text-center"><?php echo $language->get("product_main_add")->sku;?></th>';
                     th_html += '<th class="min-width text-center text-danger"><?php echo $language->get("product_main_add")->purchase_price;?></th>';
                     th_html += '<th class="min-width text-center text-danger"><?php echo $language->get("product_main_add")->stock;?></th>';
                     th_html += '<th class="min-width text-center"><?php echo $language->get("common")->operating;?></th>';
                     th_html += '</thead>';
-                    td_html += '<td><input type="text" class="form-control col-xs-2" value=""></td>';
-                    td_html += '<td><input type="text" class="form-control col-xs-2" value=""></td>';
-                    td_html += '<td><input type="text" class="form-control col-xs-2" value=""></td>';
-                    td_html += '<td class="text-center"><div style="margin-top:4px;"><button class="btn btn-xs btn-danger delete_sku" style="display:none" data-toggle="tooltip" data-placement="top" title="<?php echo $language->get("common")->delete;?>"><i class="fa fa-times"></i></button>&nbsp;&nbsp;<button class="btn btn-xs btn-info add_sku" data-toggle="tooltip" data-placement="top" title="<?php echo $language->get("common")->add;?>"><i class="fa fa-plus"></i></button></div></td>';
+                    td_html += '<td><input type="text" class="form-control col-xs-2" attribute_id="sku" name="attribute[sku][]" value=""></td>';
+                    td_html += '<td><input type="text" class="form-control col-xs-2" attribute_id="purchase_price" name="attribute[purchase_price][]" value=""></td>';
+                    td_html += '<td><input type="text" class="form-control col-xs-2" attribute_id="stock" name="attribute[stock][]" value=""></td>';
+                    td_html += '<td class="text-center"><div style="margin-top:4px;">' +
+                            '<button type="button" class="btn btn-xs btn-danger delete_sku" style="display:none" data-toggle="tooltip" data-placement="top" title="<?=$language->get("common")->delete;?>"><i class="fa fa-times"></i></button>&nbsp;&nbsp;' +
+                            '<button type="button" class="btn btn-xs btn-info add_sku" data-toggle="tooltip" data-placement="top" title="<?=$language->get("common")->add;?>"><i class="fa fa-plus"></i></button>' +
+                            '</div></td>';
                     td_html += '</tbody>';
                     html = '<table class="table table-striped">' + th_html + td_html + '</table>';
                 } else {
@@ -245,9 +225,6 @@ $(function(){
         nextSelector     : '.next',
         previousSelector : '.previous',
         finishSelector   : '.finish',
-        onTabClick: function(tab, navigation, index) {
-            return false;
-        },
         onInit : function(){
             $('.modal-content').find('.finish').hide().prop('disabled', true);
         },
@@ -269,18 +246,20 @@ $(function(){
                 $('.modal-content').find('.finish').hide().prop('disabled', true);
             }
         },
-        onNext: function(a, b, c) {
+        onNext: function(a, b, step) {
             // check step one
-            if(c == 1) {
-                params.name = $("input[name=add_product_name]").val();
-                params.sn   = $("input[name=add_product_sn]").val();
-                params.url  = $("input[name=add_product_url]").val();
+            if(step == 1) {
+                params.name          = $("input[name=add_product_name]").val();
+                params.sn            = $("input[name=add_product_sn]").val();
+                params.purchase_url  = $("input[name=add_product_url]").val();
                 if(!params.name) {
+                    $("input[name=add_product_name]").focus();
                     swal('', product_add_message.empty_name, 'warning');
                     return false;
                 }
 
                 if(params.name.length < 2 || params.name.length > 50) {
+                    $("input[name=add_product_name]").focus();
                     swal('', product_add_message.invalid_name_length, 'warning');
                     return false;
                 }
@@ -301,24 +280,110 @@ $(function(){
                 }
             }
 
-            if(c == 2) {
-                $("input[name^='sku[sku]']").each(function(a, b){
-                    console.log(a);
-                    console.log(b);
-                    console.log($(this).val());
-                });
-                return false;
+            // check step two
+            if(step == 2) {
+                var status = true;
+                var attribute = {};
+                var hash = [];
+
+                if(status) {
+                    $("#product_main_add_step_tab_2_table").find('tbody>tr').each(function(a, b){
+                        a = a+1;
+                        attribute[a] = [];
+                        params.attribute[a] = {};
+                        $(this).find('td>input').each(function(c, d){
+                            if($(this).attr('attribute_id') && !isNaN($(this).attr('attribute_id'))) {
+                                if(attribute[a][0]) {
+                                    attribute[a][0] = attribute[a][0] + '#' + $(this).attr('attribute_id') + '-' + $(this).val();
+                                } else {
+                                    attribute[a][0] = $(this).attr('attribute_id') + '-' + $(this).val();
+                                }
+                            }
+                            params.attribute[a][$(this).attr('attribute_id')] = $(this).val();
+                        });
+
+                        // 判断是否存在重复的SKU规格
+                        if(hash[attribute[a][0]]) {
+                            swal('', product_add_message.product_sku_repeat, 'warning');
+                            status = false;
+                            params.attribute = {};
+                            return false;
+                        } else {
+                            hash[attribute[a][0]] = true;
+                        }
+                    });
+                }
+
+                if(status) {
+                    $("input[name^='attribute[purchase_price]']").each(function(a, b){
+                        if($(this).val() == '') {
+                            $("input[name^='attribute[purchase_price]']").eq(a).focus();
+                            swal('', product_add_message.empty_purchase_price, 'warning');
+                            status = false;
+                            return false;
+                        }
+                    });
+                }
+
+                if(status) {
+                    $("input[name^='attribute[stock]']").each(function(a, b){
+                        if($(this).val() == '') {
+                            $("input[name^='attribute[stock]']").eq(a).focus();
+                            swal('', product_add_message.empty_stock, 'warning');
+                            status = false;
+                            return false;
+                        }
+                    });
+                }
+
+                // 如果用户填写了商家SKU，判断SKU是否重复
+                if(status) {
+                    var sku_hash = [];
+                    $("input[name^='attribute[sku]']").each(function(a, b){
+                        if($(this).val()) {
+                            var key = $(this).val();
+                            if(sku_hash[key]) {
+                                $("input[name^='attribute[sku]']").eq(a).focus();
+                                swal('', product_add_message.product_sku_repeat, 'warning');
+                                status = false;
+                                return false;
+                            } else {
+                                sku_hash[key] = true;
+                            }
+                        }
+                    });
+                }
+
+                return status;
             }
         },
-        onPrevious: function(a, b, c) {
-            // console.log(a);
-            // console.log(b);
-            // console.log(c);
-        },
         onFinish: function(a, b, c) {
-            // console.log(a);
-            // console.log(b);
-            // console.log(c);
+            $.ajax({
+                url: "<?php echo $url->link('product/main/add');?>",
+                data: {data: params},
+                type: 'POST',
+                dataType: 'json',
+                success: function(res) {
+                    console.log(res);
+                }
+            });
+        }
+    });
+
+    // 图片上传
+    params.image = {};
+    $("#upload_image").fileinput({
+        language: 'zh',
+        uploadUrl: "<?php echo $url->link('common/upload');?>",
+        allowedFileExtensions: ["jpg", "png", "gif"],
+        allowedFileTypes: ["image"],
+        showClose: false,
+        maxFileSize: 800,
+        maxFileCount: 10
+    }).on('fileuploaded', function(event, data, previewId, index) {
+        if(data.response.status) {
+            index = index+1;
+            params.image[index] = data.response.data.path;
         }
     });
 });
