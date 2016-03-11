@@ -36,7 +36,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th><?php echo $language->get('product_main_content')->sn;?></th>
                                         <th><?php echo $language->get('product_main_content')->name;?></th>
+                                        <th><?php echo $language->get('product_main_content')->category;?></th>
                                         <th><?php echo $language->get('product_main_content')->purchase_price;?></th>
                                         <th><?php echo $language->get('product_main_content')->sales_num;?></th>
                                         <th><?php echo $language->get('product_main_content')->stock_num;?></th>
@@ -48,13 +50,30 @@
                                 <?php if(is_array($product_main_content['product_list']) && !empty($product_main_content['product_list'])):?>
                                 <?php foreach($product_main_content['product_list'] as $product):?>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>
+                                            <div class="lightbox">
+                                                <?php if(is_array($product['resource']) && !empty($product['resource'])):?>
+                                                    <?php foreach($product['resource'] as $key=>$value):?>
+                                                        <div data-src="<?=$value;?>" style="cursor:pointer;">
+                                                            <div <?=($key>0)?'style="display: none;"':''?>>
+                                                                <img src="<?=$value;?>" width='56'>
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach;?>
+                                                <?php endif;?>
+                                            </div>
+                                        </td>
+                                        <td><?=$product['product_id'];?></td>
+                                        <td style="width: 20%; word-wrap: break-word;"><a href="<?=($product['purchase_url'])?$product['purchase_url']:'javascript:;';?>" target="_blank"><?=$product['name'];?></a></td>
+                                        <td style="width: 15%; word-wrap: break-word;"><?=$product['category_name'];?></td>
+                                        <td><?=$product['purchase_price'];?></td>
+                                        <td>0</td>
+                                        <td><?=$product['stock'];?></td>
+                                        <td>-</td>
+                                        <td>
+                                            <button class="btn btn-xs btn-default add-tooltip" data-toggle="tooltip"  data-original-title="<?php echo $language->get('common')->edit;?>" data-container="body" product_id="<?php echo $product['product_id'];?>"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-xs btn-danger add-tooltip" data-toggle="tooltip" data-original-title="<?php echo $language->get('common')->delete;?>" data-container="body" product_id="<?php echo $product['product_id'];?>"><i class="fa fa-times"></i></button>
+                                        </td>
                                     </tr>
                                 <?php endforeach;?>
                                 <?php else:?>
@@ -65,7 +84,7 @@
                                 </tbody>
                             </table>
                             <div class="pull-right">
-
+                                <?php echo $product_main_content['pagination'];?>
                             </div>
                         </div>
                     </div>
@@ -81,6 +100,8 @@
     <div id='productMainContentModal' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"></div>
     <!--End modal-->
 </div>
+<link href="/assets/plugins/light-gallery/lightGallery.min.css" rel="stylesheet" />
+<script src="/assets/plugins/light-gallery/lightGallery.min.js"></script>
 <script type="text/javascript">
 $(function(){
     $(".ShowProductMainAddModal").click(function(){
@@ -90,5 +111,7 @@ $(function(){
             $('#productMainContentModal').modal('show');
         });
     });
+
+    $('.lightbox').lightGallery();
 })
 </script>

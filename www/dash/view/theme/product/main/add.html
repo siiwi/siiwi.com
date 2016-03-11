@@ -364,7 +364,16 @@ $(function(){
                 type: 'POST',
                 dataType: 'json',
                 success: function(res) {
-                    console.log(res);
+                    if(res.status) {
+                        swal({
+                            title: '',
+                            text: res.message,
+                            type: "success",
+                            confirmButtonText: "OK"
+                        }, function(){
+                            window.location.href='<?php echo $url->link("product/main");?>';
+                        });
+                    }
                 }
             });
         }

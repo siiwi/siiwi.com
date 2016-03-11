@@ -32,12 +32,17 @@ class DB extends \DB
         return $query->row;
     }
 
-    public function fetchAll($table, $whereArr=array(), $limitArr=array())
+    public function fetchAll($table, $whereArr=array(), $limitArr=array(), $orderArr=array())
     {
         $whereSql = $this->getWhereSql($whereArr);
         $limitSql = $this->getLimitSql($limitArr);
+        $orderSql = $this->getOrderSql($orderArr);
 
         $sql = "SELECT * FROM $table WHERE " . $whereSql;
+
+        if($orderSql) {
+            $sql .= ' ORDER BY ' . $orderSql;
+        }
 
         if($limitSql) {
             $sql .= ' LIMIT ' . $limitSql;
@@ -189,6 +194,17 @@ class DB extends \DB
         }
 
         return $limit;
+    }
+
+    public function getOrderSql($orderArr)
+    {
+        $order  = '';
+
+        if(is_array($orderArr) && !empty($orderArr)) {
+            $order = $orderArr['key'] . ' ' . $orderArr['value'];
+        }
+
+        return $order;
     }
 
     public function ximplode($array)

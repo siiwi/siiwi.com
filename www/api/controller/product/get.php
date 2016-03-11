@@ -12,14 +12,12 @@ class ControllerProductGet extends \Siiwi\Api\Controller
         $this->load->model('global/token');
         $this->load->model('user/main');
         $this->load->model('product/main');
-        $this->load->model('product/sku');
         $this->load->model('product/attribute');
         $this->load->model('product/resource');
         $this->load->model('resource/main');
         $this->load->model('attribute/main');
         $this->load->model('brand/main');
         $this->load->model('supplier/main');
-        $this->load->model('category/main');
         $this->load->model('category/description');
 
         $this->verifyToken();
@@ -28,7 +26,11 @@ class ControllerProductGet extends \Siiwi\Api\Controller
 
         $this->pagination();
 
-        $this->product_list = $this->model_product_main->fetchAll($this->where_array, $this->limit_array);
+        $order_array = array('key'=>'product_id', 'value'=>'desc');
+
+        $this->product_list = $this->model_product_main->fetchAll($this->where_array, $this->limit_array, $order_array);
+
+        $this->product_total = $this->model_product_main->count($this->where_array);
 
         $this->response->jsonOutput('success', $this->setResponseData());
     }
@@ -64,83 +66,44 @@ class ControllerProductGet extends \Siiwi\Api\Controller
         $data = array();
 
         if(is_array($this->product_list) && !empty($this->product_list)) {
-            foreach($this->product_list as $product_info) {
-                $product_sku = $this->model_product_sku->fetchAll(array('product_id'=>$product_info['product_id']));
+            foreach($this->product_list as $key=>$product) {
+                // 获取产品资源
+                $resource = $this->model_product_resource->fetchAll(array('product_id'=>$product['product_id']));
+                if(is_array($resource) && !empty($resource)) {
+                    foreach($resource as $img) {
+                        $this->product_list[$key]['resource'][] = $this->config->get('config_img_url') . $img['path'];
+                    }
+                }
 
-                if(is_array($product_sku) && !empty($product_sku)) {
-                    foreach($product_sku as $sku) {
-                        $product['sku'] = $sku['sku'];
-                        $product['product_id'] = $product_info['product_id'];
-                        $product['name'] = $product_info['name'];
-                        $product['url'] = $product_info['url'];
-                        $product['attribute'] = array();
-                        $product['resource'] = array();
-                        $product['brand'] = array();
-                        $product['supplier'] = array();
-                        $product['category'] = array();
-                        $product['stock'] = $sku['stock'];
-                        $product['purchase_price'] = $sku['purchase_price'];
-                        $product['status'] = $product_info['status'];
+                // 获取品牌信息
+                $brand_info = $this->model_brand_main->fetchOne(array('brand_id'=>$product['brand_id']));
+                $this->product_list[$key]['brand_name'] = $brand_info['name'];
 
-                        // 属性
-                        $product_attribute = $this->model_product_attribute->fetchAll(array('sku'=>$sku['sku']));
-                        if(is_array($product_attribute) && !empty($product_attribute)) {
-                            foreach($product_attribute as $attribute) {
-                                $attribute_info = $this->model_attribute_main->fetchOne(array('attribute_id'=>$attribute['attribute_id']));
-                                if(is_array($attribute_info) && !empty($attribute_info)) {
-                                    $product['attribute'][$attribute['attribute_id']]['attribute_id'] = $attribute_info['attribute_id'];
-                                    $product['attribute'][$attribute['attribute_id']]['name'] = $attribute_info['name'];
-                                    $product['attribute'][$attribute['attribute_id']]['value'] = $attribute['value'];
-                                }
-                            }
-                        }
+                // 获取分类信息
+                $category_info = $this->model_category_description->fetchOne(array('category_id'=>$product['category_id']));
+                $this->product_list[$key]['category_name'] = $category_info['name'];
 
-                        // 资源
-                        $product_resource = $this->model_product_resource->fetchAll(array('sku'=>$sku['sku']));
-                        if(is_array($product_resource) && !empty($product_resource)) {
-                            foreach($product_resource as $resource) {
-                                $resource_info = $this->model_resource_main->fetchOne(array('resource_id'=>$resource['resource_id']));
-                                if(is_array($resource_info) && !empty($resource_info)) {
-                                    $product['resource'][$resource_info['resource_id']] = $resource_info['path'];
-                                }
-                            }
-                        }
+                // 获取供应商信息
+                $supplier_info = $this->model_supplier_main->fetchOne(array('supplier_id'=>$product['supplier_id']));
+                $this->product_list[$key]['supplier_name'] = $supplier_info['name'];
 
-                        // 品牌
-                        $brand_info = $this->model_brand_main->fetchOne(array('brand_id'=>$product_info['brand_id']));
-                        if(is_array($brand_info) && !empty($brand_info)) {
-                            $product['brand']['brand_name'] = $brand_info['name'];
-                            $product['brand']['brand_id'] = $brand_info['brand_id'];
-                        }
-
-                        // 供应商
-                        $supplier_info = $this->model_supplier_main->fetchOne(array('supplier_id'=>$product_info['supplier_id']));
-                        if(is_array($supplier_info) && !empty($supplier_info)) {
-                            $product['supplier']['supplier_name'] = $supplier_info['name'];
-                            $product['supplier']['supplier_id'] = $supplier_info['supplier_id'];
-                        }
-
-                        // 类别
-                        $category_info = $this->model_category_main->fetchOne(array('category_id'=>$product_info['category_id']));
-                        if(is_array($category_info) && !empty($category_info)) {
-                            $category_description_info = $this->model_category_description->fetchAll(array('category_id'=>$product_info['category_id']));
-
-                            if(is_array($category_description_info) && !empty($category_description_info)) {
-                                foreach($category_description_info as $description) {
-                                    $product['category'][$description['language_id']]['category_id'] = $description['category_id'];
-                                    $product['category'][$description['language_id']]['name'] = $description['name'];
-                                }
-                            }
-                        }
-
-                        $data[] = $product;
+                // 获取产品规格信息
+                $attribute_list = $this->model_product_attribute->fetchAll(array('product_id'=>$product['product_id'], 'status'=>1));
+                if(is_array($attribute_list) && !empty($attribute_list)) {
+                    foreach($attribute_list as $k=>$attribute) {
+                        $attribute_info = $this->model_attribute_main->fetchOne(array('attribute_id'=>$attribute['attribute_id']));
+                        $attr['attribute_id'] = $attribute['attribute_id'];
+                        $attr['attribute_name'] = $attribute_info['name'];
+                        $attr['attribute_value'] = $attribute['value'];
+                        $this->product_list[$key]['attribute'][$k] = $attr;
                     }
                 }
             }
         }
 
         return array(
-            'product_list' => $data
+            'product_list'  => $this->product_list,
+            'product_total' => $this->product_total
         );
     }
 }

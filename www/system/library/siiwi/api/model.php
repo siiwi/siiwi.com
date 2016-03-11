@@ -14,9 +14,9 @@ class Model extends \Model
         return $this->db->fetchRow($this->db_table_name, $where);
     }
 
-    public function fetchAll($where, $limit=array())
+    public function fetchAll($where, $limit=array(), $order=array())
     {
-        return $this->db->fetchAll($this->db_table_name, $where, $limit);
+        return $this->db->fetchAll($this->db_table_name, $where, $limit, $order);
     }
 
     public function getLastId()

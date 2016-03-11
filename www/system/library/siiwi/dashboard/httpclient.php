@@ -69,7 +69,7 @@ class HttpClient
         if(is_array($this->put_params) && !empty($this->put_params)) {
             $url .= '&'.http_build_query($this->put_params);
         }
-        
+
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);

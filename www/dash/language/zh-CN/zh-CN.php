@@ -332,9 +332,11 @@ $_['product_attribute_value_delete']['response']['no_record']                  =
 $_['product_main_index']['title']                                              = '产品管理';
 
 // product/main/content
+$_['product_main_content']['sn']                                               = '产品编号';
 $_['product_main_content']['title']                                            = '产品管理';
 $_['product_main_content']['search']                                           = '搜索产品';
 $_['product_main_content']['name']                                             = '产品名称';
+$_['product_main_content']['category']                                         = '产品分类';
 $_['product_main_content']['purchase_price']                                   = '进货价';
 $_['product_main_content']['sales_num']                                        = '销售量';
 $_['product_main_content']['stock_num']                                        = '库存量';
@@ -369,6 +371,21 @@ $_['product_main_add']['message']['empty_sku']                                 =
 $_['product_main_add']['message']['empty_purchase_price']                      = '请输入商品进货价';
 $_['product_main_add']['message']['empty_stock']                               = '请输入商品库存量';
 $_['product_main_add']['message']['product_sku_repeat']                        = '存在相同的SKU';
+$_['product_main_add']['response']['success']                                  = '添加成功';
+$_['product_main_add']['response']['empty_name']                               = '添加失败，产品名称为空';
+$_['product_main_add']['response']['invalid_name_length']                      = '添加失败，产品名称长度在2~50位';
+$_['product_main_add']['response']['empty_category_id']                        = '添加失败，产品分类不能为空';
+$_['product_main_add']['response']['empty_brand_id']                           = '添加失败，产品品牌不能为空';
+$_['product_main_add']['response']['empty_supplier_id']                        = '添加失败，产品供应商不能为空';
+$_['product_main_add']['response']['empty_sku_attribute']                      = '添加失败，产品SKU规格不能为空';
+$_['product_main_add']['response']['invalid_category_id']                      = '添加失败，产品分类异常';
+$_['product_main_add']['response']['user_not_allowed']                         = '添加失败，用户无当前产品分类管理权限';
+$_['product_main_add']['response']['invalid_brand_id']                         = '添加失败，产品品牌异常';
+$_['product_main_add']['response']['invalid_supplier_id']                      = '添加失败，产品供应商异常';
+
+
+
+
 
 // user/group/index
 $_['user_group_index']['title']                                                = '用户组管理';

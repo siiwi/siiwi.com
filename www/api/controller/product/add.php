@@ -154,6 +154,7 @@ class ControllerProductAdd extends \Siiwi\Api\Controller
                 }
 
                 $this->product_info[$key]['name'] = $this->request->getHttpPost('name');
+                $this->product_info[$key]['user_id'] = $this->user_id;
                 $this->product_info[$key]['store_id'] = $this->request->getHttpPost('store_id');
                 $this->product_info[$key]['category_id'] = $this->request->getHttpPost('category_id');
                 $this->product_info[$key]['brand_id'] = $this->request->getHttpPost('brand_id');
