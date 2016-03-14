@@ -341,6 +341,7 @@ $_['product_main_content']['purchase_price']                                   =
 $_['product_main_content']['sales_num']                                        = '销售量';
 $_['product_main_content']['stock_num']                                        = '库存量';
 $_['product_main_content']['status']                                           = '状态';
+$_['product_main_content']['delete_confirm']                                   = '确认删除该产品？';
 
 // product/main/add
 $_['product_main_add']['title']                                                = '添加新产品';
@@ -383,9 +384,12 @@ $_['product_main_add']['response']['user_not_allowed']                         =
 $_['product_main_add']['response']['invalid_brand_id']                         = '添加失败，产品品牌异常';
 $_['product_main_add']['response']['invalid_supplier_id']                      = '添加失败，产品供应商异常';
 
-
-
-
+// product/main/delete
+$_['product_main_delete']['response']['success']                               = '删除成功';
+$_['product_main_delete']['response']['empty_product_id']                      = '删除失败，产品ID为空';
+$_['product_main_delete']['response']['invalid_product_id']                    = '删除失败，产品ID错误';
+$_['product_main_delete']['response']['empty_update_product_info']             = '删除失败，待更新产品信息为空';
+$_['product_main_delete']['response']['system_error']                          = '删除失败，系统异常';
 
 // user/group/index
 $_['user_group_index']['title']                                                = '用户组管理';

@@ -92,4 +92,19 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
             }
         }
     }
+
+    public function delete()
+    {
+        if($this->request->isPost() && $this->request->isAjax()) {
+            $put_params['product_id'] = $this->request->getHttpPost('product_id');
+            $post_params['status']  = 0;
+
+            // 软删除
+            $this->api->put('product/update', $put_params, $post_params);
+
+            $response['status']  = $this->api->getResponseStatus();
+            $response['message'] = $this->language->get('product_main_delete')->response[$this->api->getResponseMessage()];
+            $this->response->outputJson($response);
+        }
+    }
 }

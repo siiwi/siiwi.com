@@ -72,7 +72,7 @@
                                         <td>-</td>
                                         <td>
                                             <button class="btn btn-xs btn-default add-tooltip" data-toggle="tooltip"  data-original-title="<?php echo $language->get('common')->edit;?>" data-container="body" product_id="<?php echo $product['product_id'];?>"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-xs btn-danger add-tooltip" data-toggle="tooltip" data-original-title="<?php echo $language->get('common')->delete;?>" data-container="body" product_id="<?php echo $product['product_id'];?>"><i class="fa fa-times"></i></button>
+                                            <button class="btn btn-xs btn-danger add-tooltip ShowProductDeleteModal" data-toggle="tooltip" data-original-title="<?php echo $language->get('common')->delete;?>" data-container="body" product_id="<?php echo $product['product_id'];?>"><i class="fa fa-times"></i></button>
                                         </td>
                                     </tr>
                                 <?php endforeach;?>
@@ -113,5 +113,43 @@ $(function(){
     });
 
     $('.lightbox').lightGallery();
+
+    // 删除产品modal
+    $(".ShowProductDeleteModal").click(function(){
+        var product_id = $(this).attr('product_id');
+        swal({
+            title: '',
+            text: "<?php echo $language->get('product_main_content')->delete_confirm;?>",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "<?php echo $language->get('common')->ok;?>",
+            cancelButtonText: "<?php echo $language->get('common')->cancel;?>",
+            closeOnConfirm: false
+        },function(){
+            var params = {};
+            params.product_id = product_id;
+
+            $.ajax({
+                url: "<?php echo $url->link('product/main/delete');?>",
+                type: 'POST',
+                data: params,
+                dataType: 'json',
+                success: function(response) {
+                    if(response.status) {
+                        swal({
+                            title: '',
+                            text: response.message,
+                            type: "success",
+                            confirmButtonText: "<?php echo $language->get('common')->ok;?>"
+                        }, function(){
+                            window.location.reload();
+                        });
+                    } else {
+                        swal('', response.message, 'error');
+                    }
+                }
+            });
+        });
+    });
 })
 </script>
