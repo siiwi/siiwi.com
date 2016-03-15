@@ -93,6 +93,29 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
         }
     }
 
+    public function edit()
+    {
+        if($this->request->isAjax() && $this->request->isGet()) {
+            $product_id = $this->request->getHttpGet('product_id');
+            $this->api->get('product/get', array('product_id'=>$product_id, 'status'=>1));
+
+            if($this->api->getResponseStatus()) {
+                $product_list = $this->api->getResponseData();
+                $this->data['product_main_edit']['product_info'] = $product_list['product_list']['0'];
+
+                $response['status']  = true;
+                $response['message'] = '';
+                $response['data']    = $this->load->view('product/main/edit.html', $this->data);
+            } else {
+                $response['status']  = false;
+                $response['message'] = $this->language->get('product_main_edit')->response['system_error'];
+                $response['data']    = '';
+            }
+
+            $this->response->outputJson($response);
+        }
+    }
+
     public function delete()
     {
         if($this->request->isPost() && $this->request->isAjax()) {
@@ -104,6 +127,21 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
 
             $response['status']  = $this->api->getResponseStatus();
             $response['message'] = $this->language->get('product_main_delete')->response[$this->api->getResponseMessage()];
+            $this->response->outputJson($response);
+        }
+    }
+
+    public function update()
+    {
+        if($this->request->isPost() && $this->request->isAjax()) {
+            $put_params['product_id']      = $this->request->getHttpPost('product_id');
+            $post_params['stock']          = $this->request->getHttpPost('stock');
+            $post_params['purchase_price'] = $this->request->getHttpPost('purchase_price');
+            $post_params['purchase_url']   = $this->request->getHttpPost('purchase_url');
+
+            $this->api->put('product/update', $put_params, $post_params);
+            $response['status']  = $this->api->getResponseStatus();
+            $response['message'] = $this->language->get('product_main_update')->response[$this->api->getResponseMessage()];
             $this->response->outputJson($response);
         }
     }

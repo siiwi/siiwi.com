@@ -30,6 +30,7 @@ $msg[] = 'empty_update_brand_info';
 $msg[] = 'empty_update_product_info';
 $msg[] = 'empty_group_id';
 $msg[] = 'empty_sku_attribute';
+$msg[] = 'empty_product_list';
 
 $msg[] = 'invalid_key';
 $msg[] = 'invalid_client_status';

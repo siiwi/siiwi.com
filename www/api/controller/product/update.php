@@ -54,5 +54,17 @@ class ControllerProductUpdate extends \Siiwi\Api\Controller
         if($this->request->getHttpPost('status') !== false) {
             $this->product_info['status'] = $this->request->getHttpPost('status');
         }
+
+        if(($this->request->getHttpPost('stock') !== false) && ($this->request->getHttpPost('stock') >= 0)) {
+            $this->product_info['stock'] = $this->request->getHttpPost('stock');
+        }
+
+        if(($this->request->getHttpPost('purchase_price') !== false) && ($this->request->getHttpPost('purchase_price') >= 0)) {
+            $this->product_info['purchase_price'] = $this->request->getHttpPost('purchase_price');
+        }
+
+        if($this->request->getHttpPost('purchase_url') !== false) {
+            $this->product_info['purchase_url'] = $this->request->getHttpPost('purchase_url');
+        }
     }
 }

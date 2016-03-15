@@ -29,6 +29,9 @@ class ControllerProductGet extends \Siiwi\Api\Controller
         $order_array = array('key'=>'product_id', 'value'=>'desc');
 
         $this->product_list = $this->model_product_main->fetchAll($this->where_array, $this->limit_array, $order_array);
+        if(!is_array($this->product_list) || empty($this->product_list)) {
+            $this->response->jsonOutputExit('empty_product_list');
+        }
 
         $this->product_total = $this->model_product_main->count($this->where_array);
 

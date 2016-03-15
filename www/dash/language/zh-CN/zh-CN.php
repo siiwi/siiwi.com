@@ -384,6 +384,25 @@ $_['product_main_add']['response']['user_not_allowed']                         =
 $_['product_main_add']['response']['invalid_brand_id']                         = '添加失败，产品品牌异常';
 $_['product_main_add']['response']['invalid_supplier_id']                      = '添加失败，产品供应商异常';
 
+// product/main/edit
+$_['product_main_edit']['title']                                               = '编辑产品';
+$_['product_main_edit']['name']                                                = '产品名称';
+$_['product_main_edit']['purchase_price']                                      = '产品进价';
+$_['product_main_edit']['purchase_url']                                        = '进货链接';
+$_['product_main_edit']['stock']                                               = '产品库存';
+$_['product_main_edit']['message']['system_error']                             = '网络异常，获取产品信息失败';
+$_['product_main_edit']['message']['empty_purchase_price']                     = '请输入商品进货价';
+$_['product_main_edit']['message']['empty_stock']                              = '请输入商品库存量';
+$_['product_main_edit']['message']['invalid_purchase_price']                   = '请输入有效的商品进货价';
+$_['product_main_edit']['message']['invalid_stock']                            = '请输入有效的商品库存量';
+$_['product_main_edit']['response']['system_error']                            = '网络异常，获取产品信息失败';
+
+// product/main/update
+$_['product_main_update']['response']['success']                               = '更新成功';
+$_['product_main_update']['response']['empty_product_id']                      = '更新失败，产品ID不能为空';
+$_['product_main_update']['response']['invalid_product_id']                    = '更新失败，产品ID无效';
+$_['product_main_update']['response']['empty_update_product_info']             = '更新失败，待更新产品信息为空';
+
 // product/main/delete
 $_['product_main_delete']['response']['success']                               = '删除成功';
 $_['product_main_delete']['response']['empty_product_id']                      = '删除失败，产品ID为空';

@@ -71,7 +71,7 @@
                                         <td><?=$product['stock'];?></td>
                                         <td>-</td>
                                         <td>
-                                            <button class="btn btn-xs btn-default add-tooltip" data-toggle="tooltip"  data-original-title="<?php echo $language->get('common')->edit;?>" data-container="body" product_id="<?php echo $product['product_id'];?>"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-xs btn-default add-tooltip ShowProductEditModal" data-toggle="tooltip"  data-original-title="<?php echo $language->get('common')->edit;?>" data-container="body" product_id="<?php echo $product['product_id'];?>"><i class="fa fa-pencil"></i></button>
                                             <button class="btn btn-xs btn-danger add-tooltip ShowProductDeleteModal" data-toggle="tooltip" data-original-title="<?php echo $language->get('common')->delete;?>" data-container="body" product_id="<?php echo $product['product_id'];?>"><i class="fa fa-times"></i></button>
                                         </td>
                                     </tr>
@@ -104,6 +104,7 @@
 <script src="/assets/plugins/light-gallery/lightGallery.min.js"></script>
 <script type="text/javascript">
 $(function(){
+    // 添加产品
     $(".ShowProductMainAddModal").click(function(){
         var url = "<?php echo $url->link('product/main/add');?>";
         $.get(url, function(data){
@@ -113,6 +114,21 @@ $(function(){
     });
 
     $('.lightbox').lightGallery();
+
+    // 编辑品牌
+    $('.ShowProductEditModal').click(function(){
+        var product_id = $(this).attr('product_id');
+        var url = "<?php echo $url->link('product/main/edit');?>&product_id="+product_id;
+        $.get(url, function(response){
+            var res = JSON.parse(response);
+            if(res.status) {
+                $('#productMainContentModal').html(res.data);
+                $('#productMainContentModal').modal('show');
+            } else {
+                swal('', res.message, 'error');
+            }
+        });
+    });
 
     // 删除产品modal
     $(".ShowProductDeleteModal").click(function(){
@@ -151,5 +167,5 @@ $(function(){
             });
         });
     });
-})
+});
 </script>
