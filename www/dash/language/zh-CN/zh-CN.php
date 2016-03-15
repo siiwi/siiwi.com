@@ -410,6 +410,21 @@ $_['product_main_delete']['response']['invalid_product_id']                    =
 $_['product_main_delete']['response']['empty_update_product_info']             = '删除失败，待更新产品信息为空';
 $_['product_main_delete']['response']['system_error']                          = '删除失败，系统异常';
 
+// order/main/index
+$_['order_main_index']['title']                                                = '订单管理';
+
+// order/main/content
+$_['order_main_content']['search']                                             = '搜索订单';
+
+// order/main/add
+$_['order_main_add']['title']                                                  = '添加订单';
+$_['order_main_add']['order_sn']                                               = '订单号';
+$_['order_main_add']['total_cost']                                             = '商品总价';
+$_['order_main_add']['express_cost']                                           = '快递总价';
+$_['order_main_add']['buyer_name']                                             = '买家昵称';
+$_['order_main_add']['buyer_contact']                                          = '买家联系方式';
+$_['order_main_add']['buyer_address']                                          = '买家收货地址';
+
 // user/group/index
 $_['user_group_index']['title']                                                = '用户组管理';
 

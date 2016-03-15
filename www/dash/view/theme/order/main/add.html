@@ -1,0 +1,66 @@
+<!--Default Bootstrap Modal-->
+<!--===================================================-->
+<div class="modal-dialog">
+    <div class="modal-content">
+        <!--Modal header-->
+        <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title"><?=$language->get('order_main_add')->title;?></h4>
+        </div>
+
+        <!--Modal body-->
+        <div class="modal-body">
+            <div class="form-horizontal">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->order_sn;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->total_cost;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->express_cost;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->buyer_name;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->buyer_contact;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->buyer_address;?></label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control input-sm" name="" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal footer-->
+        <div class="modal-footer">
+            <p class="pull-left text-danger">*&nbsp;<?php echo $language->get('common')->required;?></p>
+            <button class="btn btn-default" type="button" data-dismiss="modal"><?php echo $language->get('common')->cancel;?></button>
+            <button class="btn btn-primary" type="button" id="addProductBrand"><?php echo $language->get('common')->submit;?></button>
+        </div>
+    </div>
+</div>
+<!--===================================================-->
+<!--End Default Bootstrap Modal-->
