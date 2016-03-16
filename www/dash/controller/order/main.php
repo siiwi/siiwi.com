@@ -34,6 +34,24 @@ class ControllerOrderMain extends \Siiwi\Dashboard\Controller
             // }
 
             if($this->request->isGet()) {
+                $this->api->get('country/get', array('language_id'=>$this->config->get('language_id')));
+                if($this->api->getResponseStatus()) {
+                    $country_list = $this->api->getResponseData();
+                    $this->data['order_main_add']['country_list'] = $country_list['country_list'];
+                }
+
+                $this->api->get('platform/get', array('language_id'=>$this->config->get('language_id'), 'status'=>1));
+                if($this->api->getResponseStatus()) {
+                    $platform_list = $this->api->getResponseData();
+                    $this->data['order_main_add']['platform_list'] = $platform_list['platform_list'];
+                }
+
+                $this->api->get('orderstate/get', array('language_id'=>$this->config->get('language_id'), 'status'=>1));
+                if($this->api->getResponseStatus()) {
+                    $orderstate_list = $this->api->getResponseData();
+                    $this->data['order_main_add']['orderstate_list'] = $orderstate_list['orderstate_list'];
+                }
+
                 $this->response->setOutput($this->load->view('order/main/add.html', $this->data));
             }
         }

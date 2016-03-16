@@ -85,6 +85,7 @@ if (!$request->cookie['language']) {
 }
 
 $config->set('language_list', $language_list);
+$config->set('language_id', $language_list[$language]['language_id']);
 
 // Lang
 $lang = new Language($language_list[$language]['directory']);
