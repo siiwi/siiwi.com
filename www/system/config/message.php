@@ -31,6 +31,16 @@ $msg[] = 'empty_update_product_info';
 $msg[] = 'empty_group_id';
 $msg[] = 'empty_sku_attribute';
 $msg[] = 'empty_product_list';
+$msg[] = 'empty_order_sn';
+$msg[] = 'empty_order_platform';
+$msg[] = 'empty_order_from';
+$msg[] = 'empty_order_status';
+$msg[] = 'empty_total_cost';
+$msg[] = 'empty_express_cost';
+$msg[] = 'empty_buyer_name';
+$msg[] = 'empty_buyer_contact';
+$msg[] = 'empty_buyer_address';
+$msg[] = 'empty_order_date';
 
 $msg[] = 'invalid_key';
 $msg[] = 'invalid_client_status';
@@ -53,6 +63,9 @@ $msg[] = 'invalid_contact_length';
 $msg[] = 'invalid_phone_length';
 $msg[] = 'invalid_store_id';
 $msg[] = 'invalid_user_config_key';
+$msg[] = 'invalid_order_platform';
+$msg[] = 'invalid_total_cost';
+$msg[] = 'invalid_express_cost';
 
 $msg[] = 'email_already_exist';
 $msg[] = 'group_already_exist';
@@ -62,6 +75,7 @@ $msg[] = 'attribute_already_exist';
 $msg[] = 'brand_already_exist';
 $msg[] = 'supplier_already_exist';
 $msg[] = 'user_config_key_already_exist';
+$msg[] = 'order_sn_already_exist';
 
 $msg[] = 'no_record';
 $msg[] = 'user_not_allowed';

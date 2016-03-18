@@ -1,5 +1,10 @@
 <!--Default Bootstrap Modal-->
 <!--===================================================-->
+<style>
+.row {
+    margin-bottom: 20px;
+}
+</style>
 <div class="modal-dialog">
     <div class="modal-content">
         <!--Modal header-->
@@ -14,28 +19,17 @@
         <div class="modal-body">
             <div class="form-horizontal">
                 <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->order_sn;?></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control input-sm" name="order_sn" value="" />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" name="order_sn" value="" placeholder="<?=$language->get('order_main_add')->order_sn;?>" />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="button" class="btn btn-default btn-block" id="selectOrderProduct" value="<?=$language->get('order_main_add')->select_order_product;?>" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->order_from;?></label>
-                        <div class="col-sm-7">
-                            <select tabindex="-1" style="width:301px;" name="order_from">
-                                <option value="0"><?php echo $language->get('order_main_add')->select_order_from;?></option>
-                                <?php if(is_array($order_main_add['country_list']) && !empty($order_main_add['country_list'])):?>
-                                    <?php foreach($order_main_add['country_list'] as $country):?>
-                                        <option value="<?=$country['id'];?>"><?=$country['name'];?></option>
-                                    <?php endforeach;?>
-                                <?php endif;?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->order_status;?></label>
-                        <div class="col-sm-7">
+
+                    <div class="row">
+                        <div class="col-sm-6">
                             <select tabindex="-1" style="width:301px;" name="order_status">
                                 <option value="0"><?=$language->get('order_main_add')->select_order_status;?></option>
                                 <?php if(is_array($order_main_add['orderstate_list']) && !empty($order_main_add['orderstate_list'])):?>
@@ -45,10 +39,7 @@
                                 <?php endif;?>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->order_platform;?></label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-6">
                             <select tabindex="-1" style="width:301px;" name="order_platform">
                                 <option value=""><?=$language->get('order_main_add')->select_order_platform;?></option>
                                 <?php if(is_array($order_main_add['platform_list']) && !empty($order_main_add['platform_list'])):?>
@@ -59,41 +50,45 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->order_date;?></label>
-                        <div class="input-group col-sm-7" style="padding: 0 12px;">
-                            <input type="text" class="form-control input-sm" name="order_date" value="" />
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <select tabindex="-1" style="width:301px;" name="order_from">
+                                <option value="0"><?php echo $language->get('order_main_add')->select_order_from;?></option>
+                                <?php if(is_array($order_main_add['country_list']) && !empty($order_main_add['country_list'])):?>
+                                    <?php foreach($order_main_add['country_list'] as $country):?>
+                                        <option value="<?=$country['id'];?>"><?=$country['name'];?></option>
+                                    <?php endforeach;?>
+                                <?php endif;?>
+                            </select>
+                        </div>
+                        <div class="input-group col-sm-6" style="padding: 0 12px;">
+                            <input type="text" class="form-control input-sm" name="order_date" value="" placeholder="<?=$language->get('order_main_add')->order_date;?>" />
                             <span class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->total_cost;?></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control input-sm" name="total_cost" value="" />
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" name="total_cost" value="" placeholder="<?=$language->get('order_main_add')->total_cost;?>" />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" name="express_cost" value="" placeholder="<?=$language->get('order_main_add')->express_cost;?>" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->express_cost;?></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control input-sm" name="express_cost" value="" />
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" name="buyer_name" value="" placeholder="<?=$language->get('order_main_add')->buyer_name;?>" />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-sm" name="buyer_contact" value="" placeholder="<?=$language->get('order_main_add')->buyer_contact;?>" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->buyer_name;?></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control input-sm" name="buyer_name" value="" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->buyer_contact;?></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control input-sm" name="buyer_contact" value="" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label text-danger"><?=$language->get('order_main_add')->buyer_address;?></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control input-sm" name="buyer_address" value="" />
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control input-sm" name="buyer_address" value="" placeholder="<?=$language->get('order_main_add')->buyer_address;?>" />
                         </div>
                     </div>
                 </div>
@@ -102,19 +97,29 @@
 
         <!--Modal footer-->
         <div class="modal-footer">
-            <p class="pull-left text-danger">*&nbsp;<?php echo $language->get('common')->required;?></p>
+            <!-- <p class="pull-left text-danger">*&nbsp;<?php echo $language->get('common')->required;?></p> -->
             <button class="btn btn-default" type="button" data-dismiss="modal"><?php echo $language->get('common')->cancel;?></button>
-            <button class="btn btn-primary" type="button" id="addProductBrand"><?php echo $language->get('common')->submit;?></button>
+            <button class="btn btn-primary" type="button" id="addOrder"><?php echo $language->get('common')->submit;?></button>
         </div>
     </div>
 </div>
+<div id='orderMainAddModal' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"  data-keyboard="true"></div>
 <!--===================================================-->
 <!--End Default Bootstrap Modal-->
 <link href="/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet" />
 <script src="/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script>
+var order_add_message = <?php echo json_encode($language->get('order_main_add')->message);?> || '';
+var params = {};
 $(function(){
-    var params = {};
+    // 选择产品
+    $("#selectOrderProduct").click(function(){
+        // var url = "<?php echo $url->link('product/main/get');?>";
+        // $.get(url, function(response){
+        //     $('#orderMainAddModal').html(response);
+        //     $('#orderMainAddModal').modal('show');
+        // });
+    });
 
     $("select[name=order_from]").chosen({ width: '100%' }).change(function(){
         params.order_from = parseInt($("select[name=order_from]").val());
@@ -135,7 +140,7 @@ $(function(){
         todayHighlight: true
     });
 
-    $("#addProductBrand").click(function(){
+    $("#addOrder").click(function(){
         params.order_sn      = $("input[name=order_sn]").val();
         params.total_cost    = $("input[name=total_cost]").val();
         params.express_cost  = $("input[name=express_cost]").val();
@@ -144,7 +149,99 @@ $(function(){
         params.buyer_address = $("input[name=buyer_address]").val();
         params.order_date    = $("input[name=order_date]").val();
 
-        console.log(params);
+        if(params.order_sn == '') {
+            $("input[name=order_sn]").focus();
+            swal('', order_add_message.empty_order_sn, 'warning');
+            return false;
+        }
+
+        if(!params.order_status) {
+            $("input[name=order_status]").focus();
+            swal('', order_add_message.empty_order_status, 'warning');
+            return false;
+        }
+
+        if(!params.order_platform) {
+            $("input[name=order_platform]").focus();
+            swal('', order_add_message.empty_order_platform, 'warning');
+            return false;
+        }
+
+        if(!params.order_from) {
+            $("input[name=order_from]").focus();
+            swal('', order_add_message.empty_order_from, 'warning');
+            return false;
+        }
+
+        if(params.order_date == '') {
+            $("input[name=order_date]").focus();
+            swal('', order_add_message.empty_order_date, 'warning');
+            return false;
+        }
+
+        if(params.total_cost == '') {
+            $("input[name=total_cost]").focus();
+            swal('', order_add_message.empty_total_cost, 'warning');
+            return false;
+        }
+
+        if(isNaN(params.total_cost) || params.total_cost < 0) {
+            $("input[name=total_cost]").focus();
+            swal('', order_add_message.invalid_total_cost, 'warning');
+            return false;
+        }
+
+        if(params.express_cost == '') {
+            $("input[name=express_cost]").focus();
+            swal('', order_add_message.empty_express_cost, 'warning');
+            return false;
+        }
+
+        if(isNaN(params.express_cost) || params.express_cost < 0) {
+            $("input[name=express_cost]").focus();
+            swal('', order_add_message.invalid_express_cost, 'warning');
+            return false;
+        }
+
+        if(params.buyer_name == '') {
+            $("input[name=buyer_name]").focus();
+            swal('', order_add_message.empty_buyer_name, 'warning');
+            return false;
+        }
+
+        if(params.buyer_contact == '') {
+            $("input[name=buyer_contact]").focus();
+            swal('', order_add_message.empty_buyer_contact, 'warning');
+            return false;
+        }
+
+        if(params.buyer_address == '') {
+            $("input[name=buyer_address]").focus();
+            swal('', order_add_message.empty_buyer_address, 'warning');
+            return false;
+        }
+
+        $.ajax({
+            url: "<?php echo $url->link('order/main/add');?>",
+            type: 'POST',
+            data: {"data": params},
+            dataType: 'json',
+            success: function(response) {
+                // if(response.status) {
+                //     swal({
+                //         title: '',
+                //         text: response.message,
+                //         type: "success",
+                //         confirmButtonText: "OK"
+                //     }, function(){
+                //         $('#productBrandContentModal').modal('hide');
+                //         window.location.reload();
+                //     });
+                // } else {
+                //     swal('', response.message, 'error');
+                // }
+            }
+        });
     });
 });
 </script>

@@ -145,4 +145,9 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
             $this->response->outputJson($response);
         }
     }
+
+    public function get()
+    {
+        
+    }
 }

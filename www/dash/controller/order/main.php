@@ -24,14 +24,16 @@ class ControllerOrderMain extends \Siiwi\Dashboard\Controller
     public function add()
     {
         if($this->request->isAjax()) {
-            // if($this->request->isPost()) {
-            //     $data['name'] = $this->request->getHttpPost('name');
-            //
-            //     $this->api->post('brand/add', $data);
-            //     $response['status']  = $this->api->getResponseStatus();
-            //     $response['message'] = $this->language->get('product_brand_add')->response[$this->api->getResponseMessage()];
-            //     $this->response->outputJson($response);
-            // }
+            if($this->request->isPost()) {
+                $data = $this->request->getHttpPost('data');
+
+                $this->api->post('order/add', $data);
+                $response = $this->api->getResult();
+                ChromePhp::log($response);
+                // $response['status']  = $this->api->getResponseStatus();
+                // $response['message'] = $this->language->get('product_brand_add')->response[$this->api->getResponseMessage()];
+                // $this->response->outputJson($response);
+            }
 
             if($this->request->isGet()) {
                 $this->api->get('country/get', array('language_id'=>$this->config->get('language_id')));
