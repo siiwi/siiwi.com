@@ -21,8 +21,6 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
         $page = $this->request->getHttpGet('page', 1);
 
         $this->api->get('product/get', array('status'=>1, 'page'=>$page, 'page_size'=>$this->config->get('config_page_size')));
-        // echo '<pre>';
-        // print_r($this->api->getResponseData());
 
         if($this->api->getResponseStatus()) {
             $product_list = $this->api->getResponseData();
@@ -148,6 +146,6 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
 
     public function get()
     {
-        
+
     }
 }

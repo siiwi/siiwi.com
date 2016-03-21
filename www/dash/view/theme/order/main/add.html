@@ -227,19 +227,19 @@ $(function(){
             data: {"data": params},
             dataType: 'json',
             success: function(response) {
-                // if(response.status) {
-                //     swal({
-                //         title: '',
-                //         text: response.message,
-                //         type: "success",
-                //         confirmButtonText: "OK"
-                //     }, function(){
-                //         $('#productBrandContentModal').modal('hide');
-                //         window.location.reload();
-                //     });
-                // } else {
-                //     swal('', response.message, 'error');
-                // }
+                if(response.status) {
+                    swal({
+                        title: '',
+                        text: response.message,
+                        type: "success",
+                        confirmButtonText: "OK"
+                    }, function(){
+                        $('#orderMainContentModal').modal('hide');
+                        window.location.reload();
+                    });
+                } else {
+                    swal('', response.message, 'error');
+                }
             }
         });
     });

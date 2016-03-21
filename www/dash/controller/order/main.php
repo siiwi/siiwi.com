@@ -28,11 +28,19 @@ class ControllerOrderMain extends \Siiwi\Dashboard\Controller
                 $data = $this->request->getHttpPost('data');
 
                 $this->api->post('order/add', $data);
-                $response = $this->api->getResult();
-                ChromePhp::log($response);
-                // $response['status']  = $this->api->getResponseStatus();
-                // $response['message'] = $this->language->get('product_brand_add')->response[$this->api->getResponseMessage()];
-                // $this->response->outputJson($response);
+
+                if($this->api->getResponseStatus()) {
+                    $response['status']  = true;
+                    $response['data']    = $this->api->getResponseData();
+                } else {
+                    $response['status']  = false;
+                    $response['data']    = '';
+                }
+
+                $response['message'] = $this->language->get('order_main_add')->response[$this->api->getResponseMessage()];
+
+                // 返回数据
+                $this->response->outputJson($response);
             }
 
             if($this->request->isGet()) {

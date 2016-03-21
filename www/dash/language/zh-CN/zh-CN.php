@@ -441,6 +441,22 @@ $_['order_main_add']['message']['empty_buyer_name']                            =
 $_['order_main_add']['message']['empty_buyer_contact']                         = '请输入买家联系方式';
 $_['order_main_add']['message']['empty_buyer_address']                         = '请输入买家收货地址';
 $_['order_main_add']['message']['empty_order_date']                            = '请选择交易日期';
+$_['order_main_add']['response']['success']                                    = '添加成功';
+$_['order_main_add']['response']['empty_order_sn']                             = '添加失败，订单号为空';
+$_['order_main_add']['response']['empty_order_platform']                       = '添加失败，订单平台为空';
+$_['order_main_add']['response']['invalid_order_platform']                     = '添加失败，订单平台异常';
+$_['order_main_add']['response']['order_sn_already_exist']                     = '添加失败，订单号已存在';
+$_['order_main_add']['response']['empty_order_from']                           = '添加失败，订单来源为空';
+$_['order_main_add']['response']['empty_order_status']                         = '添加失败，订单状态为空';
+$_['order_main_add']['response']['empty_total_cost']                           = '添加失败，商品总价为空';
+$_['order_main_add']['response']['invalid_total_cost']                         = '添加失败，商品总价为大于等于0的数字';
+$_['order_main_add']['response']['empty_express_cost']                         = '添加失败，快递总价为空';
+$_['order_main_add']['response']['invalid_express_cost']                       = '添加失败，快递总价为大于等于0的数字';
+$_['order_main_add']['response']['empty_buyer_name']                           = '添加失败，买家昵称为空';
+$_['order_main_add']['response']['empty_buyer_contact']                        = '添加失败，买家联系方式为空';
+$_['order_main_add']['response']['empty_buyer_address']                        = '添加失败，买家收货地址为空';
+$_['order_main_add']['response']['empty_order_date']                           = '添加失败，交易日期为空';
+
 
 // user/group/index
 $_['user_group_index']['title']                                                = '用户组管理';
