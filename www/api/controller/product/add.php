@@ -17,6 +17,7 @@ class ControllerProductAdd extends \Siiwi\Api\Controller
 {
     private $user_id;
     private $product_info = array();
+    private $product_sku_info = array();
 
     public function index()
     {
@@ -29,6 +30,7 @@ class ControllerProductAdd extends \Siiwi\Api\Controller
         $this->load->model('category/main');
         $this->load->model('supplier/main');
         $this->load->model('product/main');
+        $this->load->model('product/sku');
         $this->load->model('product/attribute');
         $this->load->model('product/resource');
 
@@ -40,36 +42,42 @@ class ControllerProductAdd extends \Siiwi\Api\Controller
 
         $this->prepareProductData();
 
-        foreach($this->product_info as $key=>$product_info) {
-            $this->model_product_main->add($product_info);
-            $product_id = $this->model_product_main->getLastId();
-            if($product_id) {
+        // 写入产品基本信息
+        $this->model_product_main->add($this->product_info);
+        $product_id = $this->model_product_main->getLastId();
+
+        if($product_id) {
+            foreach($this->product_sku_info as $key=>$product_sku_info) {
+                $product_sku_info['product_id'] = $product_id;
+                $this->model_product_sku->add($product_sku_info);
+                $sku = $this->model_product_sku->getLastId();
+
                 // 写入SKU规格信息
                 $attribute_info = array();
                 $attributes = $this->request->getHttpPost('attribute');
                 foreach($attributes[$key] as $attr_id=>$attr_value) {
                     if($attr_value && is_numeric($attr_id)) {
-                        $attribute_info[$attr_id]['product_id'] = $product_id;
+                        $attribute_info[$attr_id]['sku']          = $sku;
                         $attribute_info[$attr_id]['attribute_id'] = $attr_id;
-                        $attribute_info[$attr_id]['value'] = $attr_value;
-                        $attribute_info[$attr_id]['status'] = 1;
+                        $attribute_info[$attr_id]['value']        = $attr_value;
+                        $attribute_info[$attr_id]['status']       = 1;
                     }
                 }
                 $this->model_product_attribute->add($attribute_info);
-
-                // 写入资源信息
-                $resource_info = array();
-                $image = $this->request->getHttpPost('image');
-                if(is_array($image) && !empty($image)) {
-                    foreach($image as $k=>$img) {
-                        $resource_info[$k]['product_id'] = $product_id;
-                        $resource_info[$k]['path'] = $img;
-                        $resource_info[$k]['type'] = 1;
-                        $resource_info[$k]['status'] = 1;
-                    }
-                }
-                $this->model_product_resource->add($resource_info);
             }
+
+            // 写入资源信息
+            $resource_info = array();
+            $image = $this->request->getHttpPost('image');
+            if(is_array($image) && !empty($image)) {
+                foreach($image as $k=>$img) {
+                    $resource_info[$k]['product_id'] = $product_id;
+                    $resource_info[$k]['path']       = $img;
+                    $resource_info[$k]['type']       = 1;
+                    $resource_info[$k]['status']     = 1;
+                }
+            }
+            $this->model_product_resource->add($resource_info);
         }
 
         $this->response->jsonOutput('success');
@@ -153,20 +161,23 @@ class ControllerProductAdd extends \Siiwi\Api\Controller
                     $this->response->jsonOutputExit('duplication_sku_attribute');
                 }
 
-                $this->product_info[$key]['name'] = $this->request->getHttpPost('name');
-                $this->product_info[$key]['user_id'] = $this->user_id;
-                $this->product_info[$key]['store_id'] = $this->request->getHttpPost('store_id');
-                $this->product_info[$key]['category_id'] = $this->request->getHttpPost('category_id');
-                $this->product_info[$key]['brand_id'] = $this->request->getHttpPost('brand_id');
-                $this->product_info[$key]['supplier_id'] = $this->request->getHttpPost('supplier_id');
-                $this->product_info[$key]['purchase_url'] = $this->request->getHttpPost('purchase_url', '');
-                $this->product_info[$key]['sn'] = $this->request->getHttpPost('sn', '');
-                $this->product_info[$key]['sku'] = $attribute['sku'];
-                $this->product_info[$key]['purchase_price'] = $attribute['purchase_price'];
-                $this->product_info[$key]['stock'] = $attribute['stock'];
-                $this->product_info[$key]['status'] = 1;
-                $this->product_info[$key]['add_timestamp'] = $time;
+                $this->product_sku_info[$key]['user_id']        = $this->user_id;
+                $this->product_sku_info[$key]['user_sku']       = $attribute['sku'];
+                $this->product_sku_info[$key]['purchase_price'] = $attribute['purchase_price'];
+                $this->product_sku_info[$key]['stock']          = $attribute['stock'];
+                $this->product_sku_info[$key]['status']         = 1;
             }
+
+            $this->product_info['name']          = $this->request->getHttpPost('name');
+            $this->product_info['user_id']       = $this->user_id;
+            $this->product_info['store_id']      = $this->request->getHttpPost('store_id');
+            $this->product_info['category_id']   = $this->request->getHttpPost('category_id');
+            $this->product_info['brand_id']      = $this->request->getHttpPost('brand_id');
+            $this->product_info['supplier_id']   = $this->request->getHttpPost('supplier_id');
+            $this->product_info['purchase_url']  = $this->request->getHttpPost('purchase_url', '');
+            $this->product_info['sn']            = $this->request->getHttpPost('sn', '');
+            $this->product_info['status']        = 1;
+            $this->product_info['add_timestamp'] = $time;
         }
     }
 }

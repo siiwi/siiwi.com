@@ -41,6 +41,8 @@ $msg[] = 'empty_buyer_name';
 $msg[] = 'empty_buyer_contact';
 $msg[] = 'empty_buyer_address';
 $msg[] = 'empty_order_date';
+$msg[] = 'empty_product_sku';
+$msg[] = 'empty_product_sku_info';
 
 $msg[] = 'invalid_key';
 $msg[] = 'invalid_client_status';
@@ -66,6 +68,7 @@ $msg[] = 'invalid_user_config_key';
 $msg[] = 'invalid_order_platform';
 $msg[] = 'invalid_total_cost';
 $msg[] = 'invalid_express_cost';
+$msg[] = 'invalid_product_sku';
 
 $msg[] = 'email_already_exist';
 $msg[] = 'group_already_exist';

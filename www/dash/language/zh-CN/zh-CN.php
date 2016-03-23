@@ -410,6 +410,9 @@ $_['product_main_delete']['response']['invalid_product_id']                    =
 $_['product_main_delete']['response']['empty_update_product_info']             = '删除失败，待更新产品信息为空';
 $_['product_main_delete']['response']['system_error']                          = '删除失败，系统异常';
 
+// product_main_get
+$_['product_main_get']['title']                                                = '选择产品';
+
 // order/main/index
 $_['order_main_index']['title']                                                = '订单管理';
 

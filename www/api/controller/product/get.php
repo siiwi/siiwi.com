@@ -12,6 +12,7 @@ class ControllerProductGet extends \Siiwi\Api\Controller
         $this->load->model('global/token');
         $this->load->model('user/main');
         $this->load->model('product/main');
+        $this->load->model('product/sku');
         $this->load->model('product/attribute');
         $this->load->model('product/resource');
         $this->load->model('resource/main');
@@ -28,12 +29,12 @@ class ControllerProductGet extends \Siiwi\Api\Controller
 
         $order_array = array('key'=>'product_id', 'value'=>'desc');
 
-        $this->product_list = $this->model_product_main->fetchAll($this->where_array, $this->limit_array, $order_array);
-        if(!is_array($this->product_list) || empty($this->product_list)) {
+        $this->product_total = $this->model_product_main->getProductListCount($this->where_array);
+        if(!$this->product_total) {
             $this->response->jsonOutputExit('empty_product_list');
         }
 
-        $this->product_total = $this->model_product_main->count($this->where_array);
+        $this->product_list = $this->model_product_main->getProductList($this->where_array, $this->limit_array);
 
         $this->response->jsonOutput('success', $this->setResponseData());
     }
@@ -91,7 +92,7 @@ class ControllerProductGet extends \Siiwi\Api\Controller
                 $this->product_list[$key]['supplier_name'] = $supplier_info['name'];
 
                 // 获取产品规格信息
-                $attribute_list = $this->model_product_attribute->fetchAll(array('product_id'=>$product['product_id'], 'status'=>1));
+                $attribute_list = $this->model_product_attribute->fetchAll(array('sku'=>$product['sku'], 'status'=>1));
                 if(is_array($attribute_list) && !empty($attribute_list)) {
                     foreach($attribute_list as $k=>$attribute) {
                         $attribute_info = $this->model_attribute_main->fetchOne(array('attribute_id'=>$attribute['attribute_id']));

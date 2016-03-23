@@ -63,7 +63,7 @@
                                                 <?php endif;?>
                                             </div>
                                         </td>
-                                        <td><?=$product['product_id'];?></td>
+                                        <td><?=$product['sku'];?></td>
                                         <td style="width: 20%; word-wrap: break-word;"><a href="<?=($product['purchase_url'])?$product['purchase_url']:'javascript:;';?>" target="_blank"><?=$product['name'];?></a></td>
                                         <td style="width: 15%; word-wrap: break-word;"><?=$product['category_name'];?></td>
                                         <td><?=$product['purchase_price'];?></td>
@@ -71,8 +71,8 @@
                                         <td><?=$product['stock'];?></td>
                                         <td>-</td>
                                         <td>
-                                            <button class="btn btn-xs btn-default add-tooltip ShowProductEditModal" data-toggle="tooltip"  data-original-title="<?php echo $language->get('common')->edit;?>" data-container="body" product_id="<?php echo $product['product_id'];?>"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-xs btn-danger add-tooltip ShowProductDeleteModal" data-toggle="tooltip" data-original-title="<?php echo $language->get('common')->delete;?>" data-container="body" product_id="<?php echo $product['product_id'];?>"><i class="fa fa-times"></i></button>
+                                            <button class="btn btn-xs btn-default add-tooltip ShowProductEditModal" data-toggle="tooltip"  data-original-title="<?php echo $language->get('common')->edit;?>" data-container="body" sku="<?php echo $product['sku'];?>"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-xs btn-danger add-tooltip ShowProductDeleteModal" data-toggle="tooltip" data-original-title="<?php echo $language->get('common')->delete;?>" data-container="body" sku="<?php echo $product['sku'];?>"><i class="fa fa-times"></i></button>
                                         </td>
                                     </tr>
                                 <?php endforeach;?>
@@ -117,8 +117,8 @@ $(function(){
 
     // 编辑品牌
     $('.ShowProductEditModal').click(function(){
-        var product_id = $(this).attr('product_id');
-        var url = "<?php echo $url->link('product/main/edit');?>&product_id="+product_id;
+        var sku = $(this).attr('sku');
+        var url = "<?php echo $url->link('product/main/edit');?>&sku="+sku;
         $.get(url, function(response){
             var res = JSON.parse(response);
             if(res.status) {
@@ -132,7 +132,7 @@ $(function(){
 
     // 删除产品modal
     $(".ShowProductDeleteModal").click(function(){
-        var product_id = $(this).attr('product_id');
+        var sku = $(this).attr('sku');
         swal({
             title: '',
             text: "<?php echo $language->get('product_main_content')->delete_confirm;?>",
@@ -143,7 +143,7 @@ $(function(){
             closeOnConfirm: false
         },function(){
             var params = {};
-            params.product_id = product_id;
+            params.sku = sku;
 
             $.ajax({
                 url: "<?php echo $url->link('product/main/delete');?>",

@@ -74,6 +74,7 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
 
             if($this->request->isPost()) {
                 $data = $this->request->getHttpPost('data');
+
                 $this->api->post('product/add', $data);
                 if($this->api->getResponseStatus()) {
                     $response['status']  = true;
@@ -94,12 +95,12 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
     public function edit()
     {
         if($this->request->isAjax() && $this->request->isGet()) {
-            $product_id = $this->request->getHttpGet('product_id');
-            $this->api->get('product/get', array('product_id'=>$product_id, 'status'=>1));
+            $sku = $this->request->getHttpGet('sku');
+            $this->api->get('sku/get', array('sku'=>$sku, 'status'=>1));
 
             if($this->api->getResponseStatus()) {
-                $product_list = $this->api->getResponseData();
-                $this->data['product_main_edit']['product_info'] = $product_list['product_list']['0'];
+                $product_sku_info = $this->api->getResponseData();
+                $this->data['product_main_edit']['product_info'] = $product_sku_info['product_sku_info'];
 
                 $response['status']  = true;
                 $response['message'] = '';
@@ -117,11 +118,11 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
     public function delete()
     {
         if($this->request->isPost() && $this->request->isAjax()) {
-            $put_params['product_id'] = $this->request->getHttpPost('product_id');
+            $put_params['sku'] = $this->request->getHttpPost('sku');
             $post_params['status']  = 0;
 
             // 软删除
-            $this->api->put('product/update', $put_params, $post_params);
+            $this->api->put('sku/update', $put_params, $post_params);
 
             $response['status']  = $this->api->getResponseStatus();
             $response['message'] = $this->language->get('product_main_delete')->response[$this->api->getResponseMessage()];
@@ -132,12 +133,12 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
     public function update()
     {
         if($this->request->isPost() && $this->request->isAjax()) {
-            $put_params['product_id']      = $this->request->getHttpPost('product_id');
+            $put_params['sku']             = $this->request->getHttpPost('sku');
             $post_params['stock']          = $this->request->getHttpPost('stock');
             $post_params['purchase_price'] = $this->request->getHttpPost('purchase_price');
-            $post_params['purchase_url']   = $this->request->getHttpPost('purchase_url');
 
-            $this->api->put('product/update', $put_params, $post_params);
+            $this->api->put('sku/update', $put_params, $post_params);
+            ChromePhp::log($this->api->getResult());
             $response['status']  = $this->api->getResponseStatus();
             $response['message'] = $this->language->get('product_main_update')->response[$this->api->getResponseMessage()];
             $this->response->outputJson($response);
@@ -146,6 +147,6 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
 
     public function get()
     {
-
+        $this->response->setOutput($this->load->view('product/main/get.html', $this->data));
     }
 }

@@ -32,12 +32,6 @@
                             <input type="text" class="form-control input-sm" value="<?=$product_main_edit['product_info']['stock'];?>" name="stock" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"><?php echo $language->get('product_main_edit')->purchase_url;?></label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control input-sm" value="<?=$product_main_edit['product_info']['purchase_url'];?>" name="purchase_url" />
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -58,7 +52,7 @@ var product_main_edit_message = <?php echo json_encode($language->get('product_m
 $(function(){
     $("#updateProduct").click(function(){
         var params            = {};
-        params.product_id     = "<?php echo $product_main_edit['product_info']['product_id'];?>";
+        params.sku            = "<?php echo $product_main_edit['product_info']['sku'];?>";
         params.stock          = $("input[name=stock]").val();
         params.purchase_price = $("input[name=purchase_price]").val();
         params.purchase_url   = $("input[name=purchase_url]").val();

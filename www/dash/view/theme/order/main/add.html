@@ -102,8 +102,7 @@
             <button class="btn btn-primary" type="button" id="addOrder"><?php echo $language->get('common')->submit;?></button>
         </div>
     </div>
-</div>
-<div id='orderMainAddModal' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"  data-keyboard="true"></div>
+</div
 <!--===================================================-->
 <!--End Default Bootstrap Modal-->
 <link href="/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet" />
@@ -114,11 +113,11 @@ var params = {};
 $(function(){
     // 选择产品
     $("#selectOrderProduct").click(function(){
-        // var url = "<?php echo $url->link('product/main/get');?>";
-        // $.get(url, function(response){
-        //     $('#orderMainAddModal').html(response);
-        //     $('#orderMainAddModal').modal('show');
-        // });
+        var url = "<?php echo $url->link('product/main/get');?>";
+        $.get(url, function(response){
+            $('#orderMainAddModal').html(response);
+            $('#orderMainAddModal').modal('show');
+        });
     });
 
     $("select[name=order_from]").chosen({ width: '100%' }).change(function(){
