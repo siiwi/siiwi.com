@@ -20,7 +20,8 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
     {
         $page = $this->request->getHttpGet('page', 1);
 
-        $this->api->get('product/get', array('status'=>1, 'page'=>$page, 'page_size'=>$this->config->get('config_page_size')));
+        // 获取SKU列表
+        $this->api->get('sku/get', array('status'=>1, 'page'=>$page, 'page_size'=>$this->config->get('config_page_size')));
 
         if($this->api->getResponseStatus()) {
             $product_list = $this->api->getResponseData();
@@ -100,7 +101,7 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
 
             if($this->api->getResponseStatus()) {
                 $product_sku_info = $this->api->getResponseData();
-                $this->data['product_main_edit']['product_info'] = $product_sku_info['product_sku_info'];
+                $this->data['product_main_edit']['product_info'] = $product_sku_info['product_list'][0];
 
                 $response['status']  = true;
                 $response['message'] = '';
@@ -138,7 +139,7 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
             $post_params['purchase_price'] = $this->request->getHttpPost('purchase_price');
 
             $this->api->put('sku/update', $put_params, $post_params);
-            ChromePhp::log($this->api->getResult());
+
             $response['status']  = $this->api->getResponseStatus();
             $response['message'] = $this->language->get('product_main_update')->response[$this->api->getResponseMessage()];
             $this->response->outputJson($response);
@@ -147,6 +148,38 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
 
     public function get()
     {
+        // 获取分类列表
+        $this->api->get('category/get', array('status'=>1, 'type'=>2));
+        if($this->api->getResponseStatus()) {
+            $category_list = $this->api->getResponseData();
+            $this->data['product_main_get']['category_list'] = $category_list['category_list'];
+        }
+
         $this->response->setOutput($this->load->view('product/main/get.html', $this->data));
+    }
+
+    public function load()
+    {
+        if($this->request->isGet() && $this->request->isAjax()) {
+            $data['page'] = $this->request->getHttpGet('page', 1);
+            $data['status'] = 1;
+
+            if($this->request->getHttpGet('category_id')) {
+                $data['category_id'] = $this->request->getHttpGet('category_id');
+            }
+
+            $this->api->get('product/get', $data);
+            if($this->api->getResponseStatus()) {
+                $response['status']  = true;
+                $response['message'] = $this->language->get('product_main_load')->response[$this->api->getResponseMessage()];
+                $response['data']    = $this->api->getResponseData();
+            } else {
+                $response['status']  = false;
+                $response['message'] = $this->language->get('product_main_load')->response[$this->api->getResponseMessage()];
+                $response['data']    = array();
+            }
+
+            $this->response->outputJson($response);
+        }
     }
 }

@@ -23,7 +23,7 @@ class ModelCategoryMain extends \Siiwi\Api\Model
 
         $sql = "SELECT * FROM $this->db_table_name WHERE " . $whereSql;
 
-        $sql .= ' ORDER BY `category_id` DESC ';
+        $sql .= ' ORDER BY `category_id` DESC,  `parent_category_id`';
 
         if($limitSql) {
             $sql .= ' LIMIT ' . $limitSql;

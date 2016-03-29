@@ -399,9 +399,9 @@ $_['product_main_edit']['response']['system_error']                            =
 
 // product/main/update
 $_['product_main_update']['response']['success']                               = '更新成功';
-$_['product_main_update']['response']['empty_product_id']                      = '更新失败，产品ID不能为空';
+$_['product_main_update']['response']['empty_product_sku']                     = '更新失败，产品ID不能为空';
 $_['product_main_update']['response']['invalid_product_id']                    = '更新失败，产品ID无效';
-$_['product_main_update']['response']['empty_update_product_info']             = '更新失败，待更新产品信息为空';
+$_['product_main_update']['response']['empty_product_sku_info']                = '更新失败，待更新产品信息为空';
 
 // product/main/delete
 $_['product_main_delete']['response']['success']                               = '删除成功';
@@ -412,6 +412,10 @@ $_['product_main_delete']['response']['system_error']                          =
 
 // product_main_get
 $_['product_main_get']['title']                                                = '选择产品';
+$_['product_main_get']['product_category'] = '产品分类';
+$_['product_main_get']['product_id']       = '产品编号';
+$_['product_main_get']['product_name']     = '产品名称';
+$_['product_main_get']['product_stock']    = '产品库存';
 
 // order/main/index
 $_['order_main_index']['title']                                                = '订单管理';
@@ -460,6 +464,9 @@ $_['order_main_add']['response']['empty_buyer_contact']                        =
 $_['order_main_add']['response']['empty_buyer_address']                        = '添加失败，买家收货地址为空';
 $_['order_main_add']['response']['empty_order_date']                           = '添加失败，交易日期为空';
 
+// productr/main/load
+$_['product_main_load']['response']['success']                                 = '加载产品列表成功';
+$_['product_main_load']['response']['empty_product_list']                      = '加载产品列表失败';
 
 // user/group/index
 $_['user_group_index']['title']                                                = '用户组管理';

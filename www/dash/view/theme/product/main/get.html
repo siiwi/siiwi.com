@@ -17,12 +17,15 @@
                     <div class="col-sm-3 eq-box-sm">
                         <div class="panel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">产品类别</h3>
+                                <h3 class="panel-title"><?=$language->get('product_main_get')->product_category;?></h3>
                             </div>
                             <div class="panel-body" style="overflow-y:scroll; min-height: 200px;">
                                 <div class="list-group">
-                                    <a class="list-group-item list-item-sm active" href="#">服装类</a>
-                                    <a class="list-group-item list-item-sm" href="#">服装类 &gt; 上衣</a>
+                                    <?php if(is_array($product_main_get['category_list']) && !empty($product_main_get['category_list'])):?>
+                                        <?php foreach($product_main_get['category_list'] as $category_list): ?>
+                                            <a class="list-group-item list-item-sm product_category" category_id="<?=$category_list['category_id'];?>" href="javascript:;"><?=$category_list['parent_category_name'];?>&nbsp;&gt;&nbsp;<?=$category_list['name'];?></a>
+                                        <?php endforeach;?>
+                                    <?php endif;?>
                                 </div>
                             </div>
                         </div>
@@ -38,30 +41,18 @@
                                         <thead>
                                             <tr>
                                                 <th class="min-width"></th>
-                                                <th class="text-center" style="width: 100px;">产品编号</th>
-                                                <th class="text-center" style="width: 100px;">产品名</th>
-                                                <th class="text-center" style="width: 30px;">库存数</th>
+                                                <th class="text-center" style="width: 100px;"><?=$language->get('product_main_get')->product_id;?></th>
+                                                <th class="text-center" style="width: 100px;"><?=$language->get('product_main_get')->product_name;?></th>
+                                                <th class="text-center" style="width: 30px;"><?=$language->get('product_main_get')->product_stock;?></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td class="text-center"><label class="form-checkbox form-normal form-primary"><input type="checkbox"></label></td>
                                                 <td class="text-center">asdasd-asdasd-asdasd</td>
                                                 <td class="text-center">时尚女装000000001</td>
                                                 <td class="text-center">2000</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center"><label class="form-checkbox form-normal form-primary"><input type="checkbox"></label></td>
-                                                <td class="text-center">asdasd-asdasd-asdasd</td>
-                                                <td class="text-center">时尚女装000000001</td>
-                                                <td class="text-center">2000</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center"><label class="form-checkbox form-normal form-primary"><input type="checkbox"></label></td>
-                                                <td class="text-center">asdasd-asdasd-asdasd</td>
-                                                <td class="text-center">时尚女装000000001</td>
-                                                <td class="text-center">2000</td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -81,6 +72,30 @@
 </div>
 <!--===================================================-->
 <!--End Default Bootstrap Modal-->
-
 <script>
+$(function(){
+    loadProduct(1, 0);
+
+    $(".product_category").click(function(){
+        var category_id = $(this).attr('category_id');
+        $(this).addClass('active').siblings('.product_category').removeClass('active');
+        loadProduct(1, category_id);
+    });
+
+    function loadProduct(page, category_id)
+    {
+        var url = "<?=$url->link('product/main/load');?>";
+        if(page) {
+            url += '&page='+page;
+        }
+
+        if(category_id) {
+            url += '&category_id=' + category_id;
+        }
+
+        $.get(url, function(res){
+            console.log(res);
+        }, 'json');
+    }
+});
 </script>
