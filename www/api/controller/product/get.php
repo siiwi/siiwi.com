@@ -91,6 +91,9 @@ class ControllerProductGet extends \Siiwi\Api\Controller
                             }
                         }
                         $sku_lists[$k]['attribute'] = $attribute_lists;
+                        
+                        // 总库存
+                        $this->product_list[$key]['stock'] += $sku_lists[$k]['stock'];
                     }
                 }
                 $this->product_list[$key]['sku_list'] = $sku_lists;

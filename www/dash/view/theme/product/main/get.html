@@ -46,13 +46,19 @@
                                                 <th class="text-center" style="width: 30px;"><?=$language->get('product_main_get')->product_stock;?></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <!-- <tr>
-                                                <td class="text-center"><label class="form-checkbox form-normal form-primary"><input type="checkbox"></label></td>
-                                                <td class="text-center">asdasd-asdasd-asdasd</td>
-                                                <td class="text-center">时尚女装000000001</td>
-                                                <td class="text-center">2000</td>
-                                            </tr> -->
+                                        <tbody class="loading">
+                                            <tr>
+                                                <td colspan="4">
+                                                    <div style="margin: 20px 0">
+                                                        <div class="col-sm-3"></div>
+                                                        <div class="col-sm-6">
+                                                            <div class="progress progress-striped active">
+                                                                <div style="width: 100%;" class="progress-bar progress-bar-info"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -78,12 +84,31 @@ $(function(){
 
     $(".product_category").click(function(){
         var category_id = $(this).attr('category_id');
+        if($(this).hasClass('active')) {
+            return false;
+        }
+
         $(this).addClass('active').siblings('.product_category').removeClass('active');
         loadProduct(1, category_id);
     });
 
+    $(".table-responsive").on('click', '.pagination', function(){
+        var page = $(this).attr('page');
+        var category_id = $(".list-group").children('.active').attr('category_id');
+
+        loadProduct(page, category_id);
+    });
+
+    $('table[p_action_dom="table_add_product"]').on('click', 'input[type="checkbox"]', function(){
+        $(this).parents("label").toggleClass('active');
+    });
+
     function loadProduct(page, category_id)
     {
+        $(".data").remove();
+        $(".pager").remove();
+        $(".loading").removeClass('hide');
+
         var url = "<?=$url->link('product/main/load');?>";
         if(page) {
             url += '&page='+page;
@@ -94,7 +119,36 @@ $(function(){
         }
 
         $.get(url, function(res){
-            console.log(res);
+            var html = '<tbody class="data">';
+            if(res.status) {
+                for(var i=0; i<res.data.product_list.length; i++) {
+                    html += '<tr>';
+                    html += '<td class="text-center"><label class="form-checkbox form-normal form-primary"><input type="checkbox"></label></td>';
+                    html += '<td class="text-center">'+res.data.product_list[i].product_id+'</td>';
+                    html += '<td class="text-center">'+res.data.product_list[i].name+'</td>';
+                    html += '<td class="text-center">'+res.data.product_list[i].stock+'</td>';
+                    html += '</tr>';
+                }
+            } else {
+                html += '<tr>';
+                html += '<td colspan="4" align="center">';
+                html += res.message;
+                html += '</td>';
+                html += '</tr>';
+            }
+
+            html += '</tbody>';
+            $(".loading").addClass('hide').after(html);
+
+            // 翻页
+            if(res.data.pagination) {
+                var pager = '<ul class="pager pager-rounded">';
+                pager += '<li><a href="javascript:;" class="pagination" page="'+res.data.pagination.prev+'"><i class="fa fa-long-arrow-left"></i></a></li>&nbsp;&nbsp;';
+                pager += '<li><a href="javascript:;" class="pagination" page="'+res.data.pagination.next+'"><i class="fa fa-long-arrow-right"></i></a></li>';
+                pager += '</ul>';
+                $('table').after(pager);
+            }
+
         }, 'json');
     }
 });

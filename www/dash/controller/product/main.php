@@ -161,6 +161,7 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
     public function load()
     {
         if($this->request->isGet() && $this->request->isAjax()) {
+            $data['page_size'] = $this->config->get('config_page_size');
             $data['page'] = $this->request->getHttpGet('page', 1);
             $data['status'] = 1;
 
@@ -170,9 +171,30 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
 
             $this->api->get('product/get', $data);
             if($this->api->getResponseStatus()) {
-                $response['status']  = true;
-                $response['message'] = $this->language->get('product_main_load')->response[$this->api->getResponseMessage()];
-                $response['data']    = $this->api->getResponseData();
+                $product_list = $this->api->getResponseData();
+                if(is_array($product_list['product_list']) && !empty($product_list['product_list'])) {
+                    $result['product_list'] = $product_list['product_list'];
+
+                    // 分页
+                    $page_size = $this->config->get('config_page_size');
+                    if($product_list['product_total'] > $page_size) {
+                        $total = ceil($product_list['product_total'] / $page_size);
+                        $pagination['prev'] = ($data['page']<=1)?1:($data['page']-1);
+                        $pagination['next'] = ($data['page']>=$total)?$total:($data['page']+1);
+                        if($this->request->getHttpGet('category_id')) {
+                            $pagination['category_id'] = $this->request->getHttpGet('category_id');
+                        }
+                        $result['pagination'] = $pagination;
+                    }
+
+                    $response['status']  = true;
+                    $response['message'] = $this->language->get('product_main_load')->response[$this->api->getResponseMessage()];
+                    $response['data']    = $result;
+                } else {
+                    $response['status']  = false;
+                    $response['message'] = $this->language->get('product_main_load')->response['empty_product_list'];
+                    $response['data']    = array();
+                }
             } else {
                 $response['status']  = false;
                 $response['message'] = $this->language->get('product_main_load')->response[$this->api->getResponseMessage()];

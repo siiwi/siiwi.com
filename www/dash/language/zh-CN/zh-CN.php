@@ -410,12 +410,16 @@ $_['product_main_delete']['response']['invalid_product_id']                    =
 $_['product_main_delete']['response']['empty_update_product_info']             = '删除失败，待更新产品信息为空';
 $_['product_main_delete']['response']['system_error']                          = '删除失败，系统异常';
 
-// product_main_get
+// product/main/get
 $_['product_main_get']['title']                                                = '选择产品';
-$_['product_main_get']['product_category'] = '产品分类';
-$_['product_main_get']['product_id']       = '产品编号';
-$_['product_main_get']['product_name']     = '产品名称';
-$_['product_main_get']['product_stock']    = '产品库存';
+$_['product_main_get']['product_category']                                     = '产品分类';
+$_['product_main_get']['product_id']                                           = '产品编号';
+$_['product_main_get']['product_name']                                         = '产品名称';
+$_['product_main_get']['product_stock']                                        = '产品库存';
+
+// productr/main/load
+$_['product_main_load']['response']['success']                                 = '成功';
+$_['product_main_load']['response']['empty_product_list']                      = '产品列表为空';
 
 // order/main/index
 $_['order_main_index']['title']                                                = '订单管理';
@@ -463,10 +467,6 @@ $_['order_main_add']['response']['empty_buyer_name']                           =
 $_['order_main_add']['response']['empty_buyer_contact']                        = '添加失败，买家联系方式为空';
 $_['order_main_add']['response']['empty_buyer_address']                        = '添加失败，买家收货地址为空';
 $_['order_main_add']['response']['empty_order_date']                           = '添加失败，交易日期为空';
-
-// productr/main/load
-$_['product_main_load']['response']['success']                                 = '加载产品列表成功';
-$_['product_main_load']['response']['empty_product_list']                      = '加载产品列表失败';
 
 // user/group/index
 $_['user_group_index']['title']                                                = '用户组管理';
