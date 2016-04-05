@@ -32,8 +32,26 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table class="table">
+                                <thead>
+                                    <tr class="col-name">
+                                        <th>订单号</th>
+                                        <th width="20%">产品</th>
+                                        <th>交易平台</th>
+                                        <th>出售价</th>
+                                        <th>销售量</th>
+                                        <th>状态</th>
+                                        <th>交易日期</th>
+                                        <th>买家</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr>
+                                        <td colspan="6" class="text-center"><?php echo $language->get('common')->no_data;?></td>
+                                    </tr> -->
 
+                                </tbody>
                             </table>
                             <div class="pull-right">
 
@@ -50,7 +68,8 @@
     <!--End page content-->
     <!--Start modal-->
     <div id='orderMainContentModal' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false"></div>
-    <div id='orderMainAddModal' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"  data-keyboard="true"></div>
+    <div id='orderMainAddModal' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"  data-keyboard="false"></div>
+    <div id='orderMainAddSkuModal' class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"  data-keyboard="true"></div>
     <!--End modal-->
 </div>
 <script>

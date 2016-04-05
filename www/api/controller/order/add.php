@@ -10,6 +10,8 @@ class ControllerOrderAdd extends \Siiwi\Api\Controller
 {
     private $user_id;
     private $order_info = array();
+    private $order_sku_info = array();
+    private $order_id;
 
     public function index()
     {
@@ -19,6 +21,7 @@ class ControllerOrderAdd extends \Siiwi\Api\Controller
         $this->load->model('user/main');
         $this->load->model('global/platform');
         $this->load->model('order/main');
+        $this->load->model('order/sku');
 
         $this->verifyToken();
 
@@ -29,6 +32,14 @@ class ControllerOrderAdd extends \Siiwi\Api\Controller
         $this->prepareOrderData();
 
         $result = $this->model_order_main->add($this->order_info);
+
+        if($result) {
+            $this->order_id = $this->model_order_main->getLastId();
+
+            $this->prepareOrderSkuData();
+
+            $this->model_order_sku->add($this->order_sku_info);
+        }
 
         $this->response->jsonOutput('success', $result);
     }
@@ -130,7 +141,22 @@ class ControllerOrderAdd extends \Siiwi\Api\Controller
         $this->order_info['buyer_name']     = $this->request->getHttpPost('buyer_name');
         $this->order_info['buyer_address']  = $this->request->getHttpPost('buyer_address');
         $this->order_info['buyer_contact']  = $this->request->getHttpPost('buyer_contact');
+        $this->order_info['order_status']   = $this->request->getHttpPost('order_status');
         $this->order_info['status']         = 1;
         $this->order_info['add_timestamp']  = time();
+    }
+
+    private function prepareOrderSkuData()
+    {
+        $sku = $this->request->getHttpPost('sku');
+        if(is_array($sku) && !empty($sku)) {
+            foreach($sku as $key=>$value) {
+                $this->order_sku_info[$key]['sku'] = $key;
+                $this->order_sku_info[$key]['number'] = $value['number'];
+                $this->order_sku_info[$key]['price'] = $value['price'];
+                $this->order_sku_info[$key]['order_id'] = $this->order_id;
+                $this->order_sku_info[$key]['status'] = 1;
+            }
+        }
     }
 }

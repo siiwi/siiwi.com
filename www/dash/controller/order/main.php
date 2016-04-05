@@ -18,6 +18,14 @@ class ControllerOrderMain extends \Siiwi\Dashboard\Controller
 
     private function content()
     {
+        $this->api->get('order/get', array('status'=>1));
+
+        if($this->api->getResponseStatus()) {
+            $this->data['order_main_content']['order_list'] = $this->api->getResponseData();
+        } else {
+            $this->data['order_main_content']['order_list'] = array();
+        }
+
         return $this->load->view('order/main/content.html', $this->data);
     }
 

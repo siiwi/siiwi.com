@@ -417,6 +417,13 @@ $_['product_main_get']['product_id']                                           =
 $_['product_main_get']['product_name']                                         = '产品名称';
 $_['product_main_get']['product_stock']                                        = '产品库存';
 
+// product/main/sku
+$_['product_main_sku']['title']                                                = '设置数量';
+$_['product_main_sku']['stock']                                                = '库存量';
+$_['product_main_sku']['sell_number']                                          = '销售量';
+$_['product_main_sku']['purchase_price']                                       = '进货价';
+$_['product_main_sku']['sell_price']                                           = '销售价';
+
 // productr/main/load
 $_['product_main_load']['response']['success']                                 = '成功';
 $_['product_main_load']['response']['empty_product_list']                      = '产品列表为空';

@@ -72,7 +72,7 @@
         <!--Modal footer-->
         <div class="modal-footer">
             <button class="btn btn-default" type="button" data-dismiss="modal"><?php echo $language->get('common')->cancel;?></button>
-            <button class="btn btn-primary" type="button"><?php echo $language->get('common')->submit;?></button>
+            <button class="btn btn-primary" type="button" data-dismiss="modal"><?php echo $language->get('common')->submit;?></button>
         </div>
     </div>
 </div>
@@ -101,6 +101,15 @@ $(function(){
 
     $('table[p_action_dom="table_add_product"]').on('click', 'input[type="checkbox"]', function(){
         $(this).parents("label").toggleClass('active');
+        if($(this).parents("label").hasClass('active')) {
+            var product_id = $(this).attr('product_id');
+            params.sku = {};
+            var url = "<?=$url->link('product/main/sku');?>&product_id="+product_id;
+            $.get(url, function(res){
+                $('#orderMainAddSkuModal').html(res);
+                $('#orderMainAddSkuModal').modal('show');
+            });
+        }
     });
 
     function loadProduct(page, category_id)
@@ -123,7 +132,7 @@ $(function(){
             if(res.status) {
                 for(var i=0; i<res.data.product_list.length; i++) {
                     html += '<tr>';
-                    html += '<td class="text-center"><label class="form-checkbox form-normal form-primary"><input type="checkbox"></label></td>';
+                    html += '<td class="text-center"><label class="form-checkbox form-normal form-primary"><input type="checkbox" product_id="'+res.data.product_list[i].product_id+'"></label></td>';
                     html += '<td class="text-center">'+res.data.product_list[i].product_id+'</td>';
                     html += '<td class="text-center">'+res.data.product_list[i].name+'</td>';
                     html += '<td class="text-center">'+res.data.product_list[i].stock+'</td>';
@@ -148,7 +157,6 @@ $(function(){
                 pager += '</ul>';
                 $('table').after(pager);
             }
-
         }, 'json');
     }
 });

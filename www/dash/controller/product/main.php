@@ -204,4 +204,20 @@ class ControllerProductMain extends \Siiwi\Dashboard\Controller
             $this->response->outputJson($response);
         }
     }
+
+    public function sku()
+    {
+        if($this->request->isGet() && $this->request->isAjax()) {
+            $data['product_id'] = $this->request->getHttpGet('product_id');
+            $this->api->get('product/get', $data);
+            if($this->api->getResponseStatus()) {
+                $this->data['product_main_sku']['sku'] = $this->api->getResponseData();
+                if(is_array($this->data['product_main_sku']['sku']) && !empty($this->data['product_main_sku']['sku'])) {
+                    $view = $this->load->view('product/main/sku.html', $this->data);
+                }
+            }
+
+            $this->response->setOutput($view);
+        }
+    }
 }

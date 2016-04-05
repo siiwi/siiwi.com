@@ -51,6 +51,10 @@ class ControllerProductGet extends \Siiwi\Api\Controller
         if($this->request->getHttpGet('status') !== false) {
             $this->where_array['status'] = $this->request->getHttpGet('status');
         }
+
+        if($this->request->getHttpGet('product_id') !== false) {
+            $this->where_array['product_id'] = $this->request->getHttpGet('product_id');
+        }
     }
 
     private function setResponseData()
@@ -91,7 +95,7 @@ class ControllerProductGet extends \Siiwi\Api\Controller
                             }
                         }
                         $sku_lists[$k]['attribute'] = $attribute_lists;
-                        
+
                         // 总库存
                         $this->product_list[$key]['stock'] += $sku_lists[$k]['stock'];
                     }

@@ -43,6 +43,7 @@ $msg[] = 'empty_buyer_address';
 $msg[] = 'empty_order_date';
 $msg[] = 'empty_product_sku';
 $msg[] = 'empty_product_sku_info';
+$msg[] = 'empty_order_list';
 
 $msg[] = 'invalid_key';
 $msg[] = 'invalid_client_status';
