@@ -35,26 +35,56 @@
                             <table class="table">
                                 <thead>
                                     <tr class="col-name">
-                                        <th>订单号</th>
                                         <th width="20%">产品</th>
-                                        <th>交易平台</th>
                                         <th>出售价</th>
                                         <th>销售量</th>
                                         <th>状态</th>
                                         <th>交易日期</th>
-                                        <th>买家</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
+                                <?php if(is_array($order_main_content['order_list']) && !empty($order_main_content['order_list'])):?>
+                                <?php foreach($order_main_content['order_list'] as $order):?>
                                 <tbody>
-                                    <!-- <tr>
-                                        <td colspan="6" class="text-center"><?php echo $language->get('common')->no_data;?></td>
-                                    </tr> -->
-
+                                    <tr class="sep-row"><td colspan="6"></td></tr>
+                                    <tr>
+                                        <td colspan="1" style="border-right: 0;">交易订单号：<?=$order['order_sn'];?></td>
+                                        <td colspan="2" style="border-right: 0;">交易来源：<?=$order['order_platform_name'];?></td>
+                                        <td colspan="2">买家：<?=$order['buyer_name'];?></td>
+                                    </tr>
+                                    <?php foreach($order['sku'] as $key=>$sku):?>
+                                    <tr>
+                                        <td style="border-right: 0;">
+                                            <div class="col-sm-4 col-xs-4">
+                                                <a href="javascript:;" class="thumbnail">
+                                                    <img src="<?=$sku['resource'][0];?>">
+                                                </a>
+                                            </div>
+                                            <div class="desc col-sm-8 col-xs-8" style1="display: inline;float: left;width: 180px;overflow: hidden;word-wrap: break-word;">
+                                                <p><a href="javascript:;"><?=$sku['name'];?></a></p>
+                                            </div>
+                                        </td>
+                                        <td style="border-right: 0;"><?=$sku['price'];?></td>
+                                        <td><?=$sku['number'];?></td>
+                                        <?php if($key == 0):?>
+                                        <td rowspan="3"><?=$order['order_status_name'];?></td>
+                                        <td rowspan="3"><?=date('Y-m-d', $order['order_date']);?></td>
+                                        <td rowspan="3">操作</td>
+                                        <?php endif;?>
+                                    </tr>
+                                    <?php endforeach;?>
                                 </tbody>
+                                <?php endforeach;?>
+                                <?php else:?>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6" class="text-center"><?php echo $language->get('common')->no_data;?></td>
+                                    </tr>
+                                </tbody>
+                                <?php endif;?>
                             </table>
                             <div class="pull-right">
-
+                                <?php echo $order_main_content['pagination'];?>
                             </div>
                         </div>
                     </div>

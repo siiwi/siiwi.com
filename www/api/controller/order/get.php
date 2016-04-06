@@ -70,9 +70,15 @@ class ControllerOrderGet extends \Siiwi\Api\Controller
                         $sku_info = $this->model_product_sku->fetchOne(array('sku'=>$value['sku']));
                         $resource_info = $this->model_product_resource->fetchAll(array('product_id'=>$sku_info['product_id']));
                         $product_info = $this->model_product_main->fetchOne(array('product_id'=>$sku_info['product_id']));
+                        $resource = array();
+                        if(is_array($resource_info) && !empty($resource_info)) {
+                            foreach($resource_info as $res) {
+                                $resource[] = $this->config->get('config_img_url') . $res['path'];
+                            }
+                        }
 
                         $order_sku_info[$key]['name'] = $product_info['name'];
-                        $order_sku_info[$key]['resource'] = $resource_info;
+                        $order_sku_info[$key]['resource'] = $resource;
                     }
                 }
 

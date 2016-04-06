@@ -459,6 +459,7 @@ $_['order_main_add']['message']['empty_buyer_name']                            =
 $_['order_main_add']['message']['empty_buyer_contact']                         = '请输入买家联系方式';
 $_['order_main_add']['message']['empty_buyer_address']                         = '请输入买家收货地址';
 $_['order_main_add']['message']['empty_order_date']                            = '请选择交易日期';
+$_['order_main_add']['message']['empty_sku']                                   = '请选择订单产品';
 $_['order_main_add']['response']['success']                                    = '添加成功';
 $_['order_main_add']['response']['empty_order_sn']                             = '添加失败，订单号为空';
 $_['order_main_add']['response']['empty_order_platform']                       = '添加失败，订单平台为空';

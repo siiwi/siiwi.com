@@ -79,6 +79,7 @@
 <!--===================================================-->
 <!--End Default Bootstrap Modal-->
 <script>
+params.sku = {};
 $(function(){
     loadProduct(1, 0);
 
@@ -103,7 +104,6 @@ $(function(){
         $(this).parents("label").toggleClass('active');
         if($(this).parents("label").hasClass('active')) {
             var product_id = $(this).attr('product_id');
-            params.sku = {};
             var url = "<?=$url->link('product/main/sku');?>&product_id="+product_id;
             $.get(url, function(res){
                 $('#orderMainAddSkuModal').html(res);

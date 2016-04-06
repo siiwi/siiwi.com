@@ -52,6 +52,7 @@ $(function(){
         $.each(stock, function(a, b){
             var number = $(".addOrderSkuStock").eq(a).val();
             var sku = $(".addOrderSkuStock").eq(a).attr('sku');
+            console.log(sku);
             var price = $(".addOrderSkuPrice").eq(a).val();
             if(!isNaN(number) && number > 0 && !isNaN(price) && price > 0) {
                 var temp = {};

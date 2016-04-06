@@ -18,10 +18,22 @@ class ControllerOrderMain extends \Siiwi\Dashboard\Controller
 
     private function content()
     {
-        $this->api->get('order/get', array('status'=>1));
+        $page = $this->request->getHttpGet('page', 1);
+
+        $this->api->get('order/get', array('status'=>1, 'page'=>$page, 'page_size'=>$this->config->get('config_page_size')));
 
         if($this->api->getResponseStatus()) {
-            $this->data['order_main_content']['order_list'] = $this->api->getResponseData();
+            $order_list = $this->api->getResponseData();
+
+            $this->data['order_main_content']['order_list'] = $order_list['order_list'];
+
+            if($order_list['order_total'] > $this->config->get('config_page_size')) {
+                $pagination = array(
+                    'total' => $order_list['order_total'],
+                    'link'  => $this->url->link('order/main')
+                );
+                $this->data['order_main_content']['pagination'] = $this->load->controller('frame/pagination', $pagination);
+            }
         } else {
             $this->data['order_main_content']['order_list'] = array();
         }

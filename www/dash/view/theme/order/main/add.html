@@ -110,6 +110,17 @@
 <script>
 var order_add_message = <?php echo json_encode($language->get('order_main_add')->message);?> || '';
 var params = {};
+params.sku = {};
+
+function isEmpty(obj)
+{
+    for (var name in obj)
+    {
+        return false;
+    }
+    return true;
+}
+
 $(function(){
     // 选择产品
     $("#selectOrderProduct").click(function(){
@@ -217,6 +228,11 @@ $(function(){
         if(params.buyer_address == '') {
             $("input[name=buyer_address]").focus();
             swal('', order_add_message.empty_buyer_address, 'warning');
+            return false;
+        }
+
+        if(isEmpty(params.sku)) {
+            swal('', order_add_message.empty_sku, 'warning');
             return false;
         }
 
