@@ -16,6 +16,7 @@ $_['common']['cancel']                                                         =
 $_['common']['ok']                                                             = '确认';
 $_['common']['setting']                                                        = '设置';
 $_['common']['add']                                                            = '添加';
+$_['common']['upload']                                                         = '上传';
 
 // frame/navigation/index
 $_['frame_navigation_index']['name']                                           = 'Siiwi.com';
@@ -331,13 +332,16 @@ $_['product_attribute_value_delete']['response']['no_record']                  =
 $_['product_main_index']['title']                                              = '产品管理';
 
 // product/main/content
+$_['product_main_content']['sn']                                               = '产品编号';
 $_['product_main_content']['title']                                            = '产品管理';
 $_['product_main_content']['search']                                           = '搜索产品';
 $_['product_main_content']['name']                                             = '产品名称';
+$_['product_main_content']['category']                                         = '产品分类';
 $_['product_main_content']['purchase_price']                                   = '进货价';
 $_['product_main_content']['sales_num']                                        = '销售量';
 $_['product_main_content']['stock_num']                                        = '库存量';
 $_['product_main_content']['status']                                           = '状态';
+$_['product_main_content']['delete_confirm']                                   = '确认删除该产品？';
 
 // product/main/add
 $_['product_main_add']['title']                                                = '添加新产品';
@@ -346,6 +350,7 @@ $_['product_main_add']['next']                                                 =
 $_['product_main_add']['finish']                                               = '完成';
 $_['product_main_add']['basic_info']                                           = '产品基本信息';
 $_['product_main_add']['attribute_info']                                       = '产品规格信息';
+$_['product_main_add']['resource_info']                                        = '产品资源信息';
 $_['product_main_add']['name']                                                 = '名称';
 $_['product_main_add']['sn']                                                   = '产品编号';
 $_['product_main_add']['brand']                                                = '品牌';
@@ -357,11 +362,119 @@ $_['product_main_add']['no_attribute']                                         =
 $_['product_main_add']['select']                                               = '--&nbsp;请选择&nbsp;--';
 $_['product_main_add']['purchase_price']                                       = '进货价';
 $_['product_main_add']['stock']                                                = '库存量';
+$_['product_main_add']['sku']                                                  = '商家SKU';
 $_['product_main_add']['message']['empty_name']                                = '产品名称不能为空';
 $_['product_main_add']['message']['invalid_name_length']                       = '产品名称长度在2~50位';
 $_['product_main_add']['message']['empty_category']                            = '请选择产品分类';
 $_['product_main_add']['message']['empty_brand']                               = '请选择品牌';
 $_['product_main_add']['message']['empty_supplier']                            = '请选择供应商';
+$_['product_main_add']['message']['empty_sku']                                 = '请输入商品SKU';
+$_['product_main_add']['message']['empty_purchase_price']                      = '请输入商品进货价';
+$_['product_main_add']['message']['empty_stock']                               = '请输入商品库存量';
+$_['product_main_add']['message']['product_sku_repeat']                        = '存在相同的SKU';
+$_['product_main_add']['response']['success']                                  = '添加成功';
+$_['product_main_add']['response']['empty_name']                               = '添加失败，产品名称为空';
+$_['product_main_add']['response']['invalid_name_length']                      = '添加失败，产品名称长度在2~50位';
+$_['product_main_add']['response']['empty_category_id']                        = '添加失败，产品分类不能为空';
+$_['product_main_add']['response']['empty_brand_id']                           = '添加失败，产品品牌不能为空';
+$_['product_main_add']['response']['empty_supplier_id']                        = '添加失败，产品供应商不能为空';
+$_['product_main_add']['response']['empty_sku_attribute']                      = '添加失败，产品SKU规格不能为空';
+$_['product_main_add']['response']['invalid_category_id']                      = '添加失败，产品分类异常';
+$_['product_main_add']['response']['user_not_allowed']                         = '添加失败，用户无当前产品分类管理权限';
+$_['product_main_add']['response']['invalid_brand_id']                         = '添加失败，产品品牌异常';
+$_['product_main_add']['response']['invalid_supplier_id']                      = '添加失败，产品供应商异常';
+
+// product/main/edit
+$_['product_main_edit']['title']                                               = '编辑产品';
+$_['product_main_edit']['name']                                                = '产品名称';
+$_['product_main_edit']['purchase_price']                                      = '产品进价';
+$_['product_main_edit']['purchase_url']                                        = '进货链接';
+$_['product_main_edit']['stock']                                               = '产品库存';
+$_['product_main_edit']['message']['system_error']                             = '网络异常，获取产品信息失败';
+$_['product_main_edit']['message']['empty_purchase_price']                     = '请输入商品进货价';
+$_['product_main_edit']['message']['empty_stock']                              = '请输入商品库存量';
+$_['product_main_edit']['message']['invalid_purchase_price']                   = '请输入有效的商品进货价';
+$_['product_main_edit']['message']['invalid_stock']                            = '请输入有效的商品库存量';
+$_['product_main_edit']['response']['system_error']                            = '网络异常，获取产品信息失败';
+
+// product/main/update
+$_['product_main_update']['response']['success']                               = '更新成功';
+$_['product_main_update']['response']['empty_product_sku']                     = '更新失败，产品ID不能为空';
+$_['product_main_update']['response']['invalid_product_id']                    = '更新失败，产品ID无效';
+$_['product_main_update']['response']['empty_product_sku_info']                = '更新失败，待更新产品信息为空';
+
+// product/main/delete
+$_['product_main_delete']['response']['success']                               = '删除成功';
+$_['product_main_delete']['response']['empty_product_id']                      = '删除失败，产品ID为空';
+$_['product_main_delete']['response']['invalid_product_id']                    = '删除失败，产品ID错误';
+$_['product_main_delete']['response']['empty_update_product_info']             = '删除失败，待更新产品信息为空';
+$_['product_main_delete']['response']['system_error']                          = '删除失败，系统异常';
+
+// product/main/get
+$_['product_main_get']['title']                                                = '选择产品';
+$_['product_main_get']['product_category']                                     = '产品分类';
+$_['product_main_get']['product_id']                                           = '产品编号';
+$_['product_main_get']['product_name']                                         = '产品名称';
+$_['product_main_get']['product_stock']                                        = '产品库存';
+
+// product/main/sku
+$_['product_main_sku']['title']                                                = '设置数量';
+$_['product_main_sku']['stock']                                                = '库存量';
+$_['product_main_sku']['sell_number']                                          = '销售量';
+$_['product_main_sku']['purchase_price']                                       = '进货价';
+$_['product_main_sku']['sell_price']                                           = '销售价';
+
+// productr/main/load
+$_['product_main_load']['response']['success']                                 = '成功';
+$_['product_main_load']['response']['empty_product_list']                      = '产品列表为空';
+
+// order/main/index
+$_['order_main_index']['title']                                                = '订单管理';
+
+// order/main/content
+$_['order_main_content']['search']                                             = '搜索订单';
+
+// order/main/add
+$_['order_main_add']['title']                                                  = '添加订单';
+$_['order_main_add']['order_sn']                                               = '订单号';
+$_['order_main_add']['total_cost']                                             = '商品总价';
+$_['order_main_add']['express_cost']                                           = '快递总价';
+$_['order_main_add']['buyer_name']                                             = '买家昵称';
+$_['order_main_add']['buyer_contact']                                          = '买家联系方式';
+$_['order_main_add']['buyer_address']                                          = '买家收货地址';
+$_['order_main_add']['select_order_from']                                      = '请选择订单来源';
+$_['order_main_add']['select_order_status']                                    = '请选择订单状态';
+$_['order_main_add']['select_order_platform']                                  = '请选择订单平台';
+$_['order_main_add']['order_date']                                             = '交易日期';
+$_['order_main_add']['select_order_product']                                   = '请选择产品';
+$_['order_main_add']['message']['empty_order_sn']                              = '请输入正确的订单号';
+$_['order_main_add']['message']['empty_order_status']                          = '请选择订单状态';
+$_['order_main_add']['message']['empty_order_platform']                        = '请选择订单平台';
+$_['order_main_add']['message']['empty_order_from']                            = '请选择订单来源';
+$_['order_main_add']['message']['empty_total_cost']                            = '请输入正确的商品总价';
+$_['order_main_add']['message']['invalid_total_cost']                          = '商品总价必须为大于或等于0的数字';
+$_['order_main_add']['message']['empty_express_cost']                          = '请输入正确的快递总价';
+$_['order_main_add']['message']['invalid_express_cost']                        = '快递总价必须为大于或等于0的数字';
+$_['order_main_add']['message']['empty_buyer_name']                            = '请输入买家昵称';
+$_['order_main_add']['message']['empty_buyer_contact']                         = '请输入买家联系方式';
+$_['order_main_add']['message']['empty_buyer_address']                         = '请输入买家收货地址';
+$_['order_main_add']['message']['empty_order_date']                            = '请选择交易日期';
+$_['order_main_add']['message']['empty_sku']                                   = '请选择订单产品';
+$_['order_main_add']['response']['success']                                    = '添加成功';
+$_['order_main_add']['response']['empty_order_sn']                             = '添加失败，订单号为空';
+$_['order_main_add']['response']['empty_order_platform']                       = '添加失败，订单平台为空';
+$_['order_main_add']['response']['invalid_order_platform']                     = '添加失败，订单平台异常';
+$_['order_main_add']['response']['order_sn_already_exist']                     = '添加失败，订单号已存在';
+$_['order_main_add']['response']['empty_order_from']                           = '添加失败，订单来源为空';
+$_['order_main_add']['response']['empty_order_status']                         = '添加失败，订单状态为空';
+$_['order_main_add']['response']['empty_total_cost']                           = '添加失败，商品总价为空';
+$_['order_main_add']['response']['invalid_total_cost']                         = '添加失败，商品总价为大于等于0的数字';
+$_['order_main_add']['response']['empty_express_cost']                         = '添加失败，快递总价为空';
+$_['order_main_add']['response']['invalid_express_cost']                       = '添加失败，快递总价为大于等于0的数字';
+$_['order_main_add']['response']['empty_buyer_name']                           = '添加失败，买家昵称为空';
+$_['order_main_add']['response']['empty_buyer_contact']                        = '添加失败，买家联系方式为空';
+$_['order_main_add']['response']['empty_buyer_address']                        = '添加失败，买家收货地址为空';
+$_['order_main_add']['response']['empty_order_date']                           = '添加失败，交易日期为空';
 
 // user/group/index
 $_['user_group_index']['title']                                                = '用户组管理';
