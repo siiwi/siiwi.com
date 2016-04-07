@@ -1,13 +1,13 @@
 <?php
 
-error_reporting(E_ALL);
+error_reporting(0);
 date_default_timezone_set('Asia/Shanghai');
 
 // HTTP
-define('HTTP_SERVER', 'http://api.local.siiwi.com/');
+define('HTTP_SERVER', 'http://api.siiwi.com/');
 
 // HTTPS
-define('HTTPS_SERVER', 'https://api.local.siiwi.com/');
+define('HTTPS_SERVER', 'https://api.siiwi.com/');
 
 // DIR
 define('DIR_ROOT', dirname(__DIR__) . '/');
@@ -32,6 +32,7 @@ define('DB_DATABASE', 'siiwi');
 define('DB_PREFIX', 'si_');
 
 // config
+$_config['config_img_url'] = 'http://www.siiwi.com';
 $_config['config_url'] = HTTP_SERVER;
 $_config['config_ssl'] = HTTPS_SERVER;
 $_config['config_secure'] = 0;
