@@ -26,7 +26,7 @@
                         </li>
 
                         <!--Menu list item-->
-                        <li @if(in_array(Route::currentRouteName(), array('supplier.index', 'category.index', 'category.attribute.index'))) class="active active-sub" @endif>
+                        <li @if(in_array(Route::currentRouteName(), array('supplier.index', 'category.index', 'category.attribute.index', 'product.index'))) class="active active-sub" @endif>
                             <a href="javascript:;">
                                 <i class="fa fa-th"></i>
                                 <span class="menu-title">
@@ -39,7 +39,7 @@
                             <ul class="collapse">
                                 <li @if(in_array(Route::currentRouteName(), ['category.index', 'category.attribute.index'])) class="active-link" @endif><a href="{{ url('category') }}">产品分类列表</a></li>
                                 <li @if(Route::currentRouteName() == 'supplier.index') class="active-link" @endif><a href="{{ url('supplier') }}">产品供应商列表</a></li>
-                                <li><a href="javascript:;">产品列表</a></li>
+                                <li @if(Route::currentRouteName() == 'product.index') class="active-link" @endif><a href="{{ url('product') }}">产品列表</a></li>
                             </ul>
                         </li>
 

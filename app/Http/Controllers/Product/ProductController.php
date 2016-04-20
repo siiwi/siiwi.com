@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Product;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests\StoreAttributeValueRequest;
+use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Models\AttributeValue;
+use App\Http\Models\Supplier;
+use App\Http\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
-class AttributeValueController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +19,18 @@ class AttributeValueController extends Controller
      */
     public function index()
     {
-        //
+        // 供应商
+        $suppliers = Supplier::where(['uid' => \Auth::user()->id])
+                                ->orderBy('id', 'desc')
+                                ->get();
+
+        // 分类
+        $categories = Category::where(['type' => 0])
+                                ->orWhere(['uid' => Auth::user()->id, 'type' => 1])
+                                ->orderBy('id', 'desc')
+                                ->get();
+
+        return view('product.product.index', ['suppliers' => $suppliers, 'categories' => $categories]);
     }
 
     /**
@@ -33,15 +46,12 @@ class AttributeValueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param int $attribute_id
-     * @param  StoreAttributeValueRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($attribute_id, StoreAttributeValueRequest $request)
+    public function store(Request $request)
     {
-        $response = AttributeValue::create(['attribute_id' => $attribute_id, 'value' => $request->get('value')]) ? ['code' => 1, 'title'=> '恭喜！', 'message' => '添加规格值成功'] : ['code' => 0, 'title' => '抱歉！', 'message' => '添加规格值失败'];
-
-        return response()->json($response);
+        //
     }
 
     /**
@@ -81,14 +91,11 @@ class AttributeValueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int  $attribute_id
-     * @param string $value
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($attribute_id, $value)
+    public function destroy($id)
     {
-        $response = AttributeValue::where(['attribute_id' => $attribute_id, 'value' => $value])->delete() ? ['code' => 1, 'title'=> '恭喜！', 'message' => '删除规格值成功'] : ['code' => 0, 'title' => '抱歉！', 'message' => '删除规格值失败'];
-
-        return response()->json($response);
+        //
     }
 }

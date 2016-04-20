@@ -19,8 +19,6 @@
     @include('partials.message')
 
     @yield('content-script')
-
-    <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
 </div>
 </body>
 </html>

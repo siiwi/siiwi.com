@@ -28,5 +28,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('category', 'Product\CategoryController');
     Route::resource('category.attribute', 'Product\AttributeController');
     Route::resource('attribute.value', 'Product\AttributeValueController');
+    Route::resource('product', 'Product\ProductController');
 });
 
