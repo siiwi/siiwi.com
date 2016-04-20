@@ -39,23 +39,21 @@
                             <input type="password" class="form-control" placeholder="密码" name="password" />
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-8 text-left checkbox">
+                    <div class="form-group">
+                        <div class="text-left checkbox">
                             <label class="form-checkbox form-icon">
                                 <input type="checkbox" name="remember" /> 自动登录
                             </label>
                         </div>
-                        <div class="col-xs-4">
-                            <div class="form-group text-right">
-                                <button class="btn btn-success text-uppercase" type="submit">提交</button>
-                            </div>
+                        <div class="text-right">
+                            <button class="btn btn-success text-uppercase" type="submit">登录</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
         <div class="pad-ver">
-            <a href="{{ url('password/email') }}" class="btn-link mar-rgt">忘记密码？</a>
+            <a href="{{ url('password/email') }}" class="btn-link mar-rgt">忘记密码</a>
             <a href="{{ url('auth/register') }}" class="btn-link mar-lft">注册</a>
         </div>
     </div>

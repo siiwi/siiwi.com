@@ -21,7 +21,7 @@ class AttributeValue extends Model
      *
      * @var array
      */
-    protected $fillable = ['attribute_id', 'value'];
+    protected $fillable = ['aid', 'value'];
 
     /**
      * The attributes excluded from the model's JSON form.

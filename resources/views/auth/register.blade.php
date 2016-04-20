@@ -55,23 +55,21 @@
                                 <input type="password" class="form-control" placeholder="确认密码" name="password_confirmation">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-8 text-left checkbox">
+                        <div class="form-group">
+                            <div class="text-left checkbox">
                                 <label class="form-checkbox form-icon">
-                                    <input type="checkbox" name="agree">同意并接受 <a href="#" style="color: #23527c;">Siiwi.com 服务条款</a>
+                                    <input type="checkbox" name="agree" checked="checked">同意并接受 <a href="#" style="color: #23527c;">Siiwi.com 服务条款</a>
                                 </label>
                             </div>
-                            <div class="col-xs-4">
-                                <div class="form-group text-right">
-                                    <button class="btn btn-success text-uppercase"  type="submit">提交</button>
-                                </div>
+                            <div class="text-right">
+                                <button class="btn btn-success text-uppercase"  type="submit">注册</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
             <div class="pad-ver">
-                <a href="{{ url('password/email') }}" class="btn-link mar-rgt">忘记密码？</a>
+                <a href="{{ url('password/email') }}" class="btn-link mar-rgt">忘记密码</a>
                 <a href="{{ url('auth/login') }}" class="btn-link mar-rgt">登录</a>
             </div>
         </div>

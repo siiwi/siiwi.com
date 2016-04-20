@@ -33,13 +33,13 @@ class AttributeValueController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param int $attribute_id
+     * @param int $aid
      * @param  StoreAttributeValueRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($attribute_id, StoreAttributeValueRequest $request)
+    public function store($aid, StoreAttributeValueRequest $request)
     {
-        $response = AttributeValue::create(['attribute_id' => $attribute_id, 'value' => $request->get('value')]) ? ['code' => 1, 'title'=> '恭喜！', 'message' => '添加规格值成功'] : ['code' => 0, 'title' => '抱歉！', 'message' => '添加规格值失败'];
+        $response = AttributeValue::create(['aid' => $aid, 'value' => $request->get('value')]) ? ['code' => 1, 'title'=> '恭喜！', 'message' => '添加规格值成功'] : ['code' => 0, 'title' => '抱歉！', 'message' => '添加规格值失败'];
 
         return response()->json($response);
     }
@@ -81,13 +81,13 @@ class AttributeValueController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int  $attribute_id
+     * @param int $aid
      * @param string $value
      * @return \Illuminate\Http\Response
      */
-    public function destroy($attribute_id, $value)
+    public function destroy($aid, $value)
     {
-        $response = AttributeValue::where(['attribute_id' => $attribute_id, 'value' => $value])->delete() ? ['code' => 1, 'title'=> '恭喜！', 'message' => '删除规格值成功'] : ['code' => 0, 'title' => '抱歉！', 'message' => '删除规格值失败'];
+        $response = AttributeValue::where(['aid' => $aid, 'value' => $value])->delete() ? ['code' => 1, 'title'=> '恭喜！', 'message' => '删除规格值成功'] : ['code' => 0, 'title' => '抱歉！', 'message' => '删除规格值失败'];
 
         return response()->json($response);
     }

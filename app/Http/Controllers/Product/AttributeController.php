@@ -33,7 +33,7 @@ class AttributeController extends Controller
         if(is_array($attribute->items()) && !empty($attribute->items())) {
             foreach($attribute->items() as $key=>$value) {
                 $val = array();
-                $vals = Models\AttributeValue::where(['attribute_id' => $value['id']])->get()->toArray();
+                $vals = Models\AttributeValue::where(['aid' => $value['id']])->get()->toArray();
 
                 foreach($vals as $k=>$v) {
                     $val[] = $v['value'];
