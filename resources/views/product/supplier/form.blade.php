@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label text-danger">名称：</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control input-sm" name="name" value="{{ isset($supplier->name) ? $supplier->name : '' }}" />
+                                <input type="text" class="form-control input-sm" name="supplier_name" value="{{ isset($supplier->name) ? $supplier->name : '' }}" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -81,7 +81,7 @@ $(function(){
             validating: 'fa fa-refresh'
         },
         fields: {
-            name: {
+            supplier_name: {
                 container: 'tooltip',
                 validators: {
                     notEmpty: {

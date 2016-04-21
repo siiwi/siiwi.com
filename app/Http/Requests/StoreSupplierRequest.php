@@ -24,7 +24,7 @@ class StoreSupplierRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
+            'supplier_name' => 'required|unique:suppliers,name,null,status,status,1,uid,'. \Auth::user()->id,
             'contact' => 'required',
             'phone' => 'required',
             'email' => 'required|email'

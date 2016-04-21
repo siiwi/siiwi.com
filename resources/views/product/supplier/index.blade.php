@@ -51,7 +51,7 @@
                                     <td>{{ $supplier->phone }}</td>
                                     <td>{{ $supplier->email }}</td>
                                     <td>{{ $supplier->address }}</td>
-                                    <td><span class="label label-table label-default" title="{{ $supplier->desc }}">{{ $supplier->desc }}</span></td>
+                                    <td><span class="label label-table label-default" title="{{ $supplier->desc }}">{{ $supplier->desc ? $supplier->desc : '-' }}</span></td>
                                     <td>
                                         <button class="btn btn-xs btn-default add-tooltip editSupplier" data-toggle="tooltip" data-original-title="编辑" data-container="body" supplier_id="{{ $supplier->id }}"><i class="fa fa-pencil"></i></button>
                                         <button class="btn btn-xs btn-danger add-tooltip deleteSupplier" data-toggle="tooltip" data-original-title="删除" data-container="body" supplier_id="{{ $supplier->id }}"><i class="fa fa-times"></i></button>

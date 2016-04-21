@@ -43,6 +43,8 @@ class SupplierController extends Controller
         $data = $request->all();
 
         $data['uid'] = \Auth::user()->id;
+        $data['name'] = $request->input('supplier_name');
+        $data['status'] = 1;
 
         $response = Supplier::create($data) ? ['title' => '恭喜！', 'message' => '添加供应商成功'] : ['title' => '抱歉！', 'message' => '添加供应商失败'];
 
@@ -84,7 +86,9 @@ class SupplierController extends Controller
     {
         $data = $request->all();
 
-        unset($data['_method'], $data['_token']);
+        $data['name'] = $data['supplier_name'];
+
+        unset($data['_method'], $data['_token'], $data['supplier_name']);
 
         $status = Supplier::where('id', $id)->update($data);
 
@@ -101,6 +105,8 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
+        Supplier::where('id', $id)->update(['status' => 0]);
+
         $response = Supplier::destroy($id) ? ['code' => 1, 'message' => 'success'] : ['code' => 0, 'message' => 'failed'];
 
         return response()->json($response);

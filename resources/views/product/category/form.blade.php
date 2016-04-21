@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label text-danger">分类名称：</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control input-sm" name="name" value="{{ isset($cate->name) ? $cate->name : '' }}" />
+                                <input type="text" class="form-control input-sm" name="category_name" value="{{ isset($cate->name) ? $cate->name : '' }}" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -59,7 +59,7 @@
                 validating: 'fa fa-refresh'
             },
             fields: {
-                name: {
+                category_name: {
                     container: 'tooltip',
                     validators: {
                         notEmpty: {

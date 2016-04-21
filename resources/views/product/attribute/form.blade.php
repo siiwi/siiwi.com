@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label text-danger">规格名称：</label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control input-sm" name="name" value="" />
+                                <input type="text" class="form-control input-sm" name="attribute_name" value="" />
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                 validating: 'fa fa-refresh'
             },
             fields: {
-                name: {
+                attribute_name: {
                     container: 'tooltip',
                     validators: {
                         notEmpty: {

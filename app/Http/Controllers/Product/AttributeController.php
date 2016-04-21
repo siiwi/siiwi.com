@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Product;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Models;
+use App\Http\Models\Attribute;
+use App\Http\Models\Category;
+use App\Http\Models\AttributeValue;
 
 class AttributeController extends Controller
 {
@@ -19,21 +20,21 @@ class AttributeController extends Controller
     public function index($cid)
     {
         // 分类
-        $category = Models\Category::where('type', 0)
-                                    ->orWhere(['uid' => \Auth::user()->id])
-                                    ->orderBy('id', 'desc')
-                                    ->get();
+        $category = Category::where('uid' , \Auth::user()->id)
+                            ->orWhere('type', 0)
+                            ->orderBy('id', 'desc')
+                            ->get();
 
         // 规格
-        $attribute = Models\Attribute::where(['uid' => \Auth::user()->id, 'cid' => $cid])
-                                    ->orderBy('id', 'desc')
-                                    ->paginate(config('app.pagesize'));
+        $attribute = Attribute::where(['uid' => \Auth::user()->id, 'cid' => $cid])
+                                ->orderBy('id', 'desc')
+                                ->paginate(config('app.pagesize'));
 
         // 规格值
         if(is_array($attribute->items()) && !empty($attribute->items())) {
             foreach($attribute->items() as $key=>$value) {
                 $val = array();
-                $vals = Models\AttributeValue::where(['aid' => $value['id']])->get()->toArray();
+                $vals = AttributeValue::where(['aid' => $value['id']])->get()->toArray();
 
                 foreach($vals as $k=>$v) {
                     $val[] = $v['value'];
@@ -60,17 +61,24 @@ class AttributeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\StoreAttributeRequest  $request
+     * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($cid, Requests\StoreAttributeRequest $request)
+    public function store($cid, Request $request)
     {
+        // 验证规格名称
+        $this->validate($request, [
+            'attribute_name' => 'required|unique:attribute,name,null,status,status,1,uid,'.\Auth::user()->id.',cid,'.$cid
+        ]);
+
         $data = $request->all();
 
         $data['uid'] = \Auth::user()->id;
         $data['cid'] = $cid;
+        $data['status'] = 1;
+        $data['name'] = $request->input('attribute_name');
 
-        $response = Models\Attribute::create($data) ? ['code' => 1, 'title' => '恭喜！', 'message' => '添加规格成功'] : ['code' => 0, 'title' => '抱歉！', 'message' => '添加规格失败'];
+        $response = Attribute::create($data) ? ['code' => 1, 'title' => '恭喜！', 'message' => '添加规格成功'] : ['code' => 0, 'title' => '抱歉！', 'message' => '添加规格失败'];
 
         $redirect = "category/$cid/attribute";
 
@@ -120,7 +128,9 @@ class AttributeController extends Controller
      */
     public function destroy($cid, $id)
     {
-        $response = Models\Attribute::where(['id' => $id, 'cid' => $cid])->delete() ? ['code' => 1, 'message' => 'success'] : ['code' => 0, 'message' => 'failed'];
+        Attribute::where(['id' => $id, 'cid' => $cid])->update(['status' => 0]);
+
+        $response = Attribute::where(['id' => $id, 'cid' => $cid])->delete() ? ['code' => 1, 'message' => 'success'] : ['code' => 0, 'message' => 'failed'];
 
         return response()->json($response);
     }

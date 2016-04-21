@@ -24,7 +24,7 @@ class StoreCategoryRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required'
+            'category_name' => 'required|unique:category,name,null,status,status,1,uid,'.\Auth::user()->id
         ];
     }
 }

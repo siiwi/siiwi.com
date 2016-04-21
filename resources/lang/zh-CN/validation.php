@@ -89,8 +89,40 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'email' => [
+            'required' => '请输入电子邮箱',
+            'email' => '电子邮箱格式错误',
+            'unique' => '电子邮箱已注册',
+        ],
+        'password' => [
+            'required' => '请输入密码',
+            'confirmed' => '两次密码输入不一致',
+            'min' => '密码长度最低6位'
+        ],
+        'name' => [
+            'required' => '请输入用户名',
+            'unique' => '用户名已经存在',
+        ],
+        'agree' => [
+            'required' => '未同意服务条款，无法注册'
+        ],
+        'contact' => [
+            'required' => '请输入联系人'
+        ],
+        'phone' => [
+            'required' => '请输入电话号码'
+        ],
+        'category_name' => [
+            'required' => '请输入分类名称',
+            'unique' => '分类名称已经存在',
+        ],
+        'supplier_name' => [
+            'required' => '请输入供应商名称',
+            'unique' => '供应商名称已经存在',
+        ],
+        'attribute_name' => [
+            'required' => '请输入规格名称',
+            'unique' => '该分类下规格名称已经存在',
         ],
     ],
 

@@ -62,7 +62,9 @@ class CategoryController extends Controller
 
         $data['uid'] = \Auth::user()->id;
         $data['locale'] = config('app.locale');
+        $data['name'] = $request->input('category_name');
         $data['type'] = 1;
+        $data['status'] = 1;
 
         $response = Category::create($data) ? ['title' => '恭喜！', 'message' => '添加分类成功'] : ['title' => '抱歉！', 'message' => '添加分类失败'];
 
@@ -105,7 +107,7 @@ class CategoryController extends Controller
      */
     public function update(Requests\StoreCategoryRequest $request, $id)
     {
-        $status = Category::where('id', $id)->update(['name' => $request->input('name')]);
+        $status = Category::where('id', $id)->update(['name' => $request->input('category_name')]);
 
         $response = $status ? ['title' => '恭喜！', 'message' => '分类信息修改成功'] : ['title' => '抱歉！', 'message' => '分类信息修改失败'];
 
@@ -120,6 +122,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        Category::where('id', $id)->update(['status' => 0]);
+
         $response = Category::destroy($id) ? ['code' => 1, 'message' => 'success'] : ['code' => 0, 'message' => 'failed'];
 
         return response()->json($response);
