@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Http\Models\AttributeValue;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Category;
+use App\Http\Models\Attribute;
 
 class CategoryController extends Controller
 {
@@ -58,15 +60,56 @@ class CategoryController extends Controller
      */
     public function store(Requests\StoreCategoryRequest $request)
     {
-        $data = $request->all();
+        // 写入新分类
+        $category = new Category;
+        $category->pid = $request->input('pid');
+        $category->uid = \Auth::user()->id;
+        $category->locale = config('app.locale');
+        $category->name = $request->input('category_name');
+        $category->type = 1;
+        $category->status = 1;
+        $category->save();
 
-        $data['uid'] = \Auth::user()->id;
-        $data['locale'] = config('app.locale');
-        $data['name'] = $request->input('category_name');
-        $data['type'] = 1;
-        $data['status'] = 1;
+        // 获取新写入的分类ID
+        $cid = $category->id;
 
-        $response = Category::create($data) ? ['title' => '恭喜！', 'message' => '添加分类成功'] : ['title' => '抱歉！', 'message' => '添加分类失败'];
+        // 继承父级分类规格与规格值
+        if($request->input('pid')) {
+            $attributes = Attribute::where(['cid' => $request->input('pid'), 'uid' => 0])
+                ->orWhere(['cid' => $request->input('pid'), 'uid' => \Auth::user()->id])
+                ->get()
+                ->toArray();
+
+            if(is_array($attributes) && !empty($attributes)) {
+                foreach($attributes as $attr) {
+                    // 继承父级规格
+                    $attribute = new Attribute;
+                    $attribute->cid = $cid;
+                    $attribute->uid = \Auth::user()->id;
+                    $attribute->name = $attr['name'];
+                    $attribute->status = 1;
+                    $attribute->save();
+
+                    // 获取新写入的规格ID
+                    $aid = $attribute->id;
+
+                    $attribute_values = AttributeValue::where(['aid' => $attr['id']])
+                                                        ->get()
+                                                        ->toArray();
+
+                    // 继承父级规格值
+                    if(is_array($attribute_values) && !empty($attribute_values)) {
+                        foreach($attribute_values as $attr_value) {
+                            $data['aid'] = $aid;
+                            $data['value'] = $attr_value['value'];
+                            AttributeValue::create($data);
+                        }
+                    }
+                }
+            }
+        }
+
+        $response = $cid ? ['title' => '恭喜！', 'message' => '添加分类成功'] : ['title' => '抱歉！', 'message' => '添加分类失败'];
 
         return redirect('category')->with('message', $response);
     }

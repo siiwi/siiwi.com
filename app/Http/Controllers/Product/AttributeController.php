@@ -27,6 +27,7 @@ class AttributeController extends Controller
 
         // 规格
         $attribute = Attribute::where(['uid' => \Auth::user()->id, 'cid' => $cid])
+                                ->orWhere(['uid' => 0, 'cid' => $cid])
                                 ->orderBy('id', 'desc')
                                 ->paginate(config('app.pagesize'));
 
