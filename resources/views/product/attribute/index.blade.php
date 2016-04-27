@@ -116,6 +116,11 @@ $(function(){
 
     // 删除规格值
     $(".attributeValue").on('beforeItemRemove', function(e) {
+        var env = window.event;
+        if(env.keyCode == 8) {
+            e.cancel = true;
+            return false;
+        }
         var attribute_id = $(this).attr('attribute_id');
         var value = e.item;
         var url = "{{ url('attribute') }}/" + attribute_id + "/value/" + value;
