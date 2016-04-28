@@ -24,6 +24,7 @@ Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\Passwor
 
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('home', 'HomeController', ['only' => ['index']]);
+    Route::resource('user.password', 'User\PasswordController');
     Route::resource('supplier', 'Product\SupplierController');
     Route::resource('category', 'Product\CategoryController');
     Route::resource('category.attribute', 'Product\AttributeController');

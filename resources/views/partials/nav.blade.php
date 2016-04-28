@@ -70,9 +70,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <span class="label label-success pull-right">New</span>
-                                    <i class="fa fa-gear fa-fw fa-lg"></i> Settings
+                                <a href="{{ url('user/') }}/{{ Auth::user()->id }}/password">
+                                    <i class="fa fa-gear fa-fw fa-lg"></i> 密码重置
                                 </a>
                             </li>
                             <li>
