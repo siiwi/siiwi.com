@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Http\Models\Attribute;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\StoreAttributeValueRequest;
@@ -13,11 +14,12 @@ class AttributeValueController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($aid)
     {
-        //
+        return AttributeValue::where(['aid' => $aid])->get();
     }
 
     /**

@@ -28,6 +28,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('category', 'Product\CategoryController');
     Route::resource('category.attribute', 'Product\AttributeController');
     Route::resource('attribute.value', 'Product\AttributeValueController');
+    Route::get('category/{cid}/attributes', 'Product\AttributeController@showAttributes');
+    Route::get('attribute/{aid}', 'Product\AttributeController@showAttribute');
     Route::resource('product', 'Product\ProductController');
+    Route::post('upload', 'UploadController@store');
 });
 

@@ -98,6 +98,29 @@ class AttributeController extends Controller
     }
 
     /**
+     * 显示该分类下规格列表
+     *
+     * @param  int  $cid
+     * @return \Illuminate\Http\Response
+     */
+    public function showAttributes($cid)
+    {
+        return Attribute::where(['uid' => \Auth::user()->id, 'cid' => $cid])
+                                ->orderBy('id', 'desc')
+                                ->get();
+    }
+
+    /**
+     * 显示规格信息
+     *
+     * @param  int  $aid
+     * @return \Illuminate\Http\Response
+     */
+    public function showAttribute($aid)
+    {
+        return Attribute::findOrFail($aid);
+    }
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

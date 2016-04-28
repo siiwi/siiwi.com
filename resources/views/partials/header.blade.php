@@ -7,6 +7,7 @@
     <link href="http://cdn.bootcss.com/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css" rel="stylesheet" />
     <link href="http://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet" />
     <link href="http://cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+    <link href="{{ asset('css/fileinput.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/bootstrap-tagsinput.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/chosen.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/nifty.min.css') }}" rel="stylesheet" type="text/css" />
