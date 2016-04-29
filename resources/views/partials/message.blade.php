@@ -19,7 +19,7 @@ $(function() {
 @if (count($errors) > 0)
 <script type="text/javascript">
     $(function() {
-        var time = 2000;
+        var time = 3500;
         @foreach ($errors->all() as $error)
                 time += 1000;
         $.niftyNoty({

@@ -40,7 +40,7 @@ class PasswordController extends Controller
      */
     public function store(Request $request)
     {
-        $id = \Auth::user()->id;
+        $id = \Auth::id();
 
         $this->validate($request, [
             'old_password' => 'required',
@@ -49,7 +49,7 @@ class PasswordController extends Controller
 
         // 验证原密码
         $credentials = ['email' => \Auth::user()->email, 'password' => $request->old_password];
-        if(!Auth::attempt($credentials)) {
+        if(!Auth::validate($credentials)) {
             $response = ['title' => '抱歉！', 'message' => '更新密码失败，原密码错误'];
         } else {
             // 更新密码

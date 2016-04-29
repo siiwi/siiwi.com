@@ -112,6 +112,7 @@
 
                         <div class="row">
                             <div class="col-sm-3">
+                                {{ csrf_field() }}
                                 <button class="btn btn-primary btn-block" type="submit">保存</button>
                             </div>
                         </div>
@@ -262,8 +263,8 @@
                     '</tr></thead>' +
                     '<tbody><tr>' +
                     '<td><input type="text" class="form-control" name="sku" /></td>' +
-                    '<td><input type="text" class="form-control" name="purchase_price" /></td>' +
                     '<td><input type="text" class="form-control" name="stock" /></td>' +
+                    '<td><input type="text" class="form-control" name="purchase_price" /></td>' +
                     '<td><button class="btn btn-xs btn-danger delete-sku"><i class="fa fa-times"></i></button></td>' +
                     '</tr></tbody>';
             $(".table-add-sku").parents('.table-responsive').addClass('hide');
@@ -341,7 +342,14 @@
                         v = b.eq(j).find("input").val();
                         name = b.eq(j).find("input").attr('name');
                     }
-                    var html = "<input type='hidden' name='sku["+i+"]["+name+"]' value='"+v+"' class='hidden-dynamic-sku' />";
+
+                    var html = '';
+                    if(!isNaN(name)) {
+                        html = "<input type='hidden' name='sku["+i+"][attribute]["+name+"]' value='"+v+"' class='hidden-dynamic-sku' />";
+                    } else {
+                        html = "<input type='hidden' name='sku["+i+"]["+name+"]' value='"+v+"' class='hidden-dynamic-sku' />";
+                    }
+
                     $("#add-product").append(html);
                 }
             }
