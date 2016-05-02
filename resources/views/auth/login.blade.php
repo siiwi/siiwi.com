@@ -46,7 +46,7 @@
                             </label>
                         </div>
                         <div class="text-right">
-                            <button class="btn btn-success text-uppercase" type="submit">登录</button>
+                            <button class="btn btn-primary" type="submit">登录</button>
                         </div>
                     </div>
                 </form>

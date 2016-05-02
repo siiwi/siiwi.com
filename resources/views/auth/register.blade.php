@@ -62,7 +62,7 @@
                                 </label>
                             </div>
                             <div class="text-right">
-                                <button class="btn btn-success text-uppercase"  type="submit">注册</button>
+                                <button class="btn btn-primary"  type="submit">注册</button>
                             </div>
                         </div>
                     </form>
