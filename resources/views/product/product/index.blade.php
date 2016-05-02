@@ -134,26 +134,65 @@
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover table-vcenter">
                             <thead>
                             <tr>
-                                <th>名称</th>
+                                <th width="80">#</th>
+                                <th width="200">编号</th>
+                                <th width="300">名称</th>
+                                <th>分类</th>
                                 <th>进货价(元)</th>
-                                <th>销售量</th>
                                 <th>库存</th>
-                                <th>类别</th>
                                 <th>状态</th>
+                                <th>销售量</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
+
                             <tbody>
+                                @if(count($product_sku) > 0)
+                                @foreach($product_sku as $sku)
                                 <tr>
-                                    <td colspan="7" class="text-center">暂无数据</td>
+                                    <td>
+                                        @if(count($sku->resource)>0)
+                                        <div p_action_dom="product_resource" style="min-height: 56px;">
+                                            @foreach($sku->resource as $k => $resource)
+                                            <a href="{{ $resource }}" @if($k>0)class="hide"@endif>
+                                                <img src="{{ $resource }}" width="56" style="border-radius: 2px;" />
+                                            </a>
+                                            @endforeach
+                                        </div>
+                                        @else
+                                            <img src="{{ asset('img/no-pic.jpg') }}" width="56" style="border-radius: 2px;" />
+                                        @endif
+                                    </td>
+                                    <td>{{ $sku->sn }}</td>
+                                    <td><a href="@if($sku->url){{ $sku->url }}@else javascript:; @endif" class="btn-link" target="_blank">{{ $sku->name }}</a></td>
+                                    <td>{{ $sku->category_name }}</td>
+                                    <td>{{ $sku->purchase_price }}</td>
+                                    <td>{{ $sku->stock }}</td>
+                                    <td>
+                                        @if($sku->stock>0)
+                                            <span class="label label-info">有货</span>
+                                        @else
+                                            <span class="label label-warning">缺货</span>
+                                        @endif
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        <button class="btn btn-xs btn-danger add-tooltip deleteProductSku" data-toggle="tooltip" data-original-title="删除" data-container="body" product_sku="{{ $sku->id }}" ><i class="fa fa-times"></i></button>
+                                    </td>
                                 </tr>
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="9" class="text-center">暂无数据</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                         <div class="pull-right">
-
+                            {!! $product_sku !!}
                         </div>
                     </div>
                 </div>
@@ -222,6 +261,11 @@
     $(function(){
         // 添加产品select样式
         $('.chosen_select').chosen({ width: '100%' });
+
+        // 产品图片
+        $("div[p_action_dom=product_resource]").lightGallery({
+            thumbnail:true
+        });
 
         // 添加产品规格modal
         $("#setProductAttribute").click(function(){
@@ -383,6 +427,41 @@
             }
         }).on('filecleared', function(e) {
             $(".hidden-dynamic-resource").remove();
+        });
+
+        // 删除SKU
+        $(".deleteProductSku").click(function() {
+            var product_sku = $(this).attr('product_sku');
+            swal({
+                title: '',
+                text: "确认删除该产品？",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            },function(){
+                $.ajax({
+                    url: "{{ url('product') }}/"+product_sku,
+                    type: 'DELETE',
+                    data: {_token: '{{ csrf_token() }}'},
+                    dataType: 'json',
+                    success: function(response) {
+                        if(response.code) {
+                            swal({
+                                title: '',
+                                text: '删除成功',
+                                type: "success",
+                                confirmButtonText: "确认"
+                            }, function(){
+                                window.location.reload();
+                            });
+                        } else {
+                            swal('', '删除失败', 'error');
+                        }
+                    }
+                });
+            });
         });
     });
 </script>

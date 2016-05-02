@@ -23,17 +23,48 @@ class ProductController extends Controller
     public function index()
     {
         // 供应商
-        $suppliers = Supplier::where(['uid' => \Auth::user()->id])
+        $suppliers = Supplier::where(['uid' => \Auth::id()])
                                 ->orderBy('id', 'desc')
                                 ->get();
 
         // 分类
         $categories = Category::where(['type' => 0])
-                                ->orWhere(['uid' => Auth::user()->id, 'type' => 1])
+                                ->orWhere(['uid' => \Auth::id(), 'type' => 1])
                                 ->orderBy('id', 'desc')
                                 ->get();
 
-        return view('product.product.index', ['suppliers' => $suppliers, 'categories' => $categories]);
+        // 产品SKU信息
+        $product_sku = ProductSku::where(['uid' => \Auth::id()])
+                            ->orderBy('id', 'desc')
+                            ->paginate(config('app.pagesize'));
+
+        if(is_array($product_sku->items()) && !empty($product_sku->items())) {
+            foreach($product_sku->items() as $key=>$value) {
+                // 产品基本信息
+                $product = Product::findOrFail(['id' => $value['pid']])->first()->toArray();
+                $product_sku[$key]['name'] = $product['name'];
+                $product_sku[$key]['sn'] = $product['sn'];
+                $product_sku[$key]['cid'] = $product['cid'];
+                $product_sku[$key]['sid'] = $product['sid'];
+                $product_sku[$key]['url'] = $product['url'];
+
+                // 产品图片
+                $product_resource = ProductResource::where(['pid' => $value['pid']])->get()->toArray();
+                if(is_array($product_resource) && !empty($product_resource)) {
+                    $resource = [];
+                    foreach($product_resource as $val) {
+                        $resource[] = config('app.url') . $val['path'];
+                    }
+                    $product_sku[$key]['resource'] = $resource;
+                }
+
+                // 产品分类
+                $product_category = Category::findorFail(['id' => $product['cid']])->first()->toArray();
+                $product_sku[$key]['category_name'] = $product_category['name'];
+            }
+        }
+
+        return view('product.product.index', ['suppliers' => $suppliers, 'categories' => $categories, 'product_sku' => $product_sku]);
     }
 
     /**
@@ -151,6 +182,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $response = ProductSku::destroy(['uid' => \Auth::id(), 'id' => $id]) ? ['code' => 1, 'message' => 'success'] : ['code' => 0, 'message' => 'failed'];
+
+        return response()->json($response);
     }
 }

@@ -60,7 +60,7 @@ class UploadController extends Controller
             return [
                 'code' => 1,
                 'message' => '上传成功',
-                'data' => '/' . $path . '/' . $file
+                'data' => $path . '/' . $file
             ];
         }
 
