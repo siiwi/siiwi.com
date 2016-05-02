@@ -26,3 +26,27 @@ if (! function_exists('create_product_sku')) {
         return "SKU-{$pid}-{$id}";
     }
 }
+
+if (! function_exists('get_order_status')) {
+    /**
+     * 获取订单状态列表
+     *
+     * @return array
+     */
+    function get_order_status()
+    {
+        return \App\Http\Models\Status::all()->toArray();
+    }
+}
+
+if (! function_exists('get_order_platforms')) {
+    /**
+     * 获取平台列表
+     *
+     * @return array
+     */
+    function get_order_platforms()
+    {
+        return \App\Http\Models\Platform::all()->toArray();
+    }
+}

@@ -8,6 +8,7 @@
     <link href="http://cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet" />
     <link href="http://cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
     <link href="http://cdn.bootcss.com/lightgallery/1.2.14/css/lightgallery.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <link href="{{ asset('css/fileinput.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/bootstrap-tagsinput.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/chosen.min.css') }}" rel="stylesheet" type="text/css" />

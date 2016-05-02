@@ -6,6 +6,8 @@
 <script src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.1/js/fileinput.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap-fileinput/4.3.1/js/fileinput_locale_zh.min.js"></script>
 <script src="http://cdn.bootcss.com/lightgallery/1.2.14/js/lightgallery-all.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap-datepicker/1.6.0/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="{{ asset('js/bootstrap-tagsinput.min.js') }}"></script>
 <script src="{{ asset('js/chosen.jquery.min.js') }}"></script>
 <script src="{{ asset('js/nifty.min.js') }}"></script>

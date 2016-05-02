@@ -23,15 +23,16 @@ Route::get('/', function () {
 Route::controllers(['auth' => 'Auth\AuthController', 'password' => 'Auth\PasswordController']);
 
 Route::group(['middleware' => 'auth'], function() {
+    Route::get('category/{cid}/attributes', 'Product\AttributeController@showAttributes');
+    Route::get('attribute/{aid}', 'Product\AttributeController@showAttribute');
+    Route::post('upload', 'UploadController@store');
     Route::resource('home', 'HomeController', ['only' => ['index']]);
     Route::resource('user.password', 'User\PasswordController');
     Route::resource('supplier', 'Product\SupplierController');
     Route::resource('category', 'Product\CategoryController');
     Route::resource('category.attribute', 'Product\AttributeController');
     Route::resource('attribute.value', 'Product\AttributeValueController');
-    Route::get('category/{cid}/attributes', 'Product\AttributeController@showAttributes');
-    Route::get('attribute/{aid}', 'Product\AttributeController@showAttribute');
     Route::resource('product', 'Product\ProductController');
-    Route::post('upload', 'UploadController@store');
+    Route::resource('order', 'Order\OrderController');
 });
 

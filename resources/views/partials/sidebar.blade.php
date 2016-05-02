@@ -43,7 +43,7 @@
                             </ul>
                         </li>
 
-                        <li>
+                        <li @if(in_array(Route::currentRouteName(), array('order.index'))) class="active active-sub" @endif>
                             <a href="javascript:;">
                                 <i class="fa fa-table"></i>
                                 <span class="menu-title">
@@ -54,7 +54,7 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="javascript:;">订单列表</a></li>
+                                <li @if(Route::currentRouteName() == 'order.index') class="active-link" @endif><a href="{{ url('order') }}">订单列表</a></li>
                             </ul>
                         </li>
 

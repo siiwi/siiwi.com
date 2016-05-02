@@ -407,6 +407,7 @@
             allowedFileExtensions: ["jpg", "png", "gif"],
             allowedFileTypes: ["image"],
             showClose: false,
+            showCaption: false,
             maxFileSize: 1200,
             maxFileCount: 10,
             removeFromPreviewOnError: true,
