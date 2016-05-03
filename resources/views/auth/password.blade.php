@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="form-group text-right">
-                            <button class="btn btn-primary" type="submit">发送邮件</button>
+                            <button class="btn btn-primary" type="button">发送邮件</button>
                         </div>
                     </form>
                 </div>
