@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\Http\Models\Attribute;
 use App\Http\Models\Product;
 use App\Http\Models\ProductResource;
 use App\Http\Models\ProductSku;
@@ -11,6 +12,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Models\Supplier;
 use App\Http\Models\Category;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -183,6 +185,60 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $response = ProductSku::destroy(['uid' => \Auth::id(), 'id' => $id]) ? ['code' => 1, 'message' => 'success'] : ['code' => 0, 'message' => 'failed'];
+
+        return response()->json($response);
+    }
+
+    /**
+     * AJAX获取产品列表
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function loadProduct(Request $request)
+    {
+        $where = ['uid' => \Auth::id()];
+
+        if($request->input('cid')) {
+            $where = ['uid' => \Auth::id(), 'cid' => $request->input('cid')];
+        }
+
+        $response = Product::where($where)->orderBy('id', 'desc')->paginate(config('app.pagesize'));
+
+        return response()->json(['code' => 1, 'data' => $response->toArray()]);
+    }
+
+    /**
+     * AJAX获取产品SKU列表
+     *
+     * @param $pid
+     * @return \Illuminate\Http\Response
+     */
+    public function loadSku($pid)
+    {
+        $rtn = [];
+        $sku =  ProductSku::where(['pid' => $pid])->orderBy('id', 'desc')->get()->toArray();
+
+        if(is_array($sku) && !empty($sku)) {
+            foreach($sku as $key=>$value) {
+                $rtn[$key]['id'] = $value['id'];
+                $rtn[$key]['stock'] = $value['stock'];
+                $rtn[$key]['purchase_price'] = $value['purchase_price'];
+
+                $attributes = @json_decode($value['attribute'], true);
+                if(is_array($attributes) && !empty($attributes)) {
+                    foreach($attributes as $k=>$v) {
+                        $attribute_info = Attribute::withTrashed()->where(['id' => $k])->first()->toArray();
+                        $attr['id'] = $attribute_info['id'];
+                        $attr['name'] = $attribute_info['name'];
+                        $attr['value'] = $v;
+                        $rtn[$key]['attribute'][] = $attr;
+                    }
+                }
+            }
+        }
+
+        $response = (is_array($rtn) && !empty($rtn)) ? ['code' => 1, 'message' => 'success', 'data' => $rtn] : ['code' => 0, 'message' => 'failed', 'data' => []];
 
         return response()->json($response);
     }

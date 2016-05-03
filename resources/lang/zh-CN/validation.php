@@ -143,6 +143,37 @@ return [
         ],
         'sn' => [
             'unique' => '添加产品失败！产品编号已经存在'
+        ],
+        'order_sn' => [
+            'required' => '添加订单失败！请输入订单号',
+            'unique' => '添加订单失败！订单号已存在'
+        ],
+        'order_express_price' => [
+            'required' => '添加订单失败！请输入快递总价',
+        ],
+        'order_date' => [
+            'required' => '添加订单失败！请输入快递总价',
+            'date' => '添加订单失败！请选择正确的交易日期'
+        ],
+        'order_platform' => [
+            'required' => '添加订单失败！请选择交易平台',
+            'exists' => '添加产品失败！交易平台错误'
+        ],
+        'order_status' => [
+            'required' => '添加订单失败！请选择交易状态',
+            'exists' => '添加产品失败！交易状态错误'
+        ],
+        'order_buyer_name' => [
+            'required' => '添加订单失败！请输入买家名称'
+        ],
+        'order_buyer_phone' => [
+            'required' => '添加订单失败！请输入买家联系方式'
+        ],
+        'order_buyer_address' => [
+            'required' => '添加订单失败！请输入买家地址'
+        ],
+        'sku' => [
+            'required' => '添加订单失败！请设置订单产品'
         ]
     ],
 

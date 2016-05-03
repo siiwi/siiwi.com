@@ -42,14 +42,9 @@
                                                 <th class="col-sm-1">#</th>
                                                 <th class="col-sm-3">产品编号</th>
                                                 <th class="col-sm-7">产品名称</th>
-                                                <th class="col-sm-1">产品库存</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="data">
-                                            <tr>
-                                                <td colspan="4" align="center">产品列表为空</td>
-                                            </tr>
-                                        </tbody>
+                                        <tbody p-action-dom="product_list"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -60,8 +55,7 @@
 
             <!--Modal footer-->
             <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
-                <button class="btn btn-primary" type="button">确认</button>
+                <button class="btn btn-primary" type="button" data-dismiss="modal">确认</button>
             </div>
         </div>
     </div>

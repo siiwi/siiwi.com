@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Order;
 
 use App\Http\Models\Category;
+use App\Http\Models\Order;
+use App\Http\Models\OrderProduct;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -58,12 +60,37 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Requests\StoreOrderRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\StoreOrderRequest $request)
     {
-        return $request->all();
+        $order = new Order;
+
+        $order->uid = \Auth::id();
+        $order->order_sn = $request->input('order_sn');
+        $order->order_express_price = $request->input('order_express_price');
+        $order->order_platform = $request->input('order_platform');
+        $order->order_status = $request->input('order_status');
+        $order->order_date = strtotime($request->input('order_date'));
+        $order->buyer_name = $request->input('order_buyer_name');
+        $order->buyer_phone = $request->input('order_buyer_phone');
+        $order->buyer_address = $request->input('order_buyer_address');
+        $order->save();
+
+        $order_id = $order->id;
+
+        // 保存订单产品
+        if(is_array($request->input('sku')) && !empty($request->input('sku'))) {
+            foreach($request->input('sku') as $key=>$value) {
+                $order_product = ['order_id' => $order_id, 'sku_id' => $key, 'num' => $value['num'], 'price' => $value['price']];
+                OrderProduct::create($order_product);
+            }
+        }
+
+        $response = $order_id ? ['code' => 1, 'title' => '恭喜！', 'message' => '添加订单成功'] : ['code' => 0, 'title' => '抱歉！', 'message' => '添加订单失败'];
+
+        return redirect('order')->with('message', $response);
     }
 
     /**

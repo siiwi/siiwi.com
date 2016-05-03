@@ -78,13 +78,13 @@
                 <div class="panel-body">
                     <!--===================================================-->
                     <!--start add product form-->
-                    <form method="post" action="#" >
+                    <form method="post" action="{{ url('order') }}" onsubmit="return form_validate();" id="submitOrder" >
                         <div class="row">
                             <div class="col-sm-3 mar-btm">
                                 <input type="text" placeholder="订单号" class="form-control" name="order_sn" value="" />
                             </div>
                             <div class="col-sm-3 mar-btm">
-                                <input type="text" placeholder="快递总价（元）" class="form-control" name="order_express_price" value="" />
+                                <input type="text" placeholder="快递总价(元)" class="form-control" name="order_express_price" value="" />
                             </div>
                             <div class="col-sm-3 mar-btm">
                                 <div class="input-group">
@@ -132,6 +132,7 @@
                                 <button class="btn btn-primary btn-block" type="submit">保存</button>
                             </div>
                         </div>
+                        <input type="hidden" class="pid_100007" value="" />
                     </form>
                     <!--end add product form-->
                     <!--===================================================-->
@@ -177,19 +178,110 @@
         </div>
     </div>
 
-    <!--Start Add Product Attribute modal-->
+    <!--Start Select Product modal-->
     <!--================================-->
     @include('order.product')
     <!--===============================-->
-    <!--End Add Product Attribute modal-->
+    <!--End Select Product modal-->
+
+    <!--Start Select Product SKU modal-->
+    <!--================================-->
+    @include('order.sku')
+    <!--===============================-->
+    <!--End Select Product SKU modal-->
 @endsection
 
 @section('content-script')
 <script type="text/javascript">
+var order_platform = 0;
+var order_status = 0;
+
+function nt(m)
+{
+    $.niftyNoty({
+        type: 'danger',
+        icon: 'fa fa-times fa-lg',
+        message: m,
+        container: 'floating',
+        closeBtn: true,
+        timer: 3000
+    });
+}
+
+function form_validate()
+{
+    var order_sn = $("input[name=order_sn]").val();
+    if(order_sn.length <= 0) {
+        nt('提交失败！请输入订单号！');
+        $("input[name=order_sn]").focus();
+        return false;
+    }
+
+    var order_express_price = $("input[name=order_express_price]").val();
+    if(order_express_price.length <= 0) {
+        nt('提交失败！请输入快递总价！');
+        $("input[name=order_express_price]").focus();
+        return false;
+    }
+
+    var order_date = $("input[name=order_date]").val();
+    if(order_date.length <= 0) {
+        nt('提交失败！请选择交易日期！');
+        return false;
+    }
+
+    var order_buyer_name = $("input[name=order_buyer_name]").val();
+    if(!order_buyer_name) {
+        nt('提交失败！请输入买家名称！');
+        $("input[name=order_buyer_name]").focus();
+        return false;
+    }
+
+    var order_buyer_phone = $("input[name=order_buyer_phone]").val();
+    if(!order_buyer_phone) {
+        nt('提交失败！请输入买家联系方式！');
+        $("input[name=order_buyer_phone]").focus();
+        return false;
+    }
+
+    var order_buyer_address = $("input[name=order_buyer_address]").val();
+    if(!order_buyer_address) {
+        nt('提交失败！请输入买家联系地址！');
+        $("input[name=order_buyer_address]").focus();
+        return false;
+    }
+
+    if(isNaN(order_platform) || order_platform <= 0) {
+        nt('提交失败！请选择交易平台！');
+        return false;
+    }
+
+    if(isNaN(order_status) || order_status <= 0) {
+        nt('提交失败！请选择交易状态！');
+        return false;
+    }
+
+    var sku = $(".hidden-dynamic-sku");
+    if(sku.length <= 0) {
+        nt('提交失败！请设置订单产品！');
+        return false;
+    }
+
+    return true;
+}
+
 $(function(){
     $('.chosen_select').chosen({
         width: '100%',
         disable_search: true
+    });
+
+    $('select[name=order_platform]').change(function(){
+        order_platform = $(this).val();
+    });
+
+    $('select[name=order_status]').change(function(){
+        order_status = $(this).val();
     });
 
     $('.input-daterange').datepicker({
@@ -216,11 +308,111 @@ $(function(){
         $("#selectOrderProduct").modal('show');
     });
 
+    function loadProduct(cid, page)
+    {
+        var url = '{{ url('product/load') }}?';
+
+        if(!isNaN(page) && page > 1) {
+            url += '?page=' + page + '&';
+        }
+
+        if(!isNaN(cid) && cid > 0) {
+            url += 'cid=' + cid;
+        }
+
+        var progress_bar = '<tr><td colspan="4"><div class="col-sm-6 col-sm-offset-3"><div class="progress progress-striped active"><div style="width: 100%;" class="progress-bar progress-bar-primary"></div></div></div></td></tr>'
+
+        $('tbody[p-action-dom="product_list"]').html(progress_bar);
+
+        $.get(url, function(response){
+            var html;
+            if(response.code == 1 && response.data.total > 0) {
+                for(var i=0; i<response.data.data.length; i++) {
+                    html += '<tr>';
+                    html += '<td><label class="form-checkbox form-normal form-primary form-text"><input type="checkbox" name="' + response.data.data[i].id + '" ></label></td>';
+                    html += '<td>' + response.data.data[i].sn + '</td>';
+                    html += '<td>' + response.data.data[i].name + '</td>';
+                    html + '</tr>';
+                }
+            } else {
+                html = '<tr><td colspan="4" align="center">产品列表为空</td></tr>';
+            }
+            $('tbody[p-action-dom="product_list"]').html(html)
+        }, 'json');
+    }
+
+    // 分类点击效果
     $("a[p-action-dom=select_product_category]").click(function(){
-        var category_id = $(this).attr('category_id');
-        $(this).siblings('a').removeClass('active');
-        $(this).addClass('active');
-        console.log(category_id);
+        if(!$(this).hasClass('active')) {
+            var cid = $(this).attr('category_id');
+            $(this).addClass('active').siblings('a').removeClass('active');
+            loadProduct(cid, 0);
+        }
+    });
+
+    // 加载产品
+    loadProduct(0, 0);
+
+    $('tbody[p-action-dom="product_list"]').on('click', 'input[type="checkbox"]', function(){
+        // 列表checkbox点击效果
+        $(this).parents("label").toggleClass('active');
+
+        var id = $(this).attr('name');
+
+        if($(this).parents("label").hasClass('active')) {
+            var url = "{{ url('product') }}/" + id + "/sku";
+            $.get(url, function(response){
+                if(response.code == 1) {
+                    var html_tr, html_td;
+                    for(var j=0; j<response.data.length; j++) {
+                        html_td += '<tr>';
+
+                        for(var i=0; i<response.data[0].attribute.length; i++) {
+                            if(j == 0) {
+                                html_tr += '<th>' + response.data[0].attribute[i].name + '</th>';
+                            }
+                            html_td += '<td>' + response.data[j].attribute[i].value + '</td>';
+                        }
+
+                        if(j == 0) {
+                            html_tr += '<th>进价</th>';
+                            html_tr += '<th>库存</th>';
+                            html_tr += '<th>销量</th>';
+                            html_tr += '<th>售价（总价）</th>';
+                        }
+
+                        html_td += '<td>' + response.data[j].purchase_price + '</td>';
+                        html_td += '<td>' + response.data[j].stock + '</td>';
+                        html_td += '<td><input type="text" class="form-control col-sm-1 set-product-sku-input" name="num" sku_id="' + response.data[j].id + '" product_id="' + id + '" value="" /></td>';
+                        html_td += '<td><input type="text" class="form-control col-sm-1 set-product-sku-input" name="price" sku_id="' + response.data[j].id + '" product_id="' + id + '" value="" /></td>';
+                        html_td += '</tr>';
+                    }
+
+                    $('table[p-action-dom="set-product-sku-table"]>thead>tr').html(html_tr);
+                    $('table[p-action-dom="set-product-sku-table"]>tbody').html(html_td);
+                    $("#selectOrderProductSku").modal('show');
+                } else {
+                    swal('', '抱歉！获取产品列表失败', 'error');
+                }
+            }, 'json');
+        } else {
+            $("#submitOrder").children(".pid_" + id).remove();
+        }
+    });
+
+    $('button[p-action-dom="set-product-sku"]').click(function(){
+        var e = $('.set-product-sku-input');
+        for(var i=0; i<e.length; i++) {
+            var v = e.eq(i).val();
+            if(!isNaN(v) && v > 0) {
+                var pid = e.eq(i).attr('product_id');
+                var sid = e.eq(i).attr('sku_id');
+                var name = e.eq(i).attr('name');
+                var html = '<input type="hidden" name="sku[' + sid+ '][' + name + ']" value="' + v + '" class="hidden-dynamic-sku pid_' + pid + '">';
+                $("#submitOrder").append(html);
+            }
+        }
+        $("#selectOrderProductSku").modal('hide');
     });
 });
 </script>
