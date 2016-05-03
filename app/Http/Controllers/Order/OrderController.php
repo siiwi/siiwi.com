@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers\Order;
 
+use App\Http\Models\Attribute;
 use App\Http\Models\Category;
 use App\Http\Models\Order;
 use App\Http\Models\OrderProduct;
+use App\Http\Models\Platform;
+use App\Http\Models\Product;
+use App\Http\Models\ProductResource;
+use App\Http\Models\ProductSku;
+use App\Http\Models\Status;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -44,7 +50,60 @@ class OrderController extends Controller
             }
         }
 
-        return view('order.index', ['status' => $status, 'platform' => $platform, 'category' => $category]);
+        // 订单列表
+        $orders = Order::where(['uid' => \Auth::id()])
+                        ->orderBy('id', 'desc')
+                        ->paginate(config('app.pagesize'));
+
+        if(is_array($orders->items()) && !empty($orders->items())) {
+            foreach($orders->items() as $key=>$value) {
+                // 交易平台
+                $platforms = Platform::where(['id' => $value['order_platform']])->first()->toArray();
+                $orders[$key]['order_platform'] = $platforms['name'];
+
+                // 交易状态
+                $s = Status::where(['id' => $value['order_status']])->first()->toArray();
+                $orders[$key]['order_status'] = $s['name'];
+
+                // 订单产品
+                $order_products = OrderProduct::where(['order_id' => $value['id']])->get()->toArray();
+                if(is_array($order_products) && !empty($order_products)) {
+                    foreach($order_products as $k=>$v) {
+                        $sku_info = ProductSku::where(['id' => $v['sku_id']])->first()->toArray();
+                        $product_info = Product::where(['id' => $sku_info['pid']])->first()->toArray();
+                        $resource_info = ProductResource::where(['pid' => $sku_info['pid']])->get()->toArray();
+
+                        // 解析图片资源
+                        if(is_array($resource_info) && !empty($resource_info)) {
+                            $resource = [];
+                            foreach($resource_info as $val) {
+                                $resource[] = config('app.url') . $val['path'];
+                            }
+                            $p[$k]['resource'] = $resource;
+                        }
+
+                        // 解析SKU规格
+                        $attributes = @json_decode($sku_info['attribute'], true);
+                        if(is_array($attributes) && !empty($attributes)) {
+                            $attr = [];
+                            foreach($attributes as $i=>$j) {
+                                $attribute_info = Attribute::withTrashed()->where(['id' => $i])->first()->toArray();
+                                $attr[] = $attribute_info['name'] . ":" . $j;
+                            }
+                            $p[$k]['attribute'] = join(', ', $attr);
+                        }
+
+                        $p[$k]['name'] = $product_info['name'];
+                        $p[$k]['num'] = $v['num'];
+                        $p[$k]['price'] = $v['price'];
+                        $p[$k]['url'] = $product_info['url'];
+                        $orders[$key]['product'] = $p;
+                    }
+                }
+            }
+        }
+
+        return view('order.index', ['status' => $status, 'platform' => $platform, 'category' => $category, 'orders' => $orders]);
     }
 
     /**
@@ -135,6 +194,8 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $response = Order::destroy(['uid' => \Auth::id(), 'id' => $id]) ? ['code' => 1, 'message' => 'success'] : ['code' => 0, 'message' => 'failed'];
+
+        return response()->json($response);
     }
 }

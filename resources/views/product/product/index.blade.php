@@ -157,7 +157,7 @@
                                         @if(count($sku->resource)>0)
                                         <div p_action_dom="product_resource" style="min-height: 56px;">
                                             @foreach($sku->resource as $k => $resource)
-                                            <a href="{{ $resource }}" @if($k>0)class="hide"@endif>
+                                            <a href="{{ $resource }}" class="thumbnail @if($k>0) hide @endif">
                                                 <img src="{{ $resource }}" width="56" style="border-radius: 2px;" />
                                             </a>
                                             @endforeach

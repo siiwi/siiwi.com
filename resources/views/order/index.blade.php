@@ -151,26 +151,69 @@
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover table-vcenter">
+                        <table class="table table-condensed table-hover">
                             <thead>
-                            <tr>
-                                <th>产品</th>
-                                <th>出售价</th>
-                                <th>销售量</th>
-                                <th>状态</th>
-                                <th>交易日期</th>
-                                <th>操作</th>
-                            </tr>
+                                <tr>
+                                    <th width="40">#</th>
+                                    <th>订单号</th>
+                                    <th>交易平台</th>
+                                    <th>交易状态</th>
+                                    <th>交易日期</th>
+                                    <th>买家</th>
+                                    <th>操作</th>
+                                </tr>
                             </thead>
-
                             <tbody>
+                                @if(count($orders) > 0)
+                                @foreach($orders as $order)
+                                <tr>
+                                    <td><a href="javascript:;" p-action-dom="show-product-list"><i class="fa fa-plus-circle"></i></a></td>
+                                    <td>{{ $order->order_sn }}</td>
+                                    <td>{{ $order->order_platform }}</td>
+                                    <td>{{ $order->order_status }}</td>
+                                    <td>{{ date('Y-m-d', $order->order_date) }}</td>
+                                    <td>{{ $order->buyer_name }}</td>
+                                    <td><button class="btn btn-xs btn-danger add-tooltip delOrder" data-toggle="tooltip" data-original-title="删除" data-container="body" order_id="{{ $order->id }}" ><i class="fa fa-times"></i></button></td>
+                                </tr>
+                                <tr class="hide" p-action-dom="product-list" style="background: #e7ebee;">
+                                    <td colspan="7">
+                                    @foreach($order->product as $product)
+                                        <div class="col-sm-12 mar-btm">
+                                            <div class="col-sm-1">
+                                                @if(count($product['resource'])>0)
+                                                    <div p_action_dom="product_resource" style="min-height: 56px;">
+                                                        @foreach($product['resource'] as $k => $resource)
+                                                            <a href="{{ $resource }}" class="thumbnail @if($k>0) hide @endif">
+                                                                <img src="{{ $resource }}" width="56" />
+                                                            </a>
+                                                        @endforeach
+                                                    </div>
+                                                @else
+                                                    <a href="javascript:;" class="thumbnail">
+                                                        <img src="{{ asset('img/no-pic.jpg') }}" width="56" />
+                                                    </a>
+                                                @endif
+                                            </div>
+                                            <div class="col-sm-11">
+                                                <p>名称：<a href="@if($product['url']) {{ $product['url'] }} @else javascript:; @endif" class="btn-link" target="_blank">{{ $product['name'] }}</a></p>
+                                                <p>销量：{{ $product['num'] }}</p>
+                                                <p>售价：{{ $product['price'] }}</p>
+                                                <p>规格：{{ $product['attribute'] }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @else
                                 <tr>
                                     <td colspan="6" class="text-center">暂无数据</td>
                                 </tr>
+                                @endif
                             </tbody>
                         </table>
                         <div class="pull-right">
-
+                            {!! $orders !!}
                         </div>
                     </div>
                 </div>
@@ -282,6 +325,22 @@ $(function(){
 
     $('select[name=order_status]').change(function(){
         order_status = $(this).val();
+    });
+
+    // 显示产品列表
+    $('a[p-action-dom="show-product-list"]').click(function(){
+        $(this).parents('tr').next('tr[p-action-dom="product-list"]').toggleClass('hide');
+        if($(this).parents('tr').next('tr[p-action-dom="product-list"]').hasClass('hide')) {
+            var html = '<i class="fa fa-plus-circle"></i>';
+        } else {
+            var html = '<i class="fa fa-minus-circle"></i>';
+        }
+        $(this).html(html);
+    });
+
+    // 产品图片
+    $("div[p_action_dom=product_resource]").lightGallery({
+        thumbnail:true
     });
 
     $('.input-daterange').datepicker({
@@ -414,6 +473,40 @@ $(function(){
         }
         $("#selectOrderProductSku").modal('hide');
     });
+
+    $(".delOrder").click(function(){
+        var id = $(this).attr('order_id');
+        swal({
+            title: '',
+            text: "确认删除该订单？",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "确认",
+            cancelButtonText: "取消",
+            closeOnConfirm: false
+        },function(){
+            $.ajax({
+                url: "{{ url('order') }}/"+id,
+                type: 'DELETE',
+                data: {_token: '{{ csrf_token() }}'},
+                dataType: 'json',
+                success: function(response) {
+                    if(response.code) {
+                        swal({
+                            title: '',
+                            text: '删除成功',
+                            type: "success",
+                            confirmButtonText: "确认"
+                        }, function(){
+                            window.location.reload();
+                        });
+                    } else {
+                        swal('', '删除失败', 'error');
+                    }
+                }
+            });
+        });
+    })
 });
 </script>
 @endsection
