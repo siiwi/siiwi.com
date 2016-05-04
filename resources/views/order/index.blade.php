@@ -175,7 +175,7 @@
                                     <td>{{ $order->buyer_name }}</td>
                                     <td><button class="btn btn-xs btn-danger add-tooltip delOrder" data-toggle="tooltip" data-original-title="删除" data-container="body" order_id="{{ $order->id }}" ><i class="fa fa-times"></i></button></td>
                                 </tr>
-                                <tr class="hide" p-action-dom="product-list" style="background: #e7ebee;">
+                                <tr class="hide" p-action-dom="product-list" style="background: #FFFFEE;">
                                     <td colspan="7">
                                     @foreach($order->product as $product)
                                         <div class="col-sm-12 mar-btm">
