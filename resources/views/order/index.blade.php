@@ -503,16 +503,25 @@ $(function(){
 
     $('button[p-action-dom="set-product-sku"]').click(function(){
         var e = $('.set-product-sku-input');
+        var html = '';
+        var count = 0;
         for(var i=0; i<e.length; i++) {
             var v = e.eq(i).val();
             if(!isNaN(v) && v > 0) {
                 var pid = e.eq(i).attr('product_id');
                 var sid = e.eq(i).attr('sku_id');
                 var name = e.eq(i).attr('name');
-                var html = '<input type="hidden" name="sku[' + sid+ '][' + name + ']" value="' + v + '" class="hidden-dynamic-sku pid_' + pid + '">';
-                $("#submitOrder").append(html);
+                html += '<input type="hidden" name="sku[' + sid+ '][' + name + ']" value="' + v + '" class="hidden-dynamic-sku pid_' + pid + '">';
+                count += 1;
             }
         }
+
+        if(count%2 != 0) {
+            swal('', '抱歉！存在未填写的销量或售价', 'error');
+            return;
+        }
+
+        $("#submitOrder").append(html);
         $("#selectOrderProductSku").modal('hide');
     });
 

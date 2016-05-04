@@ -142,7 +142,9 @@ class OrderController extends Controller
         // 保存订单产品
         if(is_array($request->input('sku')) && !empty($request->input('sku'))) {
             foreach($request->input('sku') as $key=>$value) {
-                $order_product = ['order_id' => $order_id, 'sku_id' => $key, 'num' => $value['num'], 'price' => $value['price']];
+                $num = (isset($value['num']) && $value['num']) ? $value['num'] : 0;
+                $price = (isset($value['price']) && $value['price']) ? $value['price'] : 0;
+                $order_product = ['order_id' => $order_id, 'sku_id' => $key, 'num' => $num, 'price' => $price];
                 OrderProduct::create($order_product);
             }
         }
