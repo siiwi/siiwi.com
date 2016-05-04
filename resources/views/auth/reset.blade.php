@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                <input type="text" disabled name="email" class="form-control" placeholder="电子邮箱" value="{{ old('email') }}" />
+                                <input type="text" name="email" class="form-control" placeholder="电子邮箱" value="" />
                             </div>
                         </div>
                         <div class="form-group">
