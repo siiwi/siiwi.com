@@ -45,7 +45,7 @@
 
                         <li @if(in_array(Route::currentRouteName(), array('order.index'))) class="active active-sub" @endif>
                             <a href="javascript:;">
-                                <i class="fa fa-table"></i>
+                                <i class="fa fa-shopping-cart"></i>
                                 <span class="menu-title">
                                     <strong>订单管理</strong>
                                 </span>
