@@ -140,6 +140,7 @@
                                 <th width="80">#</th>
                                 <th width="200">编号</th>
                                 <th width="300">名称</th>
+                                <th width="200">规格</th>
                                 <th>分类</th>
                                 <th>进货价(元)</th>
                                 <th>库存</th>
@@ -168,6 +169,13 @@
                                     </td>
                                     <td>{{ $sku->sn }}</td>
                                     <td><a href="@if($sku->url){{ $sku->url }}@else javascript:; @endif" class="btn-link" target="_blank">{{ $sku->name }}</a></td>
+                                    <td>
+                                        @if(count($sku->attribute)>0)
+                                        @foreach($sku->attribute as $v)
+                                            {{ $v['name'] }}：{{ $v['value'] }}<br/>
+                                        @endforeach
+                                        @endif
+                                    </td>
                                     <td>{{ $sku->category_name }}</td>
                                     <td>{{ $sku->purchase_price }}</td>
                                     <td>{{ $sku->stock }}</td>

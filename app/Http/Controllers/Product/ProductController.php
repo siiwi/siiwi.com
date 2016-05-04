@@ -63,6 +63,19 @@ class ProductController extends Controller
                 // 产品分类
                 $product_category = Category::where(['id' => $product['cid']])->first()->toArray();
                 $product_sku[$key]['category_name'] = $product_category['name'];
+
+                // 产品规格
+                $attributes = @json_decode($value['attribute'], true);
+                if(is_array($attributes) && !empty($attributes)) {
+                    $attr = [];
+                    foreach($attributes as $k=>$v) {
+                        $attribute_info = Attribute::withTrashed()->where(['id' => $k])->first()->toArray();
+                        $attr[$k]['id'] = $k;
+                        $attr[$k]['name'] = $attribute_info['name'];
+                        $attr[$k]['value'] = $v;
+                    }
+                    $product_sku[$key]['attribute'] = $attr;
+                }
             }
         }
 
