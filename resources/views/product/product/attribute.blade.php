@@ -3,9 +3,6 @@
         <div class="modal-content">
             <!--Modal header-->
             <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button">
-                    <span aria-hidden="true">×</span>
-                </button>
                 <h4 class="modal-title">添加产品&nbsp;-&nbsp;规格设置</h4>
             </div>
 
@@ -32,7 +29,7 @@
             <!--Modal footer-->
             <div class="modal-footer">
                 <button class="btn btn-default" type="button" data-dismiss="modal">取消</button>
-                <button class="btn btn-primary" type="button" p_action_dom="confirm_add_sku">确认</button>
+                <button class="btn btn-primary" type="button" data-loading-text="Loading..." p_action_dom="confirm_add_sku">确认</button>
             </div>
         </div>
     </div>

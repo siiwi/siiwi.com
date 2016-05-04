@@ -372,19 +372,67 @@
 
         // 确认sku
         $("button[p_action_dom='confirm_add_sku']").click(function(){
+            var status = true;
+            var btn = $(this).button('loading');
             $(".hidden-dynamic-sku").remove();
             var a = $(".table-add-sku>tbody>tr");
+            var attrs = [];
+            var sku =[];
+            loop:
             for(var i=0; i<a.length; i++) {
                 var b = a.eq(i).find('td');
+                var attr = '';
                 for(var j = 0; j<b.length-1; j++) {
                     var c = b.eq(j);
                     var v, name;
                     if(b.eq(j).hasClass('dynamic')) {
                         v = b.eq(j).find("select").val();
                         name = b.eq(j).find("select").attr('aid');
+                        attr += name + '-' + v;
                     } else {
                         v = b.eq(j).find("input").val();
                         name = b.eq(j).find("input").attr('name');
+                    }
+
+                    if(name == 'stock') {
+                        if(isNaN(v) || v < 0 || v.length <= 0) {
+                            swal('', '请输入库存，且库存只能为大于等于0的数字', 'error');
+                            status = false;
+                            break loop;
+                        }
+                    }
+
+                    if(name == 'purchase_price') {
+                        if(isNaN(v) || v < 0 || v.length <= 0) {
+                            swal('', '请输入进货价，进货价只能为大于等于0的数字', 'error');
+                            status = false;
+                            break loop;
+                        }
+                    }
+
+                    if(name == 'sku') {
+                        if(v.length > 0) {
+                            var url = "{{ url('sku') }}/" + v;
+                            $.ajax({
+                                type: "GET",
+                                url: url,
+                                dataType: "json",
+                                async: false,
+                                success: function(response){
+                                    if(response.code == 1) status = false;
+                                }
+                            });
+                            if(!status) {
+                                swal('', 'SKU已存在', 'error');
+                                break loop;
+                            }
+                            if($.inArray(v, sku) >= 0) {
+                                swal('', '输入了相同的SKU值', 'error');
+                                status = false;
+                                break;
+                            }
+                            sku.push(v);
+                        }
                     }
 
                     var html = '';
@@ -396,7 +444,18 @@
 
                     $("#add-product").append(html);
                 }
+
+                if($.inArray(attr, attrs) >= 0) {
+                    swal('', '存在相同的规格组，请确认', 'error');
+                    status = false;
+                    break;
+                }
+
+                attrs.push(attr);
             }
+
+            btn.button('reset');
+            if(!status) return;
 
             $("#addProductAttributeModal").modal('hide');
         });

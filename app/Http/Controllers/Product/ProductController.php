@@ -43,7 +43,7 @@ class ProductController extends Controller
         if(is_array($product_sku->items()) && !empty($product_sku->items())) {
             foreach($product_sku->items() as $key=>$value) {
                 // 产品基本信息
-                $product = Product::findOrFail(['id' => $value['pid']])->first()->toArray();
+                $product = Product::where(['id' => $value['pid']])->first()->toArray();
                 $product_sku[$key]['name'] = $product['name'];
                 $product_sku[$key]['sn'] = $product['sn'];
                 $product_sku[$key]['cid'] = $product['cid'];
@@ -61,7 +61,7 @@ class ProductController extends Controller
                 }
 
                 // 产品分类
-                $product_category = Category::findorFail(['id' => $product['cid']])->first()->toArray();
+                $product_category = Category::where(['id' => $product['cid']])->first()->toArray();
                 $product_sku[$key]['category_name'] = $product_category['name'];
             }
         }
@@ -239,6 +239,23 @@ class ProductController extends Controller
         }
 
         $response = (is_array($rtn) && !empty($rtn)) ? ['code' => 1, 'message' => 'success', 'data' => $rtn] : ['code' => 0, 'message' => 'failed', 'data' => []];
+
+        return response()->json($response);
+    }
+
+    /**
+     * 获取SKU信息
+     *
+     * @param $sku
+     * @return \Illuminate\Http\Response
+     */
+    public function getSku($sku)
+    {
+        $sku_info = ProductSku::where(['sku' => $sku, 'uid' => \Auth::id()])->get();
+
+        $count = $sku_info->count();
+
+        $response = ($count) ? ['code' => 1, 'message' => 'success', 'data' => $sku_info] : ['code' => 0, 'message' => 'failed', 'data' => []];
 
         return response()->json($response);
     }

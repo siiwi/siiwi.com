@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('attribute/{aid}', 'Product\AttributeController@showAttribute');
     Route::get('product/load', 'Product\ProductController@loadProduct');
     Route::get('product/{pid}/sku', 'Product\ProductController@loadSku');
+    Route::get('sku/{sku}', 'Product\ProductController@getSku');
     Route::post('upload', 'UploadController@store');
     Route::resource('home', 'HomeController', ['only' => ['index']]);
     Route::resource('user.password', 'User\PasswordController');
