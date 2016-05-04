@@ -28,5 +28,7 @@ class PasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+
+        $this->subject = '来自siiwi.com的密码重置邮件‏';
     }
 }
