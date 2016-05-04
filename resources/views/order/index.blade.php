@@ -372,7 +372,10 @@ $(function(){
         var url = '{{ url('product/load') }}?';
 
         if(!isNaN(page) && page > 1) {
-            url += '?page=' + page + '&';
+            url += 'page=' + page;
+            if(!isNaN(cid) && cid > 0) {
+                url += '&';
+            }
         }
 
         if(!isNaN(cid) && cid > 0) {
@@ -381,10 +384,12 @@ $(function(){
 
         var progress_bar = '<tr><td colspan="4"><div class="col-sm-6 col-sm-offset-3"><div class="progress progress-striped active"><div style="width: 100%;" class="progress-bar progress-bar-primary"></div></div></div></td></tr>'
 
+        $(".paginate").remove();
         $('tbody[p-action-dom="product_list"]').html(progress_bar);
 
         $.get(url, function(response){
             var html;
+            var paginate;
             if(response.code == 1 && response.data.total > 0) {
                 for(var i=0; i<response.data.data.length; i++) {
                     html += '<tr>';
@@ -393,6 +398,34 @@ $(function(){
                     html += '<td>' + response.data.data[i].name + '</td>';
                     html + '</tr>';
                 }
+                if(response.data.next_page_url || response.data.prev_page_url) {
+                    var next = 0, prev = 0;
+                    if(response.data.next_page_url) {
+                        next = response.data.current_page + 1;
+                    }
+
+                    if(response.data.prev_page_url) {
+                        prev = response.data.current_page - 1;
+                    }
+
+                    paginate = '<div class="col-sm-2 col-sm-offset-10 paginate"><ul class="pager">';
+                    if(prev>0) {
+                        paginate += '<li>';
+                    } else {
+                        paginate += '<li class="disabled">';
+                    }
+                    paginate += '<a href="javascript:;" p-action-dom="product_list_paginate" page="'+prev+'"><i class="fa fa-long-arrow-left"></i></a></li>';
+                    paginate += '&nbsp;&nbsp;';
+                    if(next>0) {
+                        paginate += '<li>';
+                    } else {
+                        paginate += '<li class="disabled">';
+                    }
+                    paginate += '<a href="javascript:;" p-action-dom="product_list_paginate" page="'+next+'"><i class="fa fa-long-arrow-right"></i></a></li>';
+                    paginate += '</ul></div>';
+                    $('tbody[p-action-dom="product_list"]').parents('table').after(paginate);
+                }
+
             } else {
                 html = '<tr><td colspan="4" align="center">产品列表为空</td></tr>';
             }
@@ -401,9 +434,10 @@ $(function(){
     }
 
     // 分类点击效果
+    var cid = 0;
     $("a[p-action-dom=select_product_category]").click(function(){
         if(!$(this).hasClass('active')) {
-            var cid = $(this).attr('category_id');
+            cid = $(this).attr('category_id');
             $(this).addClass('active').siblings('a').removeClass('active');
             loadProduct(cid, 0);
         }
@@ -411,6 +445,14 @@ $(function(){
 
     // 加载产品
     loadProduct(0, 0);
+
+    // 产品分页
+    $("#selectOrderProduct").on('click', 'a[p-action-dom="product_list_paginate"]', function(){
+        var page = $(this).attr('page');
+        if(page > 0) {
+            loadProduct(cid, page);
+        }
+    });
 
     $('tbody[p-action-dom="product_list"]').on('click', 'input[type="checkbox"]', function(){
         // 列表checkbox点击效果
