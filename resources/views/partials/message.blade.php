@@ -16,6 +16,21 @@ $(function() {
 </script>
 @endif
 
+@if (session('status'))
+<script type="text/javascript">
+    $(function() {
+        $.niftyNoty({
+            type: 'danger',
+            icon: 'fa fa-bolt fa-lg',
+            message: '{{ session('status') }}',
+            container: 'floating',
+            closeBtn: true,
+            timer: 3500
+        });
+    })
+</script>
+@endif
+
 @if (count($errors) > 0)
 <script type="text/javascript">
     $(function() {
