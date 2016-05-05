@@ -33,19 +33,19 @@
             <!--===================================================-->
             <div id="order_tab_1" class="tab-pane fade active in">
                 <div class="panel-body">
-                    <form method="post" action="#">
+                    <form method="get" action="{{ url('order') }}">
                         <div class="row">
                             <div class="col-sm-2 mar-btm">
-                                <input type="text" placeholder="产品名称" class="form-control" value="">
+                                <input type="text" placeholder="产品名称" class="form-control" name="search_order_name" value="@if(isset($where['search_order_name']) && $where['search_order_name']){{ $where['search_order_name'] }}@endif">
                             </div>
                             <div class="col-sm-2 mar-btm">
-                                <input type="text" placeholder="交易订单号" class="form-control" value="">
+                                <input type="text" placeholder="交易订单号" class="form-control" name="search_order_sn" value="@if(isset($where['search_order_sn']) && $where['search_order_sn']){{ $where['search_order_sn'] }}@endif">
                             </div>
                             <div class="col-sm-2 mar-btm">
                                 <select class="chosen_select" name="search_order_platform">
                                     <option value="0">交易平台</option>
                                     @foreach($platform as $p)
-                                        <option value="{{ $p['id'] }}">{{ $p['name'] }}</option>
+                                        <option value="{{ $p['id'] }}" @if(isset($where['search_order_platform']) && ($p['id'] == $where['search_order_platform'])) selected @endif>{{ $p['name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -53,19 +53,19 @@
                                 <select class="chosen_select" name="search_order_status">
                                     <option value="0">订单状态</option>
                                     @foreach($status as $s)
-                                        <option value="{{ $s['id'] }}">{{ $s['name'] }}</option>
+                                        <option value="{{ $s['id'] }}" @if(isset($where['search_order_status']) && ($s['id'] == $where['search_order_status'])) selected @endif>{{ $s['name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-sm-3 mar-btm">
                                 <div class="input-daterange input-group">
-                                    <input type="text" class="form-control" name="order_start_date" placeholder="起始日期" value="" />
+                                    <input type="text" class="form-control" name="search_order_start_date" placeholder="起始日期" value="@if(isset($where['search_order_start_date']) && $where['search_order_start_date']){{ $where['search_order_start_date'] }}@endif" />
                                     <span class="input-group-addon">-</span>
-                                    <input type="text" class="form-control" name="order_end_date" placeholder="结束日期" value="" />
+                                    <input type="text" class="form-control" name="search_order_end_date" placeholder="结束日期" value="@if(isset($where['search_order_end_date']) && $where['search_order_end_date']){{ $where['search_order_end_date'] }}@endif" />
                                 </div>
                             </div>
                             <div class="col-sm-1 mar-btm">
-                                <button class="btn btn-primary" type="button">搜索</button>
+                                <button class="btn btn-primary" type="submit">搜索</button>
                             </div>
                         </div>
                     </form>
@@ -81,7 +81,7 @@
                     <form method="post" action="{{ url('order') }}" onsubmit="return form_validate();" id="submitOrder" >
                         <div class="row">
                             <div class="col-sm-3 mar-btm">
-                                <input type="text" placeholder="订单号" class="form-control" name="order_sn" value="" />
+                                <input type="text" placeholder="交易订单号" class="form-control" name="order_sn" value="" />
                             </div>
                             <div class="col-sm-3 mar-btm">
                                 <input type="text" placeholder="快递总价(元)" class="form-control" name="order_express_price" value="" />
@@ -132,7 +132,6 @@
                                 <button class="btn btn-primary btn-block" type="submit">保存</button>
                             </div>
                         </div>
-                        <input type="hidden" class="pid_100007" value="" />
                     </form>
                     <!--end add product form-->
                     <!--===================================================-->
@@ -155,7 +154,7 @@
                             <thead>
                                 <tr>
                                     <th width="40">#</th>
-                                    <th>订单号</th>
+                                    <th>交易订单号</th>
                                     <th>交易平台</th>
                                     <th>交易状态</th>
                                     <th>交易日期</th>

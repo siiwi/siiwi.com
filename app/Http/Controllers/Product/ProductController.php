@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         // 查询
-        $whereRaw = 'uid = "' .\Auth::id() . '"';
+        $whereRaw = '`uid` = "' .\Auth::id() . '"';
         $where = [];
         if(is_array($request->all()) && !empty($request->all())) {
             if($request->input('search_sn')) {
@@ -131,9 +131,9 @@ class ProductController extends Controller
         $product->cid = $request->input('cid');
         $product->sid = $request->input('sid');
         $product->uid = \Auth::id();
-        $product->name = $request->input('product_name');
-        $product->url = $request->input('url');
-        $product->sn = $request->input('sn') ? $request->input('sn') : '';
+        $product->name = trim($request->input('product_name'));
+        $product->url = trim($request->input('url'));
+        $product->sn = $request->input('sn') ? trim($request->input('sn')) : '';
         $product->save();
         $pid = $product->id;
 

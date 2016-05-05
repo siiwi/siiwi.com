@@ -21,10 +21,47 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // 查询
+        $whereRaw = '`uid` = "' .\Auth::id() . '"';
+        $where = [];
+
+        if(is_array($request->all()) && !empty($request->all())) {
+            if($request->input('search_order_sn')) {
+                $whereRaw .= ' and `order_sn` = "' . trim($request->input('search_order_sn')) . '"';
+                $where['search_order_sn'] = trim($request->input('search_order_sn'));
+            }
+
+            if($request->input('search_order_platform')) {
+                $whereRaw .= ' and `order_platform` = "' . trim($request->input('search_order_platform')) . '"';
+                $where['search_order_platform'] = trim($request->input('search_order_platform'));
+            }
+
+            if($request->input('search_order_status')) {
+                $whereRaw .= ' and `order_status` = "' . trim($request->input('search_order_status')) . '"';
+                $where['search_order_status'] = trim($request->input('search_order_status'));
+            }
+
+            if($request->input('search_order_start_date')) {
+                $whereRaw .= ' and `order_date` >= "' . strtotime($request->input('search_order_status')) . '"';
+                $where['search_order_start_date'] = trim($request->input('search_order_start_date'));
+            }
+
+            if($request->input('search_order_end_date')) {
+                $whereRaw .= ' and `order_date` <= "' . strtotime($request->input('search_order_end_date')) . '"';
+                $where['search_order_end_date'] = trim($request->input('search_order_end_date'));
+            }
+
+            if($request->input('search_order_name')) {
+                $whereRaw .= ' and `products_name` like "%' . trim($request->input('search_order_name')) . '%"';
+                $where['search_order_name'] = trim($request->input('search_order_name'));
+            }
+        }
+
         // 状态
         $status = get_order_status();
 
@@ -51,7 +88,7 @@ class OrderController extends Controller
         }
 
         // 订单列表
-        $orders = Order::where(['uid' => \Auth::id()])
+        $orders = Order::whereRaw($whereRaw)
                         ->orderBy('id', 'desc')
                         ->paginate(config('app.pagesize'));
 
@@ -103,7 +140,7 @@ class OrderController extends Controller
             }
         }
 
-        return view('order.index', ['status' => $status, 'platform' => $platform, 'category' => $category, 'orders' => $orders]);
+        return view('order.index', ['status' => $status, 'platform' => $platform, 'category' => $category, 'orders' => $orders, 'where' => $where]);
     }
 
     /**
@@ -127,27 +164,38 @@ class OrderController extends Controller
         $order = new Order;
 
         $order->uid = \Auth::id();
-        $order->order_sn = $request->input('order_sn');
-        $order->order_express_price = $request->input('order_express_price');
+        $order->order_sn = trim($request->input('order_sn'));
+        $order->order_express_price = trim($request->input('order_express_price'));
         $order->order_platform = $request->input('order_platform');
         $order->order_status = $request->input('order_status');
         $order->order_date = strtotime($request->input('order_date'));
-        $order->buyer_name = $request->input('order_buyer_name');
-        $order->buyer_phone = $request->input('order_buyer_phone');
-        $order->buyer_address = $request->input('order_buyer_address');
+        $order->buyer_name = trim($request->input('order_buyer_name'));
+        $order->buyer_phone = trim($request->input('order_buyer_phone'));
+        $order->buyer_address = trim($request->input('order_buyer_address'));
         $order->save();
 
         $order_id = $order->id;
 
+        // 订单存储产品名称用于查询
+        $products_name_arr = [];
+
         // 保存订单产品
         if(is_array($request->input('sku')) && !empty($request->input('sku'))) {
             foreach($request->input('sku') as $key=>$value) {
+                // 订单数据
                 $num = (isset($value['num']) && $value['num']) ? $value['num'] : 0;
                 $price = (isset($value['price']) && $value['price']) ? $value['price'] : 0;
                 $order_product = ['order_id' => $order_id, 'sku_id' => $key, 'num' => $num, 'price' => $price];
                 OrderProduct::create($order_product);
+
+                // 根据sku_id查找产品名称
+                $product_sku_info = ProductSku::withTrashed()->where(['id' => $key])->first()->toArray();
+                $products_name_arr[$product_sku_info['pid']] = $product_sku_info['product_name'];
             }
         }
+
+        $order->products_name = join('|', $products_name_arr);
+        $order->save();
 
         $response = $order_id ? ['code' => 1, 'title' => '恭喜！', 'message' => '添加订单成功'] : ['code' => 0, 'title' => '抱歉！', 'message' => '添加订单失败'];
 
