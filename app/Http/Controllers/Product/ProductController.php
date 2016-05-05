@@ -20,10 +20,36 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // 查询
+        $whereRaw = 'uid = "' .\Auth::id() . '"';
+        $where = [];
+        if(is_array($request->all()) && !empty($request->all())) {
+            if($request->input('search_sn')) {
+                $whereRaw .= ' and `product_sn` = "' . trim($request->input('search_sn')) . '"';
+                $where['search_sn'] = trim($request->input('search_sn'));
+            }
+
+            if($request->input('search_sid')) {
+                $whereRaw .= ' and `sid` = "' . trim($request->input('search_sid')) . '"';
+                $where['search_sid'] = trim($request->input('search_sid'));
+            }
+
+            if($request->input('search_cid')) {
+                $whereRaw .= ' and `cid` = "' . trim($request->input('search_cid')) . '"';
+                $where['search_cid'] = trim($request->input('search_cid'));
+            }
+
+            if($request->input('search_name')) {
+                $whereRaw .= ' and `product_name` like "%' . trim($request->input('search_name')) . '%' . '"';
+                $where['search_name'] = trim($request->input('search_name'));
+            }
+        }
+
         // 供应商
         $suppliers = Supplier::where(['uid' => \Auth::id()])
                                 ->orderBy('id', 'desc')
@@ -36,7 +62,7 @@ class ProductController extends Controller
                                 ->get();
 
         // 产品SKU信息
-        $product_sku = ProductSku::where(['uid' => \Auth::id()])
+        $product_sku = ProductSku::whereRaw($whereRaw)
                             ->orderBy('id', 'desc')
                             ->paginate(config('app.pagesize'));
 
@@ -79,7 +105,7 @@ class ProductController extends Controller
             }
         }
 
-        return view('product.product.index', ['suppliers' => $suppliers, 'categories' => $categories, 'product_sku' => $product_sku]);
+        return view('product.product.index', ['suppliers' => $suppliers, 'categories' => $categories, 'product_sku' => $product_sku, 'where' => $where]);
     }
 
     /**
@@ -113,8 +139,11 @@ class ProductController extends Controller
 
         // 未传入产品编号的自动生成一个
         if($pid && !$request->input('sn')) {
-            $product->sn = create_product_sn($pid);
+            $sn = create_product_sn($pid);
+            $product->sn = $sn;
             $product->save();
+        } else {
+            $sn = $request->input('sn');
         }
 
         // 保存产品图片
@@ -132,11 +161,15 @@ class ProductController extends Controller
         if(is_array($request->input('sku')) && !empty($request->input('sku'))) {
             foreach($request->input('sku') as $value) {
                 $productSku = new ProductSku;
+                $productSku->sid = $request->input('sid');
+                $productSku->cid = $request->input('cid');
                 $productSku->pid = $pid;
                 $productSku->uid = \Auth::id();
                 ksort($value['attribute']);
                 $productSku->attribute = json_encode($value['attribute']);
                 $productSku->purchase_price = $value['purchase_price'];
+                $productSku->product_name = $request->input('product_name');
+                $productSku->product_sn = $sn;
                 $productSku->stock = $value['stock'];
                 $productSku->sku = $value['sku'] ? $value['sku'] : '';
                 $productSku->save();

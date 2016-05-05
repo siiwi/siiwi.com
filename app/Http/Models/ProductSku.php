@@ -21,7 +21,7 @@ class ProductSku extends Model
      *
      * @var array
      */
-    protected $fillable = ['pid', 'uid', 'sku', 'purchase_price', 'stock'];
+    protected $fillable = ['sid', 'cid', 'pid', 'uid', 'sku', 'product_name', 'product_sn', 'purchase_price', 'stock'];
 
     /**
      * The attributes excluded from the model's JSON form.

@@ -33,26 +33,36 @@
             <!--===================================================-->
             <div id="product_tab_1" class="tab-pane fade active in">
                 <div class="panel-body">
-                    <form method="post" action="#">
+                    <form method="get" action="{{ url('product') }}">
                         <div class="row">
-                            <div class="col-sm-3 mar-btm">
-                                <input type="text" placeholder="产品名称" class="form-control" value="" />
+                            <div class="col-sm-2 mar-btm">
+                                <input type="text" placeholder="产品名称" name="search_name" class="form-control" value="@if(isset($where['search_name']) && $where['search_name']){{ $where['search_name'] }}@endif" />
                             </div>
-                            <div class="col-sm-3 mar-btm">
-                                <input type="text" placeholder="产品编号" class="form-control" value="" />
+                            <div class="col-sm-2 mar-btm">
+                                <input type="text" placeholder="产品编号" name="search_sn" class="form-control" value="@if(isset($where['search_sn']) && $where['search_sn']){{ $where['search_sn'] }}@endif" />
                             </div>
-                            <div class="col-sm-3 mar-btm">
-                                <select name="supplier" class="chosen_select">
+                            <div class="col-sm-2 mar-btm">
+                                <select name="search_sid" class="chosen_select">
                                     <option value="0">供应商</option>
                                     @if(count($suppliers)>0)
                                         @foreach($suppliers as $supplier)
-                                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                            <option value="{{ $supplier->id }}" @if(isset($where['search_sid']) && ($supplier->id == $where['search_sid'])) selected @endif>{{ $supplier->name }}</option>
                                         @endforeach
                                     @endif
                                 </select>
                             </div>
-                            <div class="col-sm-3 mar-btm">
-                                <button class="btn btn-primary" type="button">搜索</button>
+                            <div class="col-sm-2 mar-btm">
+                                <select name="search_cid" class="chosen_select" required>
+                                    <option value="0">产品分类</option>
+                                    @if(count($categories)>0)
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" @if(isset($where['search_cid']) && ($category->id == $where['search_cid'])) selected @endif>@if($category->type)用户分类@else系统分类@endif - {{ $category->name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="col-sm-2 mar-btm">
+                                <button class="btn btn-primary" type="submit">搜索</button>
                             </div>
                         </div>
                     </form>
