@@ -212,7 +212,7 @@
                             </tbody>
                         </table>
                         <div class="pull-right">
-                            {!! $orders !!}
+                            {!! $orders->appends($where)->render() !!}
                         </div>
                     </div>
                 </div>

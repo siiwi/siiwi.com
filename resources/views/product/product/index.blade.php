@@ -210,7 +210,7 @@
                             </tbody>
                         </table>
                         <div class="pull-right">
-                            {!! $product_sku !!}
+                            {!! $product_sku->appends($where)->render() !!}
                         </div>
                     </div>
                 </div>
