@@ -25,7 +25,7 @@ class StoreProductRequest extends Request
     {
         return [
             'product_name' => 'required',
-            'cid' => 'required|exists:category,id,uid,' . \Auth::id(),
+            'cid' => 'required|exists:attribute,cid,uid,' . \Auth::id(),
             'sid' => 'required|exists:suppliers,id,uid,' . \Auth::id(),
             'sn' => 'unique:product,sn,null,null,uid,' . \Auth::id() ,
             'sku' => 'required',
